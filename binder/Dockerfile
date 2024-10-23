@@ -9,9 +9,9 @@ ENV ROS_WS=${HOME}/workspace/ros
 # Source: https://www.swi-prolog.org/build/PPA.html
 USER root
 RUN apt install -y software-properties-common && \
-    apt-add-repository -y ppa:swi-prolog/stable
+  apt-add-repository -y ppa:swi-prolog/stable
 RUN apt update && \
-    apt install -y swi-prolog
+  apt install -y swi-prolog
 ENV SWI_HOME_DIR=/usr/lib/swi-prolog
 
 # Install MongoDB Community Edition
@@ -78,5 +78,3 @@ RUN ln -s ${ROS_WS} ${PWD}/ROS_WS
 # The entrypoint of the docker image
 COPY --chown=${NB_USER}:users binder/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-
