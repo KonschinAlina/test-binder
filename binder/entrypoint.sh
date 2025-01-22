@@ -3,7 +3,7 @@
 # Launch the ROS core and web tools when containter starts
 source ${HOME}/workspace/ros/devel/setup.bash
 roscore &
-roslaunch --wait rvizweb rvizweb.launch config_file:=${HOME}/binder/rviz_configs/rviz_configs.json &
+roslaunch --wait rvizweb rvizweb.launch config_file:=${HOME}/binder/rviz_configs/pr2_config.json &
 
 # Add other startup programs here
 
