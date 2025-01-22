@@ -20,5 +20,6 @@
     "title": "ROSBoard",
     "icon": "proxy/8001/rvizweb/webapps/s.svg",
     "url": "proxy/18888/index.html"
+    "mode": "split-left"
   }
 ]
