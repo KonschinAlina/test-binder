@@ -3,7 +3,7 @@
 # Launch the ROS core and web tools when containter starts
 source ${HOME}/workspace/ros/devel/setup.bash
 roscore &
-roslaunch --wait rvizweb rvizweb.launch &
+roslaunch --wait rvizweb rvizweb.launch config_file:=${HOME}/binder/rviz_configs/rviz_configs.json &
 
 # Add other startup programs here
 
@@ -18,7 +18,7 @@ ln -s /neem_data ${PWD}/neem_data
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 roslaunch --wait knowrob knowrob.launch &
 
-cp ${HOME}/work/binder/webapps.json ${HOME}/workspace/ros/src/rvizweb/webapps/json.apps
+cp ${HOME}/binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 
 # The following line will allow the binderhub start Jupyterlab, should be at the end of the entrypoint.
 exec "$@"
