@@ -18,6 +18,8 @@ ln -s /neem_data ${PWD}/neem_data
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 roslaunch --wait knowrob knowrob.launch &
 
+# roslaunch --wait suturo_knowledge suturo_knowledge.launch &
+
 cp ${HOME}/work/binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 
 # The following line will allow the binderhub start Jupyterlab, should be at the end of the entrypoint.
