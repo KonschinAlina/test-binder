@@ -91,7 +91,6 @@ RUN apt install -y swi-prolog libspdlog-dev \
     doxygen graphviz
 RUN apt install -y ros-noetic-tf2-geometry-msgs
 
-
 # Install MongoDB Community Edition
 # Source: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu
 USER root
@@ -105,8 +104,6 @@ RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-${
 RUN apt update && apt install -y mongodb-org
 RUN mkdir -p /data/db && \
     chown -R ${NB_USER}:users /data/db
-
-
 
 # Download konclude
 WORKDIR $HOME

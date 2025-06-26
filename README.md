@@ -2,7 +2,7 @@
 
 [![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main)
 
-This is a template repo for running robotics research Jupyter Notebooks on Binderhub.
+I used this template repo for running robotics research Jupyter Notebooks on Binderhub.
 
 Tutorials can be found here: https://vib.ai.uni-bremen.de/page/softwaretools/cloud-based-robotics-platform#zero-to-binder
 
