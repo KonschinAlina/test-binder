@@ -19,7 +19,7 @@ mongod --fork --logpath ${HOME}/mongod.log
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
 roslaunch --wait knowrob knowrob.launch &
 
-cp ${HOME}/work/binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
+#cp ${HOME}/work/binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 
 # The following line will allow the binderhub start Jupyterlab, should be at the end of the entrypoint.
 exec "$@"
