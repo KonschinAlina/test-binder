@@ -1,4 +1,4 @@
-FROM ros:noetic-ros-core
+FROM intel4coro/base-notebook:20.04-noetic
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 ARG HOME=/root
 
@@ -91,28 +91,6 @@ RUN apt install -y swi-prolog libspdlog-dev \
     doxygen graphviz
 RUN apt install -y ros-noetic-tf2-geometry-msgs
 
-# Install MongoDB Community Edition
-# Source: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-label-install-mdb-community-ubuntu
-USER root
-RUN apt-get update && apt-get remove -y mongodb-clients mongo-tools && apt-get autoremove -y
-
-ARG MONGODEB_VERSION=4.4
-RUN curl -fsSL https://www.mongodb.org/static/pgp/server-${MONGODEB_VERSION}.asc | \
-    gpg -o /usr/share/keyrings/mongodb-server-${MONGODEB_VERSION}.gpg --dearmor
-RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-${MONGODEB_VERSION}.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/${MONGODEB_VERSION} multiverse" | \
-    tee /etc/apt/sources.list.d/mongodb-org-${MONGODEB_VERSION}.list
-RUN apt update && apt install -y mongodb-org
-RUN mkdir -p /data/db && \
-    chown -R ${NB_USER}:users /data/db
-
-# Download konclude
-WORKDIR $HOME
-RUN wget https://github.com/sasjonge/semantic-map-lab/raw/refs/heads/dev/konclude/Konclude
-# Install konclude
-COPY --chown=${NB_USER}:users konclude ${HOME}/konclude
-ENV  PATH=${PATH}:${HOME}/konclude
-ENV  PYTHONPATH=${PYTHONPATH}:${HOME}/konclude
-
 # Install SOMA DFL reasoner library
 WORKDIR $HOME
 RUN pip install inflection
@@ -139,16 +117,17 @@ WORKDIR $OVERLAY_WS
 RUN . /opt/ros/noetic/setup.sh && catkin build
 RUN echo "source $OVERLAY_WS/devel/setup.bash" >> ~/.bashrc
 # Export Konclude Path
-RUN echo "export KONCLUDE_PATH=${HOME}/konclude" >> ~/.bashrc
+#RUN echo "export KONCLUDE_PATH=${HOME}/konclude" >> ~/.bashrc
 
 COPY run_knowrob.sh /run_knowrob.sh
 
 # Jupyter Config
-COPY --chown=${NB_USER}:users binder/jupyter-config.json /opt/conda/share/jupyter/lab/settings/overrides.json
+COPY binder/jupyter-config.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
-COPY --chown=${NB_USER}:users binder/entrypoint.sh /entrypoint.sh
+COPY binder/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.token=''", "--no-browser", "--ip=0.0.0.0"]
+
 RUN pip install https://raw.githubusercontent.com/yxzhan/jupyterlab-rviz/master/dist/jupyterlab_rviz-0.3.1.tar.gz
 
 
