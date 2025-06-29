@@ -9,7 +9,7 @@ roslaunch --wait rvizweb rvizweb.launch config_file:=${HOME}/work/binder/rviz_co
 
 # Launch Knowrob
 export KNOWROB_MONGODB_URI=${MONGODB_URL}/?appname=knowrob
-roslaunch --wait knowrob knowrob.launch &
+roslaunch --wait knowrob_ros knowrob.launch &
 
 #cp ${HOME}/test-binder/binder/webapps.json opt/ros/overlay_ws/src/rvizweb/webapps/app.json
 

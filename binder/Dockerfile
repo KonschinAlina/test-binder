@@ -1,8 +1,8 @@
-FROM intel4coro/base-notebook:20.04-noetic
+FROM intel4coro/base-notebook:20.04-noetic-vnc
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 ARG HOME=/root
 
-
+USER root 
 # This steps seem to be necessary for now, TODO: check if this is still needed
 # ─── STEP A: Remove any pre-existing ROS list files ─────────────────────────────────
 RUN rm -f /etc/apt/sources.list.d/*ros*.list
@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
       http://packages.ros.org/ros/ubuntu focal main" \
       > /etc/apt/sources.list.d/ros-latest.list && \
-    apt-get update
+      apt-get update
 # ─── STEP D: Now that APT trusts packages.ros.org, install python3-pip, vcstool, etc. ──
 RUN apt-get install -y \
       python3-pip \
@@ -24,11 +24,12 @@ RUN apt-get install -y \
       git \
       default-jre \
       python3-catkin-tools && \
-    pip3 install --upgrade pip
+      pip3 install --upgrade pip
 
-
+USER root 
 RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
-RUN pip3 install rosdep && rosdep init
+RUN pip3 install rosdep
+RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
 RUN mkdir -p $OVERLAY_WS/src
 RUN vcs import --input https://raw.githubusercontent.com/Tigul/pycram-1/dev/rosinstall/pycram-https.rosinstall --skip-existing $OVERLAY_WS/src
@@ -36,10 +37,16 @@ RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r
 
 RUN pip3 install --upgrade pip
 WORKDIR $OVERLAY_WS/src/pycram
-RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1 numpy==1.24.4 pytransform3d psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47 pynput~=1.7.7 dm_control \
-                trimesh==4.6.0 deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium  pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
-EXPOSE 11311
+#RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1 numpy==1.24.4 pytransform3d psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47 pynput~=1.7.7 dm_control \
+                #trimesh==4.6.0 deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium  pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
 
+RUN pip3 install numpy==1.24.4 pytransform3d
+RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1
+RUN pip3 install psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47
+RUN pip3 install pynput~=1.7.7 dm_control trimesh==4.6.0
+RUN pip3 install deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium
+RUN pip3 install pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
+EXPOSE 11311
 
 ENV SWI_HOME_DIR=/usr/lib/swi-prolog
 ENV LD_LIBRARY_PATH=/usr/lib/swi-prolog/lib/x86_64-linux:$LD_LIBRARY_PATH
