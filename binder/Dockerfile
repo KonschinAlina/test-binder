@@ -38,14 +38,14 @@ RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r
 RUN pip3 install --upgrade pip
 WORKDIR $OVERLAY_WS/src/pycram
 #RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1 numpy==1.24.4 pytransform3d psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47 pynput~=1.7.7 dm_control \
-                #trimesh==4.6.0 deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium  pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
-
-RUN pip3 install numpy==1.24.4 pytransform3d
-RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1
-RUN pip3 install psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47
-RUN pip3 install pynput~=1.7.7 dm_control trimesh==4.6.0
-RUN pip3 install deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium
-RUN pip3 install pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
+                #trimesh==4.6.0 deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium  pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx 
+#RUN pip3 install numpy==1.24.4 pytransform3d
+#RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1
+#RUN pip3 install psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47
+#RUN pip3 install pynput~=1.7.7 dm_control trimesh==4.6.0
+#RUN pip3 install deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium
+#RUN pip3 install pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
+RUN pip3 install -r requirements.txt
 EXPOSE 11311
 
 ENV SWI_HOME_DIR=/usr/lib/swi-prolog
