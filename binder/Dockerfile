@@ -113,9 +113,15 @@ WORKDIR $OVERLAY_WS/src
 RUN git clone https://github.com/knowrob/knowrob.git
 RUN git clone https://github.com/knowrob/knowrob_ros.git
 RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designator_parsing
+
 WORKDIR $OVERLAY_WS
 RUN /usr/bin/catkin init
 RUN . /opt/ros/noetic/setup.sh && /usr/bin/catkin build
+
+#WORKDIR ${HOME}/workspace/ros
+#RUN /usr/bin/catkin config --extend /opt/ros/overlay_ws
+#RUN /usr/bin/catkin build
+
 
 # Build workspace with knowrob_designator
 WORKDIR $OVERLAY_WS/src
