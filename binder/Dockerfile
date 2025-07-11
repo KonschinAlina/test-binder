@@ -118,20 +118,12 @@ WORKDIR $OVERLAY_WS
 RUN /usr/bin/catkin init
 RUN . /opt/ros/noetic/setup.sh && /usr/bin/catkin build
 
-#WORKDIR ${HOME}/workspace/ros
-#RUN /usr/bin/catkin config --extend /opt/ros/overlay_ws
-#RUN /usr/bin/catkin build
-
-
 # Build workspace with knowrob_designator
 WORKDIR $OVERLAY_WS/src
 ADD . $OVERLAY_WS/src/project
 WORKDIR $OVERLAY_WS
 RUN . /opt/ros/noetic/setup.sh && catkin build
 RUN echo "source $OVERLAY_WS/devel/setup.bash" >> ~/.bashrc
-# Export Konclude Path
-#RUN echo "export KONCLUDE_PATH=${HOME}/konclude" >> ~/.bashrc
-
 COPY run_knowrob.sh /run_knowrob.sh
 
 # Jupyter Config
