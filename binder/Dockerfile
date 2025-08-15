@@ -27,13 +27,27 @@ RUN apt-get install -y \
       pip3 install --upgrade pip
 
 USER root 
+
 RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
 RUN pip3 install rosdep
 RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
+
 RUN mkdir -p $OVERLAY_WS/src
 RUN vcs import --input https://raw.githubusercontent.com/Tigul/pycram-1/dev/rosinstall/pycram-https.rosinstall --skip-existing $OVERLAY_WS/src
 RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
+
+# System-Abhängigkeiten für polytope
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libgmp-dev
+
+# Neueste Build-Tools für Python
+RUN pip install --upgrade pip setuptools wheel \
+    && pip uninstall -y backports \
+    && pip install backports.tarfile
+
 
 RUN pip3 install --upgrade pip
 WORKDIR $OVERLAY_WS/src/pycram
@@ -89,6 +103,13 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-xacro \
     swi-prolog* \
     ros-noetic-urdf
+    
+RUN apt-get update && apt-get install -y ros-noetic-map-server && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y python3-pyqt5
+RUN apt-get update && apt-get install -y ros-noetic-urdfdom-py 
+
+RUN pip3 install --no-cache-dir pytess
+
 
 # KnowRob dependencies
 RUN apt install -y swi-prolog libspdlog-dev \
@@ -110,9 +131,16 @@ RUN pip install -e .
 
 # Build workspace with knowrob
 WORKDIR $OVERLAY_WS/src
-RUN git clone https://github.com/knowrob/knowrob.git
+#RUN git clone https://github.com/knowrob/knowrob.git
+RUN git clone https://github.com/KonschinAlina/knowrob.git
 RUN git clone https://github.com/knowrob/knowrob_ros.git
+RUN git clone https://github.com/SUTURO/hsr_description.git
+RUN git clone https://github.com/hsr-project/hsrb_rosnav.git
+RUN git clone https://github.com/code-iai/iai_common_msgs.git
+RUN git clone --branch robocup https://github.com/KonschinAlina/suturo_resources.git
 RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designator_parsing
+
+RUN git clone https://github.com/ToyotaResearchInstitute/hsr_meshes.git
 
 WORKDIR $OVERLAY_WS
 RUN /usr/bin/catkin init
