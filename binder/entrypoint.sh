@@ -12,6 +12,6 @@ roscore &
 roslaunch --wait knowrob_ros knowrob.launch &
 sleep 5
 
-jupyter lab workspaces import ${HOME}/work/binder/BA_project.jupyterlab-workspace
+jupyter lab workspaces import ${HOME}/work/binder/BA_workspace.jupyterlab-workspace
 
 exec "$@"

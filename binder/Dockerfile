@@ -103,7 +103,11 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-xacro \
     swi-prolog* \
     ros-noetic-urdf
-    
+
+# install janus
+RUN apt-get update & apt-get install -y libpython3-dev
+RUN pip3 install janus-swi
+
 RUN apt-get update && apt-get install -y ros-noetic-map-server && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y python3-pyqt5
 RUN apt-get update && apt-get install -y ros-noetic-urdfdom-py 
