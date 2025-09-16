@@ -13,4 +13,7 @@ sleep 5
 
 jupyter lab workspaces import ${HOME}/work/binder/BA_workspace.jupyterlab-workspace
 
+jupyter lab --ip=0.0.0.0 --no-browser --allow-root
+
+
 exec "$@"
