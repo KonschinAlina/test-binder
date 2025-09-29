@@ -15,14 +15,8 @@ services:
     #user: root
     working_dir: /home/jovyan
     entrypoint: /home/jovyan/work/binder/entrypoint.sh
-    #command: jupyter lab --allow-root --NotebookApp.token='' --no-browser --ip=0.0.0.0
-    command: >
-      jupyter lab
-      --allow-root
-      --NotebookApp.token=''
-      --no-browser
-     #--workspace=/workspace/BA_workspace.jupyterlab-workspace
-     
+    command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
+   
     volumes:
       - ../:/home/jovyan/work:rw
       - ../workspace:/workspace:rw

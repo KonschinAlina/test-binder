@@ -7,7 +7,7 @@ source /opt/ros/noetic/setup.bash
 source /opt/ros/overlay_ws/devel/setup.bash
 
 roscore &
-#sleep 3
+sleep 5
 
 roslaunch --wait knowrob_ros knowrob.launch &
 sleep 5
