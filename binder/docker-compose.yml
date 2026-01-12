@@ -13,7 +13,7 @@ services:
     # set group id of the host machine, so we can edit contents of the mounted volumes in the jupyterlab
     user: "${DOCKER_UID}:${DOCKER_GID}"
     #user: root
-    working_dir: /home/jovyan
+    working_dir: /home/jovyan/
     entrypoint: /home/jovyan/work/binder/entrypoint.sh
     command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
    

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#"
+     xml:base="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasChildLink -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasChildLink"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasParentLink -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasParentLink"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasPart">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Cylindrical_Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Cylindrical_Joint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Dishwasher -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Dishwasher"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fixed_Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fixed_Joint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Prismatic_Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Prismatic_Joint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Revolute_Joint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Revolute_Joint">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Joint"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
+

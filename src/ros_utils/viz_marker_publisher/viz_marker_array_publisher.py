@@ -12,7 +12,7 @@ from geometry_msgs.msg import Vector3, Pose
 from tf.transformations import quaternion_from_euler
 from visualization_msgs.msg import Marker, MarkerArray
 from urdf_parser_py.urdf import URDF, Box, Cylinder, Sphere, Mesh
-
+import tf.transformations as tft
 
 
 # Publishes an Array of visualization marker which represent objects.
@@ -40,15 +40,14 @@ class VizMarkerArrayPublisher:
             m.action = Marker.DELETE
         
         self.pub.publish(marker_array)
-        #self.thread.join()
 
     # Creates a MarkerArray 
     def create_marker_array(self, urdf_file:URDF, yaml_data:dict, obj_name:str, trans):
         marker_array = MarkerArray()
         mid = 0
 
+
         if obj_name.endswith(("table", "counter", "island")): #or "dishwasher" in obj_name:
-            print("here 1")
             msg = Marker()
             msg.header.frame_id = "map"
             msg.header.stamp = rospy.Time.now()
@@ -81,7 +80,8 @@ class VizMarkerArrayPublisher:
             
         else:
             for link in urdf_file.links:
-                if obj_name not in link.name:
+                # for all links from dishwasher, sonst nur passende 
+                if obj_name != "dishwasher" and obj_name not in link.name:
                     continue
     
                 if not link.visual:
@@ -96,7 +96,8 @@ class VizMarkerArrayPublisher:
                     msg.id = mid
                     mid += 1
                     msg.action = Marker.ADD
-             
+
+                    # Set geometrical type 
                     geom = vis.geometry
                     if isinstance(geom, Box):
                         msg.type = Marker.CUBE
@@ -114,22 +115,71 @@ class VizMarkerArrayPublisher:
                          msg.scale = Vector3(geom.radius * 2,
                                              geom.radius * 2,
                                              geom.radius * 2)
-                        
+
+            
                     elif isinstance(geom, Mesh):
                          msg.type = Marker.MESH_RESOURCE
-                         msg.mesh_resource = "file://" + geom.mesh.file_name
-                         scale = geom.scale if hasattr(geom, "scale") else [1,1,1]
-                         msg.scale = Vector3(scale[0],scale[1],scale[2])
+                         msg.mesh_resource = "file://" + geom.filename
+                         scale = getattr(geom, "scale", [1.0, 1.0, 1.0]) or [1.0, 1.0, 1.0]
+                         #scale = [s * 0.001 for s in scale]
+                         msg.scale = Vector3(*scale)
+                         #print("msg.scale:", msg.scale)
+                         #scale = geom.scale if hasattr(geom, "scale") else [1,1,1]
+                         #msg.scale = Vector3(scale[0],scale[1],scale[2])
     
 
                 # Get coordinates from yaml file  
                 p = inflect.engine()
                 
                 if obj_name != "couch":
-                        yaml_key = p.plural(obj_name)
+                   yaml_key = p.plural(obj_name)
                 else: 
-                        yaml_key = obj_name
+                   yaml_key = obj_name
+
+                    # if vis.origin:
+                    #     ox, oy, oz = vis.origin.xyz
+                    #     rr, rp, ry = vis.origin.rpy
+                    # else:
+                    #     ox = oy = oz = 0.0
+                    #     rr = rp =ry = 0.0
+
+                    # # Erzeuge lokale Transformationsmatrix für das Visual
+                    # T_local = tft.compose_matrix(translate=[ox, oy, oz], angles=[rr, rp, ry])
                     
+                    # # Erzeuge globale Matrix aus trans/rot aus TF
+                    # T_global = tft.compose_matrix(translate=trans, angles=tft.euler_from_quaternion(rot))
+                    
+                    # # Multipliziere global * lokal → tatsächliche Pose im Weltkoordinatensystem
+                    # T_final = T_global @ T_local
+                    
+                    # # Extrahiere neue xyz + quaternion
+                    # xyz = tft.translation_from_matrix(T_final)
+                    # quat = tft.quaternion_from_matrix(T_final)
+                    
+                    # msg.pose.position.x = xyz[0]
+                    # msg.pose.position.y = xyz[1]
+                    # msg.pose.position.z = xyz[2]
+                    # msg.pose.orientation.x = quat[0]
+                    # msg.pose.orientation.y = quat[1]
+                    # msg.pose.orientation.z = quat[2]
+                    # msg.pose.orientation.w = quat[3]
+                    
+                    # # add map trans if needed
+                    # if trans:
+                    #     msg.pose.position.x = trans[0] + ox
+                    #     msg.pose.position.y = trans[1] + oy
+                    #     msg.pose.position.z = trans[2] + oz if len(trans) > 2 else oz
+                    # else:
+                    #     msg.pose.position.x = ox
+                    #     msg.pose.position.y = oy
+                    #     msg.pose.position.z = oz
+                    
+                    # # Orientierung neutralisieren (kannst du auch aus vis.origin.rpy übernehmen)
+                    # msg.pose.orientation.x = 0
+                    # msg.pose.orientation.y = 0
+                    # msg.pose.orientation.z = 0
+                    # msg.pose.orientation.w = 1
+                
                 for _, obj in yaml_data[yaml_key].items():
                     if not isinstance(obj, dict):
                         continue  # skip strings: perception_postfix, amount
@@ -143,11 +193,10 @@ class VizMarkerArrayPublisher:
                         msg.pose.orientation.z = q[2]
                         msg.pose.orientation.w = q[3]
 
-                # Set highlight color
-                msg.color = ColorRGBA(1.0, 1.0, 0, 1.0)
-                marker_array.markers.append(msg)
+                    # Set highlight color
+                    msg.color = ColorRGBA(1.0, 1.0, 0, 1.0)
+                    marker_array.markers.append(msg)
                 
-            
         return marker_array
 
                 

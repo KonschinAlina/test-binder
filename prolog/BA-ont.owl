@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/alina6/ontologies/2025/9/untitled-ontology-132/"
+     xml:base="http://www.semanticweb.org/alina6/ontologies/2025/9/untitled-ontology-132/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:BA_ontology="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#"
+     xmlns:untitled-ontology-132="http://www.semanticweb.org/alina6/ontologies/2025/9/untitled-ontology-132#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#hasPart">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#isPartOf">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Dishwasher -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Dishwasher"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#couch_table -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#couch_table">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#fridge_area_lower_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_lower_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_left_upper_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_lower_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_middle_upper_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_lower_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#kitchen_island_right_upper_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#long_table -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#long_table">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_left_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_left_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_left_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_left_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_left_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_lower_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_lower_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_lower_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_lower_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_lower_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_upper_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_upper_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_upper_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_upper_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_middle_upper_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_right_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_right_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_right_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_right_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_area_right_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_oven_door_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_area_oven_door_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_door -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#oven_door"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#popcorn_table -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#popcorn_table">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#shelf -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#shelf">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_dish_washer_door_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_dish_washer_door_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_bottom_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_bottom_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_bottom_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_bottom_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_bottom_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_middle_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_middle_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_middle_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_middle_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_middle_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_upper_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_upper_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_upper_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_upper_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_left_upper_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_trash_drawer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_trash_drawer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+        <BA_ontology:hasPart rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_trash_drawer_handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_trash_drawer_handle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#sink_area_trash_drawer_handle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#suturo_couch -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#suturo_couch">
+        <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
+
