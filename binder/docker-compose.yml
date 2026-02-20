@@ -5,6 +5,8 @@ services:
     build:
       context: ../
       dockerfile: ./binder/Dockerfile
+      args:
+       - CACHEBUST=${CACHEBUST:-1}
     stdin_open: true
     tty: true
     ports:

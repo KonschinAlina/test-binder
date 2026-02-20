@@ -2,21 +2,22 @@
           [ object_pose/3,
             highlight_object/3,
             highlight_object_list/3,
-            trajectory/4,
-            highlight_trajectory/3,
-            all_tables/2
+            highlight_indiv_list/3,
+            trajectory/3,
+            trajectory_list/3,
+            open_door/3,
+            opening_information/4,
+            highlight_trajectory/3
             ]).
           
 :- use_module(library(janus)).
 :- use_module(library(semweb/rdfs)).
 
 
-% :- use_module(library('ros/tf/tf')).
-% :- use_module(library('model/RDFS'), [ has_type/2 ]).
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% object_pose(+ClassInstance, +ObjectFrame, -Pose)
+%
+%% Returns the pose of an object.
 %
 object_pose(ClassInst, ObjectFrame, Pose) :-
     atom(ObjectFrame),
@@ -24,51 +25,74 @@ object_pose(ClassInst, ObjectFrame, Pose) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% highlight_object(+ClassInstance, +ObjectName, -HighLight)
+%% highlight_object(+ClassInstance, +IndivName, -HighLight)
 %
-highlight_object(ClassInst, ObjectName, Highlight):-
-    atom(ObjectName),
-    py_call(ClassInst:highlight(ObjectName), Highlight).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% highlight_object_list(+ClassInstance, +ObjectNames, -Highlight)
+%% Highlights an object.
 %
-highlight_object_list(ClassInst, ObjectList, Highlight):-
-    py_call(ClassInst:highlight_list(ObjectList), Highlight).
+highlight_object(ClassInst, IndivName, Highlight):-
+    atom(IndivName),
+    py_call(ClassInst:highlight(IndivName), Highlight).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% trajectory(+ClassInst, +Action, +PointList, -Trajectory)
+%% highlight_object_list(+ClassInstance, +IndivList, -Highlight)
 %
-trajectory(ClassInst, Action, PointList, Trajectory):-
-    py_call(ClassInst:trajectory(Action, PointList), Trajectory).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% highlight_trajectory(+ClassInst, +PointList, -Highlight)
+%% Highlights a list of objects.
 %
-highlight_trajectory(ClassInst, PointList, Highlight):-
-    py_call(ClassInst:highlight_trajectory(PointList), Highlight).
+highlight_object_list(ClassInst, IndivList, Highlight):-
+    py_call(ClassInst:highlight_list(IndivList), Highlight).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% highlight_indiv_list(+ClassInstance, +IndivList, -Highlight)
+%
+%% Highlights a list of individuals.
+%
+highlight_indiv_list(ClassInst, IndivList, Highlight):-
+    py_call(ClassInst:highlight_indiv_list(IndivList), Highlight).
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% trajectory(+ClassInst, +IndivName, -Trajectory)
+%
+%% Shows a trajectory of the opening of an object.
+%
+trajectory(ClassInst, IndivName, Trajectory):-
+    py_call(ClassInst:trajectory(IndivName), Trajectory).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% findall(Schrank, schrank_typ(Schrank, X), Result), highlight(Result).
-%:- rdf_register_prefix(knowrob, 'http://knowrob.org/kb/knowrob.owl#').
-%:- rdf_register_prefix(rdfs, 'http://www.w3.org/2000/01/rdf-schema#').
+%% trajectory_list(+ClassInst, +IndivList, -Trajectory)
+%
+%% Shows trajectories of the opening of an object (list).
+%
+trajectory_list(ClassInst, IndivList, Trajectory):-
+    py_call(ClassInst:trajectory_list(IndivList), Trajectory).
 
-
-%frame_to_object('iai_kitchen/popcorn_table:popcorn_table:table_center', popcorn_table).
-%frame_to_object('iai_kitchen/long_table:long_table:table_center', long_table).
-
-% rdf_assert(knowrob:'Table', rdf:type, rdfs:'Class').
-
-% rdf_assert(popcorn_table, rdf:type, knowrob:'Table').
-% rdf_assert(long_table, rdf:type, knowrob:'Table').
-
-
-all_tables(ObjType, Instances):-
-    findall(Inst, rdfs_individual_of(Inst, ObjType), Instances).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% highlight_trajectory(+ClassInst, +IndivList, -Highlight)
+%
+highlight_trajectory(ClassInst, IndivList, Highlight):-
+    py_call(ClassInst:highlight_trajectory(IndivList), Highlight).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% open_door(+ClassInst, +ObjName, -Handle, -Highlight, -Trajectory)
+%
+%% Shows how a furniture item can be opended by 
+%%     highlighting, trajectory of opening movement and object pose
+%
+open_door(ClassInst, ObjName, Info):-
+    py_call(ClassInst:open_door(ObjName), Info).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% opening_information(+ClassInst, +ObjName, -Doors, -Handles)
+%
+%% Delivers informations on the doors and handles for opening a furniture item
+%
+opening_information(ClassInst, ObjName, Doors, Handles):-
+    py_call(ClassInst:opening_information(ObjName), [Doors, Handles]).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 

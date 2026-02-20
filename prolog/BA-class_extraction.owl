@@ -62,9 +62,39 @@
     
 
 
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Armchair -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Armchair"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Cabinet -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Cabinet"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Chair -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Chair"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Coffeemachine -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Coffeemachine"/>
+    
+
+
     <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Countertop -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Countertop"/>
     
 
 
@@ -108,9 +138,21 @@
     
 
 
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Furniture -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Furniture"/>
+    
+
+
     <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Hotplate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Hotplate"/>
     
 
 
@@ -120,9 +162,21 @@
     
 
 
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+    
+
+
     <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
     
 
 
@@ -154,15 +208,69 @@
     
 
 
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Side -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Side"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Socket -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Socket"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sofa -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sofa"/>
+    
+
+
     <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove"/>
     
 
 
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Surface -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Surface"/>
+    
+
+
     <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Tap -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Tap"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Wall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Wall"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Wardrobe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Wardrobe"/>
+    
+
+
+    <!-- http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Window -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Window"/>
 </rdf:RDF>
 
 

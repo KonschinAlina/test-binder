@@ -34,32 +34,31 @@ RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
 
 RUN mkdir -p $OVERLAY_WS/src
-RUN vcs import --input https://raw.githubusercontent.com/Tigul/pycram-1/dev/rosinstall/pycram-https.rosinstall --skip-existing $OVERLAY_WS/src
+COPY binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
 RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
 
-# System-Abhängigkeiten für polytope
+# System dependencies for polytope
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3-dev \
     libgmp-dev
 
-# Neueste Build-Tools für Python
+# Build-Tools for Python
 RUN pip install --upgrade pip setuptools wheel \
     && pip uninstall -y backports \
     && pip install backports.tarfile
 
+RUN pip3 install playsound==1.2.2
+
+RUN pip3 install --no-cache-dir trimesh[all] pycollada
 
 RUN pip3 install --upgrade pip
 WORKDIR $OVERLAY_WS/src/pycram
-#RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1 numpy==1.24.4 pytransform3d psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47 pynput~=1.7.7 dm_control \
-                #trimesh==4.6.0 deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium  pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx 
-#RUN pip3 install numpy==1.24.4 pytransform3d
-#RUN pip3 install pycram_bullet==3.2.8 pathlib~=1.0.1
-#RUN pip3 install psutil==5.9.7 typing_extensions>=4.10.0 owlready2==0.47
-#RUN pip3 install pynput~=1.7.7 dm_control trimesh==4.6.0
-#RUN pip3 install deprecated probabilistic_model>=6.0.2 random_events>=4.1.0 pint>=0.21.1 gymnasium
-#RUN pip3 install pin==2.7.0 inflection>=0.5.1 manifold3d==3.0.1 transforms3d python-box urdf_parser_py networkx
-RUN pip3 install -r requirements.txt
+
+COPY binder/requirements.txt /tmp/requirements.txt
+
+RUN sed -i '/playsound/d' /tmp/requirements.txt && \
+    pip3 install -r /tmp/requirements.txt
 EXPOSE 11311
 
 ENV SWI_HOME_DIR=/usr/lib/swi-prolog
@@ -91,7 +90,6 @@ RUN apt-get update && apt-get install -y \
     graphviz \
     python3 \
     python3-dev \
-    python3-pip \
     python3-venv \
     python-is-python3 \
     python3-catkin-pkg \
@@ -102,7 +100,10 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-tf \
     ros-noetic-xacro \
     swi-prolog* \
-    ros-noetic-urdf
+    ros-noetic-urdf \
+    ros-noetic-amcl \
+    ros-noetic-move-base \
+    ros-noetic-navigation
 
 # install janus
 RUN apt-get update & apt-get install -y libpython3-dev
@@ -133,8 +134,11 @@ git checkout 880248886ed1bccacfbb86a37d2803312aa7122a
 WORKDIR $HOME/ease_lexical_resources/src
 RUN pip install -e .
 
+RUN /opt/conda/bin/conda install -y setuptools=65.5.0
+
 # Build workspace with knowrob
 WORKDIR $OVERLAY_WS/src
+ARG CACHEBUST=1 
 #RUN git clone https://github.com/knowrob/knowrob.git
 RUN git clone https://github.com/KonschinAlina/knowrob.git
 RUN git clone https://github.com/knowrob/knowrob_ros.git
@@ -145,6 +149,8 @@ RUN git clone --branch robocup https://github.com/KonschinAlina/suturo_resources
 RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designator_parsing
 
 RUN git clone https://github.com/ToyotaResearchInstitute/hsr_meshes.git
+RUN git clone https://github.com/code-iai/iai_maps.git
+
 
 WORKDIR $OVERLAY_WS
 RUN /usr/bin/catkin init
@@ -158,10 +164,13 @@ RUN . /opt/ros/noetic/setup.sh && catkin build
 RUN echo "source $OVERLAY_WS/devel/setup.bash" >> ~/.bashrc
 COPY run_knowrob.sh /run_knowrob.sh
 
+ENV QT_X11_NO_MITSHM=1
+ENV DISPLAY=:1
+
 # Jupyter Config
 COPY binder/jupyter-config.json /opt/conda/share/jupyter/lab/settings/overrides.json
-
 COPY binder/entrypoint.sh /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.token=''", "--no-browser", "--ip=0.0.0.0"]
 

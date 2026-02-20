@@ -4,8 +4,8 @@
 import tf
 import time
 import rospy
-import inflect
-import threading
+import numpy as np 
+import threading      
 from std_msgs.msg import ColorRGBA
 import urdf_parser_py.urdf as parser
 from geometry_msgs.msg import Vector3, Pose
@@ -27,176 +27,105 @@ class VizMarkerArrayPublisher:
 
     
     # Publishes the highlight MarkerArray once
-    def _publish(self, urdf_file:URDF, yaml_data:dict, obj_name:str, trans) -> None:
-        marker_array = self.create_marker_array(urdf_file, yaml_data, obj_name, trans)
+    def _publish(self, obj_name:str, target_link_obj, trans, rot) -> MarkerArray:
+        marker_array = self.create_marker_array(obj_name, target_link_obj, trans, rot)
         self.pub.publish(marker_array)
         return marker_array
 
     
     # Stops the publishing of the MarkerArray by setting the kill event
     def _stop_publishing(self, marker_array: MarkerArray):
-        
         for m in marker_array.markers:
             m.action = Marker.DELETE
         
         self.pub.publish(marker_array)
 
     # Creates a MarkerArray 
-    def create_marker_array(self, urdf_file:URDF, yaml_data:dict, obj_name:str, trans):
+    def create_marker_array(self, obj_name:str, target_link_obj, trans, rot):
         marker_array = MarkerArray()
         mid = 0
+        #print(f"Creating marker!")
 
+        # obj linked to target_link 
+        #print(f"target_link_obj: '{target_link_obj.name}'")
 
-        if obj_name.endswith(("table", "counter", "island")): #or "dishwasher" in obj_name:
+        # check for visual in link
+        if not target_link_obj or not target_link_obj.visual:
+            rospy.logwarn(f"No visual link found for {obj_name}.")
+            return marker_array
+
+        # get visual link(s)
+        vis_list = target_link_obj.visual if isinstance(target_link_obj.visual, list) else [target_link_obj.visual]
+
+        # for every visual link, create a marker
+        for vis in vis_list:
             msg = Marker()
             msg.header.frame_id = "map"
             msg.header.stamp = rospy.Time.now()
             msg.ns = f"{obj_name}_highlight"
             msg.id = mid
             mid += 1
-            msg.type = Marker.CUBE
             msg.action = Marker.ADD
     
-    
-            # yaml + pose of center link not obj[x_pos] etc because for tables thats a corner link
-            for key, obj in yaml_data['tables'].items():
-                #print(yaml_data)
-                if not isinstance(obj, dict):
-                    continue
-                if obj.get('name', '') == obj_name:
-                    msg.scale = Vector3(obj['depth'], obj['width'], obj['height'])
-                    msg.pose.position.x = trans[0]
-                    msg.pose.position.y = trans[1]
-                    msg.pose.position.z = obj['height'] / 2.0
-                    q = quaternion_from_euler(0, 0, obj['z_rot'])
-                    msg.pose.orientation.x = q[0]
-                    msg.pose.orientation.y = q[1]
-                    msg.pose.orientation.z = q[2]
-                    msg.pose.orientation.w = q[3]
-    
-            msg.color = ColorRGBA(1.0, 1.0, 0, 1.0)
-            marker_array.markers.append(msg)       
-            
-            
-        else:
-            for link in urdf_file.links:
-                # for all links from dishwasher, sonst nur passende 
-                if obj_name != "dishwasher" and obj_name not in link.name:
-                    continue
-    
-                if not link.visual:
-                    continue
-    
-                vis_list = link.visual if isinstance(link.visual, list) else [link.visual]
-                for vis in vis_list:
-                    msg = Marker()
-                    msg.header.frame_id = "map"
-                    msg.header.stamp = rospy.Time.now()
-                    msg.ns = f"{obj_name}_highlight"
-                    msg.id = mid
-                    mid += 1
-                    msg.action = Marker.ADD
-
-                    # Set geometrical type 
-                    geom = vis.geometry
-                    if isinstance(geom, Box):
-                        msg.type = Marker.CUBE
-                        msg.scale = Vector3(geom.size[0],
-                                            geom.size[1],
-                                            geom.size[2])
-                    elif isinstance(geom, Cylinder):
-                         msg.type = Marker.CYLINDER
-                         msg.scale = Vector3(geom.radius * 2,
-                                             geom.radius * 2,
-                                             geom.length)
-    
-                    elif isinstance(geom, Sphere):
-                         msg.type = Marker.SPHERE
-                         msg.scale = Vector3(geom.radius * 2,
-                                             geom.radius * 2,
-                                             geom.radius * 2)
-
-            
-                    elif isinstance(geom, Mesh):
-                         msg.type = Marker.MESH_RESOURCE
-                         msg.mesh_resource = "file://" + geom.filename
-                         scale = getattr(geom, "scale", [1.0, 1.0, 1.0]) or [1.0, 1.0, 1.0]
-                         #scale = [s * 0.001 for s in scale]
-                         msg.scale = Vector3(*scale)
-                         #print("msg.scale:", msg.scale)
-                         #scale = geom.scale if hasattr(geom, "scale") else [1,1,1]
-                         #msg.scale = Vector3(scale[0],scale[1],scale[2])
-    
-
-                # Get coordinates from yaml file  
-                p = inflect.engine()
+            # geometry/ shape 
+            geom = vis.geometry
+            if isinstance(geom, Box):
+                #print(f"Cube")
+                msg.type = Marker.CUBE
+                msg.scale = Vector3(*geom.size)
                 
-                if obj_name != "couch":
-                   yaml_key = p.plural(obj_name)
-                else: 
-                   yaml_key = obj_name
-
-                    # if vis.origin:
-                    #     ox, oy, oz = vis.origin.xyz
-                    #     rr, rp, ry = vis.origin.rpy
-                    # else:
-                    #     ox = oy = oz = 0.0
-                    #     rr = rp =ry = 0.0
-
-                    # # Erzeuge lokale Transformationsmatrix für das Visual
-                    # T_local = tft.compose_matrix(translate=[ox, oy, oz], angles=[rr, rp, ry])
-                    
-                    # # Erzeuge globale Matrix aus trans/rot aus TF
-                    # T_global = tft.compose_matrix(translate=trans, angles=tft.euler_from_quaternion(rot))
-                    
-                    # # Multipliziere global * lokal → tatsächliche Pose im Weltkoordinatensystem
-                    # T_final = T_global @ T_local
-                    
-                    # # Extrahiere neue xyz + quaternion
-                    # xyz = tft.translation_from_matrix(T_final)
-                    # quat = tft.quaternion_from_matrix(T_final)
-                    
-                    # msg.pose.position.x = xyz[0]
-                    # msg.pose.position.y = xyz[1]
-                    # msg.pose.position.z = xyz[2]
-                    # msg.pose.orientation.x = quat[0]
-                    # msg.pose.orientation.y = quat[1]
-                    # msg.pose.orientation.z = quat[2]
-                    # msg.pose.orientation.w = quat[3]
-                    
-                    # # add map trans if needed
-                    # if trans:
-                    #     msg.pose.position.x = trans[0] + ox
-                    #     msg.pose.position.y = trans[1] + oy
-                    #     msg.pose.position.z = trans[2] + oz if len(trans) > 2 else oz
-                    # else:
-                    #     msg.pose.position.x = ox
-                    #     msg.pose.position.y = oy
-                    #     msg.pose.position.z = oz
-                    
-                    # # Orientierung neutralisieren (kannst du auch aus vis.origin.rpy übernehmen)
-                    # msg.pose.orientation.x = 0
-                    # msg.pose.orientation.y = 0
-                    # msg.pose.orientation.z = 0
-                    # msg.pose.orientation.w = 1
+            elif isinstance(geom, Cylinder):
+                #print(f"Cylinder")
+                msg.type = Marker.CYLINDER
+                msg.scale = Vector3(geom.radius * 2, geom.radius * 2, geom.length)
                 
-                for _, obj in yaml_data[yaml_key].items():
-                    if not isinstance(obj, dict):
-                        continue  # skip strings: perception_postfix, amount
-                    if obj.get('name', '') == obj_name:
-                        msg.pose.position.x = obj['x_pos']
-                        msg.pose.position.y = obj['y_pos']
-                        msg.pose.position.z = obj['height'] / 2.0
-                        q = quaternion_from_euler(0, 0, obj['z_rot'])
-                        msg.pose.orientation.x = q[0]
-                        msg.pose.orientation.y = q[1]
-                        msg.pose.orientation.z = q[2]
-                        msg.pose.orientation.w = q[3]
+            elif isinstance(geom, Mesh):
+                #print(f"Mesh")
+                msg.type = Marker.MESH_RESOURCE
+                msg.mesh_resource = geom.filename
+                scale = getattr(geom, "scale", [1.0, 1.0, 1.0]) or [1.0, 1.0, 1.0] # take original size
+                msg.scale = Vector3(*scale)
 
-                    # Set highlight color
-                    msg.color = ColorRGBA(1.0, 1.0, 0, 1.0)
-                    marker_array.markers.append(msg)
+                mesh_path = geom.filename
+                #print(f"mesh_path: {mesh_path}")
+    
+            # pose and rotation matrix
+            if vis.origin:
+                local_offset = vis.origin.xyz
+
+                rot_matrix = tft.quaternion_matrix(rot)
+                local_vec = np.array([local_offset[0], local_offset[1], local_offset[2], 1.0])
+
+                rotated_offset = np.dot(rot_matrix, local_vec)
+                                        
+                msg.pose.position.x = trans[0] + rotated_offset[0]
+                msg.pose.position.y = trans[1] + rotated_offset[1]
+                msg.pose.position.z = trans[2] + rotated_offset[2]
+
+                if vis.origin.rpy:
+                    q_vis = tft.quaternion_from_euler(*vis.origin.rpy)
+                    combined_rot = tft.quaternion_multiply(rot, q_vis)
+                    msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w = combined_rot
+                else:
+                    msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w = rot
+                    
+                # msg.pose.position.x = trans[0] + vis.origin.xyz[0]
+                # msg.pose.position.y = trans[1] + vis.origin.xyz[1]
+                # msg.pose.position.z = trans[2] + vis.origin.xyz[2]
+                # msg.pose.orientation.x = rot[0]
+                # msg.pose.orientation.y = rot[1]
+                # msg.pose.orientation.z = rot[2]
+                # msg.pose.orientation.w = rot[3]
                 
+            else:
+                msg.pose.position.x, msg.pose.position.y, msg.pose.position.z = trans
+                msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w = rot
+                #msg.pose.orientation.w = 1.0
+    
+            msg.color = ColorRGBA(1.0, 1.0, 0, 0.6)
+            marker_array.markers.append(msg)
+
+        
         return marker_array
 
                 

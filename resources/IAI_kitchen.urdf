@@ -875,7 +875,7 @@
     <parent link="fridge_area"/>
     <child link="iai_fridge_main"/>
   </joint>
-  <joint name="iai_fridge_door_joint" type="revolute">
+  <joint name="iai_fridge_door_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.29 0.3 0.245"/>
     <parent link="iai_fridge_main"/>
     <child link="iai_fridge_door"/>
