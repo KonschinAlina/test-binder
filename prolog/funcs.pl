@@ -6,8 +6,7 @@
             trajectory/3,
             trajectory_list/3,
             open_door/3,
-            opening_information/4,
-            highlight_trajectory/3
+            opening_information/4
             ]).
           
 :- use_module(library(janus)).
@@ -37,7 +36,7 @@ highlight_object(ClassInst, IndivName, Highlight):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% highlight_object_list(+ClassInstance, +IndivList, -Highlight)
 %
-%% Highlights a list of objects.
+%% Highlights the list of all objects in a class.
 %
 highlight_object_list(ClassInst, IndivList, Highlight):-
     py_call(ClassInst:highlight_list(IndivList), Highlight).
@@ -53,7 +52,7 @@ highlight_indiv_list(ClassInst, IndivList, Highlight):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% trajectory(+ClassInst, +IndivName, -Trajectory)
 %
-%% Shows a trajectory of the opening of an object.
+%% Visualizes a trajectory of the opening of an object.
 %
 trajectory(ClassInst, IndivName, Trajectory):-
     py_call(ClassInst:trajectory(IndivName), Trajectory).
@@ -69,17 +68,10 @@ trajectory_list(ClassInst, IndivList, Trajectory):-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% highlight_trajectory(+ClassInst, +IndivList, -Highlight)
-%
-highlight_trajectory(ClassInst, IndivList, Highlight):-
-    py_call(ClassInst:highlight_trajectory(IndivList), Highlight).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% open_door(+ClassInst, +ObjName, -Handle, -Highlight, -Trajectory)
 %
 %% Shows how a furniture item can be opended by 
-%%     highlighting, trajectory of opening movement and object pose
+%%     highlighting, showing trajectory of opening movement, object pose.
 %
 open_door(ClassInst, ObjName, Info):-
     py_call(ClassInst:open_door(ObjName), Info).
@@ -87,7 +79,7 @@ open_door(ClassInst, ObjName, Info):-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% opening_information(+ClassInst, +ObjName, -Doors, -Handles)
 %
-%% Delivers informations on the doors and handles for opening a furniture item
+%% Delivers informations on the doors, handles for opening a furniture item.
 %
 opening_information(ClassInst, ObjName, Doors, Handles):-
     py_call(ClassInst:opening_information(ObjName), [Doors, Handles]).

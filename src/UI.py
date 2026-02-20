@@ -31,12 +31,21 @@ sys.path.append("/home/jovyan/work/src/lib")
 import janus_swi as janus
 janus.consult("/home/jovyan/work/prolog/funcs.pl")
 
+###################################################################
+## Start UI
+#
+# This function creates and starts the UI in the notebook
+#
+# Input: janus instance
+# Output: starts the UI
+#
+#
 def start_UI(t, janus):
 
-    # Check whether map is loaded
-    # if not t.map_server_running():
-    #     print(f"No semantic map loaded!")
-    #     return
+    # Checks whether the map is loaded
+    if not t.param_server_running():
+        print(f"No semantic map loaded!")
+        return
 
     onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction1.owl').load()
  
@@ -44,35 +53,35 @@ def start_UI(t, janus):
     output_info = widgets.Output()
     dynamic_area = widgets.VBox()
     
-    # Get matching of links to classes
-    # matchings: [{"link": "...", "class": "..."}, ...]
+    # Retrieves the link to class matching
     matchings = t.link_class_matching()
 
     if matchings is None:
         print("No link-class matchings found!")
     else:
         data = []
-        # Save matching as list
+        # Saves the matching as list
         for item in matchings:
             data.append({"link": item["link"], "class": item["class"].capitalize()})
     
-        # Get all occuring classes in urdf, no duplicates using set 
+        # Retrieves all occuring classes in the URDF file, no duplicates using set 
         available_classes = sorted(list(set(entry["class"] for entry in data)))
         
         # Widget functions for hierarchie (hasPart)
         def part_widget(indiv_name, recursive=False, is_kinematic=False):
-            # create button for current indiv
+            
+            # Creates a button for the current individual
             btn = widgets.Button(description=indiv_name, layout=widgets.Layout(width='auto'))
 
-            # Get individual object to indiv_name
+            # Retrieves the individual object associated with the indiv_name
             ind = onto.search_one(iri=f"*{indiv_name}")
             
-            # Get all parts of individual (hasPart) 
+            # Retrieves all parts of an individual (hasPart) 
             parts = []
             if ind and hasattr(ind, "hasPart"):
                 parts = [p.name for p in ind.hasPart]
             
-            # Create button
+            # Creates button
             btn = widgets.Button(
                 description=f"{indiv_name}", 
                 layout=widgets.Layout(width='auto'),
@@ -88,19 +97,19 @@ def start_UI(t, janus):
                     janus.query_once("highlight_object(T, Obj, Highlight)", {'T': t, 'Obj': indiv_name})
             btn.on_click(on_click)
             
-            # Check, if recursive search is needed for parts
+            # Checks, if recursive search is needed for parts
             if recursive:
                 if parts:
                     child_widgets = [part_widget(p, recursive=True) for p in parts]
                 else:
                     child_widgets = [widgets.HTML(f"<i style='color:gray; padding-left:20px;'>No further parts for {indiv_name}</i>")]
                 
-                # Create container for part elements
+                # Creates a container for the part elements
                 child_box = widgets.VBox(child_widgets, layout=widgets.Layout(padding='0 0 0 20px'))
-                # Create foldable accordion
+                
+                # Creates a foldable accordion, sets it to closed
                 accordion = widgets.Accordion(children=[child_box])
                 accordion.set_title(0, f"Parts of: {indiv_name}")
-                # Set accordion to closed
                 accordion.selected_index = None
     
                 return widgets.VBox([btn, accordion])
@@ -108,6 +117,7 @@ def start_UI(t, janus):
             return btn
             
         # --- 1. KINEMATIC CHAIN ---
+        # Created the UI for the mode: kinematic chain
         def show_kinematic_ui():
             dropdown = widgets.Dropdown(options=available_classes, description='Class:')
             tree_box = widgets.VBox()
@@ -115,10 +125,10 @@ def start_UI(t, janus):
             def on_root_change(change):
                 selected_class = change['new']
                 
-                # Get all indivs of selected class
+                # Retrieves all individuals of the selected class
                 indivs = [d["link"] for d in data if d["class"] == selected_class]
                 
-                # Build accordions for indivs using part_widget
+                # Builds an accordions for the individuals using part_widget
                 tree_box.children = [part_widget(ind, recursive=True, is_kinematic=True) for ind in indivs]
         
             dropdown.observe(on_root_change, names='value')
@@ -132,16 +142,18 @@ def start_UI(t, janus):
         
         
         # --- 2. CLASSES ---
+        # Created the UI for the mode: classes
         def show_classes_ui():
+            # Initializes an accordion box
             accordion_box = widgets.VBox()
             dropdown = widgets.Dropdown(options=available_classes, description='Class:')
 
             def on_class_change(change):
                 selected_class = change['new']
-                # Get all indivs of selected class
+                # Retrieves all individuals of the selected class
                 indivs = [d["link"] for d in data if d["class"] == selected_class]
                 
-                # Create an 'All' button which calls highlight_object_list
+                # Creates an 'All' button which calls highlight_object_list
                 all_btn = widgets.Button(description=f"All {selected_class}s", button_style='success')
                 
                 def on_all_click(b):
@@ -150,7 +162,7 @@ def start_UI(t, janus):
                         janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class.lower()})
                 all_btn.on_click(on_all_click)
 
-                # Create accordion for all button and parts
+                # Creates an accordion for all button and parts
                 accordion_box.children = [all_btn] + [part_widget(ind) for ind in indivs]
         
             dropdown.observe(on_class_change, names='value')
@@ -159,22 +171,23 @@ def start_UI(t, janus):
 
         
         # --- 3. TRAJECTORIES ---
+        # Created the UI for the mode: trajectories
         def show_trajectories_ui():
  
-            # Get all joint types and their names (which exist in urdf) from database
+            # Retrieves all joint types and their names from the ontology
             # no class duplicates using set
             joint_class = onto.Joint
             joint_subclasses = list(set(joint_class.subclasses()))
             subclasses_names = [j.name for j in joint_subclasses]
 
-            # Get fixed joint classs
+            # Retrieve the fixed joint class
             fixed_joint_class = onto.Fixed_Joint
 
-            # Get all joint individuals and their names
+            # Retrieves all joint individuals and their names
             all_joint_indivs = joint_class.instances()
             joint_indiv_names = [j.name for j in all_joint_indivs]
         
-            # Extract only joints that are not fixed
+            # Extracts only joints that are not fixed
             moving_joints = [j for j in joint_subclasses if j != fixed_joint_class]
            
             joint_box = widgets.VBox()
@@ -185,18 +198,18 @@ def start_UI(t, janus):
                 selected_type = change['new']
                 target_type = onto[selected_type]
 
-                # Check, if target type can be determined (exists in ontology)
+                # Checks if the target type can be determined (exists in ontology)
                 if target_type is None:
                     with output_info:
                         print(f"selected_type: {selected_type} not found")
                     return
                 
-                # Get all joints of a certain type
+                # Retrieves all joints of a certain type
                 matching_joints = [j for j in all_joint_indivs if isinstance(j, target_type)]
         
                 buttons = []
                 
-                # Get the child link of the choosen joint for trajectory
+                # Retrieves the child link of the choosen joint for trajectory
                 current_child_link = None 
                 for joint in matching_joints:
                     if hasattr(joint, "hasChildLink") and joint.hasChildLink:
@@ -205,7 +218,6 @@ def start_UI(t, janus):
                     else:
                         print(f"joint: {joint.name} has no child link!")
                         print(f"Using joint name as fallback.")
-                        #current_child_name = joint.name
                         current_child_name = joint
                       
                     btn = widgets.Button(description=f"{joint.name}", layout=widgets.Layout(width='auto'))
