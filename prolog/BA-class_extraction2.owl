@@ -1,0 +1,908 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://test.org/BA-class_extraction2.owl"
+         xmlns="http://test.org/BA-class_extraction2.owl#">
+
+<owl:Ontology rdf:about="http://test.org/BA-class_extraction2.owl"/>
+
+<owl:ObjectProperty rdf:about="#hasParentLink">
+  <rdfs:domain rdf:resource="#Joint"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasChildLink">
+  <rdfs:domain rdf:resource="#Joint"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPart">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <owl:inverseOf rdf:resource="#isPartOf"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isPartOf">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <owl:inverseOf rdf:resource="#hasPart"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Joint">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Fixed_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Revolute_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Prismatic_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#long_table:long_table:table_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#long_table:long_table:table_origin">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#long_table:long_table:table_front_edge_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#popcorn_table:popcorn_table:table_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#popcorn_table:popcorn_table:table_origin">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#popcorn_table:popcorn_table:table_front_edge_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#couch_table:couch_table:table_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#couch_table:couch_table:table_origin">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#couch_table:couch_table:table_front_edge_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#suturo_couch:couch:place_one">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#suturo_couch:couch:place_two">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#suturo_couch:couch:place_three">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Couch"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_origin">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_base_center">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_back">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_right_side">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_left_side">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_floor_0">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_floor_1">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#shelf:shelf:shelf_floor_2">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Shelf"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#iai_kitchen:kitchen:room_center_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#arena:arena:room_center_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#living_room:living_room:room_center_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#living_room_entry_exit:entry_exit:link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Room"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_footprint">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_surface">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_sink">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Sink"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_right_panel">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_trash_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_trash_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_upper_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_upper_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_middle_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_middle_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_bottom_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_left_bottom_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_dish_washer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Dishwasher"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_dish_washer_door">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_area_dish_washer_door_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_footprint">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Oven"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_door">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_door_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_panel">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_knob_stove_1">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_knob_stove_2">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_knob_stove_3">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_knob_stove_4">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_oven_knob_oven">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Knob"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_middle_upper_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_middle_upper_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_middle_lower_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_middle_lower_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_left_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_left_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_right_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_front_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board0_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board0_barrier_right_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board0_barrier_left_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board1_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board1_barrier_right_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board1_barrier_left_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board2_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board2_barrier_right_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board2_barrier_left_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board3_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board3_barrier_right_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#drawer_oven_right_board3_barrier_left_link">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_area_area_right_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_footprint">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_surface">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_stove">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Stove"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_left_panel">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_left_upper_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_left_upper_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_left_lower_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_left_lower_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_middle_panel">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_middle_upper_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_middle_upper_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_middle_lower_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_middle_lower_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_right_panel">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Panel"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_right_upper_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_right_upper_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_right_lower_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_island_right_lower_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#fridge_area_footprint">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#fridge_area">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#fridge_area_lower_drawer_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#fridge_area_lower_drawer_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#iai_fridge_main">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Fridge"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#iai_fridge_door">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#iai_fridge_door_handle">
+  <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#furnitures_base">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#walls_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#windows_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall1_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall2_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall3_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left_handle_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right_handle_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#armchair_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sofa_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table_drawer_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#bedside_table_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_base">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#frame_a_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#frame_b_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_door_top_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_top_door_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level5_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_out_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab2_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_small_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_big_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_out_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_out_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_bottom_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_top_top_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_bottom_bottom_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab4_door_bottom_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_top_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_top_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_out_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_out_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7_door_bottom_left_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#dishwasher_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7_drawer_middle_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab8_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_top_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_top_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_top_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_middle_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_mid_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_bottom_joint">
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_countertop_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cooktop_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate1_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate2_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate3_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle_open_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle_hot_cold_joint">
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#socket_a_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#socket_b_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#countertop_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffe_machine_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_left_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_right_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_back_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_left_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_right_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_right_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
