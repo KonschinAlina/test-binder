@@ -192,17 +192,28 @@ class FuncLib:
                 print(f"Joint class {joint_class_name.lower()} does not exist!")
                 continue
    
-            
             with new_onto:
-                # Creates an individual for the joint if one does not already exist
-                if new_onto[joint_name] is None:
-                    # Sets "Joint" class as parent
+                # Check for existing subclass of Joint
+                if new_onto[joint_class_name] is None:
                     joint_class = types.new_class(joint_class_name, (Joint,))
-                    joint_indiv = joint_class(joint_name)
-                    
                 else:
                     joint_class = new_onto[joint_class_name]
+
+                if new_onto[joint_name] is None:
+                     joint_indiv = joint_class(joint_name)
+                else:
                     joint_indiv = new_onto[joint_name]
+                    
+            # with new_onto:
+            #     # Creates an individual for the joint if one does not already exist
+            #     if new_onto[joint_name] is None:
+            #         # Sets "Joint" class as parent
+            #         joint_class = types.new_class(joint_class_name, (Joint,))
+            #         joint_indiv = joint_class(joint_name)
+                    
+                # else:
+                #     joint_class = new_onto[joint_class_name]
+                #     joint_indiv = new_onto[joint_name]
 
                 # Retrieves the individual of the corresponding parent link and child link 
                 parent_indiv = new_onto[parent_link]
