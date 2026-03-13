@@ -20,6 +20,7 @@ import logging
 import warnings
 import tempfile
 import subprocess
+import rdflib
 from subprocess import DEVNULL
 from std_msgs.msg import ColorRGBA
 from geometry_msgs.msg import Point
@@ -76,7 +77,164 @@ class FuncLib:
 
         time.sleep(5)
         rospy.loginfo(f"Setup complete.")
+
+########################################################################################################
+## URDF Parser
+# 
+# This function parses a URDF file and creates a ontology with the collected information.
+#
+# Input: -
+# Output: -
+#
+#   
+    def parse_urdf(self, param_name="/kitchen_description"):
+
+        # Checks whether the map is loaded
+        if not self.param_server_running():
+            rospy.logwarn(f"No semantic map loaded!")
+            return
+
+        # Retrieves the urdf from param server
+        rospy.loginfo(f"Read URDF from ROS param server '{param_name}' ....")
+        urdf_string = rospy.get_param(param_name)
+        urdf = URDF.from_xml_string(urdf_string)
+
+        # Retrieves the matching of links to classes(from SOMA-HOME)
+        matching = self.link_class_matching()
+
+
+        if matching is None:
+            return f"No matchings found, parsing stopped!"
+
+        else:
+
+            # Loads the ontology ontology for class extraction (=SOMA-HOME)
+            onto = get_ontology("/home/jovyan/work/prolog/BA-class_extraction.owl").load()
+            #onto = get_ontology("/opt/ros/overlay_ws/src/soma/owl/SOMA-HOME.owl").load()
+
+
+            # Creates a new empty ontology
+            new_onto = get_ontology("http://test.org/BA-class_extraction1.owl")
+
+            # Retrieves  all class names written lower case
+            lower_class_names = {claass.name.lower(): claass for claass in onto.classes()}
+
+            # Retrieves already existing individuals from the ontology
+            indivs = [indivs.name for indivs in onto.individuals()]
+
         
+            # Retrieves the link_name and the class_name from the matching
+            for item in matching:
+                link_name = item["link"]
+                class_name = item["class"]
+
+               
+                # Retrieve the class from the ontology with name:  class_name 
+                claass = onto[class_name.capitalize()]
+
+                if claass is None:
+                    continue
+
+                # Checks for individuals with name: link_name already exist
+                # if they already exist, ignore
+                if link_name in indivs:
+                    print(f"already existing link name:{link_name}")
+                    ind = onto[link_name]
+                    print(f"{link_name} already existing as {ind}")
+                    
+                else:
+                    # Adds link as individual into the  new ontology
+                    with new_onto: 
+                        link_indiv = claass(link_name)
+                        #print(f"l.654: link_indiv: {link_indiv}")
+ 
+ ###############
+### JOINTS ###
+        # Defines the Joint class and object properties
+        with new_onto:
+            if new_onto["Joint"] is None:
+                class Joint(Thing): pass
+            else:
+                Joint = new_onto["Joint"]
+
+            if new_onto["hasParentLink"] is None:
+                class hasParentLink(ObjectProperty):
+                    domain = [Joint]
+                    range  = [Thing]
+            
+            if new_onto["hasChildLink"] is None:
+                class hasChildLink(ObjectProperty):
+                    domain = [Joint]
+                    range  = [Thing]
+
+            if new_onto["hasPart"] is None:
+                class hasPart(ObjectProperty, TransitiveProperty): pass
+
+            if new_onto["isPartOf"] is None:
+                class isPartOf(ObjectProperty, TransitiveProperty):
+                    inverse_property = new_onto["hasPart"]
+                    
+    
+        # Retrieves all joints and information about them from the urdf
+        for joint in urdf.joints:
+            joint_type = joint.type.lower() 
+            joint_name = joint.name.lower() # long_table:l_table:table_origin_joint
+            
+            # Retrieves the parent link and child link 
+            parent_link = joint.parent.lower()
+            child_link = joint.child.lower()
+            
+            # Forms the name of the joint class i.e "Prismatic_Joint"
+            joint_class_name = f"{joint_type.capitalize()}_Joint"
+            
+            # Checks if the joint class exists in the ontology 
+            if joint_class_name.lower() not in lower_class_names:
+                print(f"Joint class {joint_class_name.lower()} does not exist!")
+                continue
+   
+            
+            with new_onto:
+                # Creates an individual for the joint if one does not already exist
+                if new_onto[joint_name] is None:
+                    # Sets "Joint" class as parent
+                    joint_class = types.new_class(joint_class_name, (Joint,))
+                    joint_indiv = joint_class(joint_name)
+                    
+                else:
+                    joint_class = new_onto[joint_class_name]
+                    joint_indiv = new_onto[joint_name]
+
+                # Retrieves the individual of the corresponding parent link and child link 
+                parent_indiv = new_onto[parent_link]
+                child_indiv = new_onto[child_link]
+
+                # Retrieves the links from the matching 
+                check_links = [item["link"] for item in matching]
+
+                # If parent link and child link exist in the ontology,
+                #  add object properties
+                if parent_link in check_links and child_link in check_links:
+                
+                    if parent_indiv and child_indiv:
+                        new_onto.hasParentLink[joint_indiv] = [parent_indiv]
+                        new_onto.hasChildLink[joint_indiv] = [child_indiv]
+
+                        if hasattr(parent_indiv, "hasPart"):
+                            if child_indiv not in parent_indiv.hasPart:
+                                parent_indiv.hasPart.append(child_indiv)
+                               
+                        else:
+                            print(f"No new hasPart relations added into ontology!")
+                        
+                    else: 
+                        print(f"No parent_indiv or no child_indiv!")
+                        print(f"parent_link:{parent_link}")
+                        print(f"child_link: {child_link}")
+
+        # Saves the new ontology 
+        new_onto.save(file="/home/jovyan/work/prolog/BA-class_extraction1.owl", format="rdfxml")
+    
+        return f"Parsed URDF file successfully!"
 ########################################################################################################
 ## URDF Parser
 # 
@@ -86,9 +244,9 @@ class FuncLib:
 # Output: -
 #
 #
-    def parse_urdf(self, param_name="/kitchen_description"):
+    def parse_urdf_SOMA(self, param_name="/kitchen_description"):
         
-        # 0. Checks whether the map is loaded
+        # Checks whether the map is loaded
         if not self.param_server_running():
             rospy.logwarn(f"No semantic map loaded!")
             return
@@ -99,24 +257,47 @@ class FuncLib:
         urdf = URDF.from_xml_string(urdf_string)
 
         # Retrieves the matching of links to classes(from SOMA-HOME)
-        matching = self.link_class_matching()
+        matching = self.link_class_matching_SOMA()
 
         if matching is None:
             return f"No matchings found, parsing stopped!"
         else:
             
             # Loads the ontology ontology for class extraction (=SOMA-HOME)
-            onto = get_ontology("/home/jovyan/work/prolog/BA-class_extraction.owl").load()
-            #onto = get_ontology("/home/jovyan/work/ease_     /SOMA-HOME.owl").load()
+            #onto = get_ontology("/home/jovyan/work/prolog/BA-class_extraction.owl").load()
+
+            file_path = '/opt/ros/overlay_ws/src/soma/owl/SOMA-HOME.owl'
+            lower_class_names = []
+            
+            if os.path.exists(file_path):
+                try:
+                    with open(file_path, 'r') as f:
+                        content = f.read()
+                        
+                    # Checks for a specific pattern 
+                    pattern = r'Declaration\(Class\((?:SOMA:|[<][^>]+[#/])([^)>]+)[)]\)'
+                    extracted_classes = re.findall(pattern, content)
+                    
+                    # Retrieves all classes from the ontology written in lower case
+                    lower_class_names = [c.lower() for c in extracted_classes]
+                    #print(lower_class_names)
+                    
+                except Exception as e:
+                    print(f"Error reading file: {e}")
+                    return None
+            else:
+                print("File not found!!")
+                return None
             
             # Creates a new empty ontology
             new_onto = get_ontology("http://test.org/BA-class_extraction1.owl")
             
-            # Retrieves all classes from the ontology written in lower case          
-            lower_class_names = {claass.name.lower(): claass for claass in onto.classes()}
+                      
+            #lower_class_names = {claass.name.lower(): claass for claass in onto.classes()}
             
             # Retrieves already existing individuals from the ontology
-            indivs = [indivs.name for indivs in onto.individuals()]
+            indivs = []
+            #indivs = [indivs.name for indivs in onto.individuals()]
          
             # Retrieves the link_name and the class_name from the matching
             for item in matching:
@@ -124,22 +305,39 @@ class FuncLib:
                 class_name = item["class"]
                 
                 # Adds individuals into the new ontology if corresponding class exists
-                claass = onto[class_name.capitalize()]
+                #claass = onto[class_name.capitalize()]
+                class_obj_name = class_name.capitalize()
+                #print(f"class_obj_name: {class_obj_name}")
 
-                if claass is None:
+                if class_obj_name is None:
                     continue
+
+                # Create new classes, if they do not already exist
+                with new_onto:
+                    if new_onto[class_obj_name] is None:
+                        class_obj = types.new_class(class_obj_name, (Thing,))
+                    else:
+                        class_obj = new_onto[class_obj_name]
+
+                # Ceates new individuals, if they do not already exist
+                if link_name in indivs:
+                     print(f"already existing link name:{link_name}")
+                else:
+                    with new_onto:
+                        link_indiv = class_obj(link_name)
+                        indivs.append(link_name)
                 
                 # Checks for individuals with name: link_name already exist
                 # if they already exist, ignore
-                if link_name in indivs:
-                    print(f"already existing link name:{link_name}")
-                    ind = onto[link_name]
-                    print(f"{link_name} already existing as {ind}")
+                #if link_name in indivs:
+                #    print(f"already existing link name:{link_name}")
+                #    ind = onto[link_name]
+                #    print(f"{link_name} already existing as {ind}")
             
-                else:
+                #else:
                     # Adds link as individual into the  new ontology
-                    with new_onto: 
-                        link_indiv = claass(link_name)
+                #    with new_onto: 
+                #        link_indiv = claass(link_name)
                         #print(f"l.654: link_indiv: {link_indiv}")
             
       
@@ -183,10 +381,10 @@ class FuncLib:
             joint_class_name = f"{joint_type.capitalize()}_Joint"
             
             # Checks if the joint class exists in the ontology 
-            if joint_class_name.lower() not in lower_class_names:
-                print(f"Joint class {joint_class_name.lower()} does not exist!")
-                continue
-    
+            #if joint_class_name.lower() not in lower_class_names:
+            #    print(f"Joint class {joint_class_name.lower()} does not exist!")
+            #    continue
+
             
             with new_onto:
                 # Creates an individual for the joint if one does not already exist
@@ -893,7 +1091,6 @@ class FuncLib:
     
         return matches
         
-
 ##########################################################################################################
 ## Link to Class matching 
 #
@@ -905,7 +1102,7 @@ class FuncLib:
 #
     def link_class_matching(self, param_name="/kitchen_description"):
         
-        # Cheks whether the map is loaded
+        # Checks whether the map is loaded
         if not self.param_server_running():
             rospy.logwarn(f"No semantic map loaded!")
             return
@@ -919,11 +1116,9 @@ class FuncLib:
 
         # Loads the ontology
         onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction.owl').load()
-        #onto = get_ontology('/SOMA-HOME.owl').load()
 
         # Retrieves all classes from the ontology as lower case
-        lower_class_name = [claass.name.lower() for claass in onto.classes()]
-        #print(f"lower_class_name: {lower_class_name}")
+        lower_class_names = [claass.name.lower() for claass in onto.classes()]
 
         # Looks through all classes and matches the links to a class
         # remove suffixes = clean_links
@@ -965,7 +1160,7 @@ class FuncLib:
                     # if e.g. link name = windows but class window
                     singular_word = self.to_singular(cut_clean)
                     
-                    if singular_word in lower_class_name:
+                    if singular_word in lower_class_names:
                        matched_class = singular_word 
                        break
                         
@@ -977,7 +1172,7 @@ class FuncLib:
                         matched_class = "table"
                         break
 
-                    elif compact_name in lower_class_name:
+                    elif compact_name in lower_class_names:
                         matched_class = compact_name 
                         break
                     
@@ -986,7 +1181,126 @@ class FuncLib:
                     "link": link,
                     "class": matched_class
                 })
+                
+        unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
+        #print(f"FAILED TO MATCH: {unmatched_links[:10]}")
+        return link_to_class_matching if link_to_class_matching else None
+##########################################################################################################
+## Link to Class matching 
+#
+# This is a helper function for parse_urdf and matches all links from URDF file to classes in SOMA-HOME
+# 
+# Input: -
+# Output: A matching of links to classes 
+#
+#
+    def link_class_matching_SOMA(self, param_name="/kitchen_description"):
         
+        # Checks whether the map is loaded
+        if not self.param_server_running():
+            rospy.logwarn(f"No semantic map loaded!")
+            return
+            
+        # Retrieves the URDF file from the param server
+        urdf_string = rospy.get_param(param_name)
+        urdf = URDF.from_xml_string(urdf_string)
+
+        # Retrieves all links from the URDF file
+        urdf_links = [link.name.lower() for link in urdf.links]
+
+        # Loads the ontology
+        #onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction.owl').load()
+        
+        # Extract the SOMA-HOME classes 
+        file_path = '/opt/ros/overlay_ws/src/soma/owl/SOMA-HOME.owl'
+        lower_class_names = []
+
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, 'r') as f:
+                    content = f.read()
+                # Searches for specific pattern
+                pattern = r'Declaration\(Class\((?:SOMA:|[<][^>]+[#/])([^)>]+)[)]\)'
+                classes = re.findall(pattern, content)
+                
+                # Retrieves all classes from the ontology as lower case
+                lower_class_names = [c.lower() for c in classes]
+                
+                
+            except Exception as e:
+                print(f"Error reading file: {e}")
+                return None
+        else:
+            print("File not found!!")
+            return None
+
+        # Retrieves all classes from the ontology as lower case
+        #lower_class_name = [claass.name.lower() for claass in onto.classes()]
+
+        # Looks through all classes and matches the links to a class
+        # remove suffixes = clean_links
+        link_to_class_matching = []
+        remove_suffix = ["_main", "_link", "_center", "_origin", "_footprint"]
+
+        for link in urdf_links:
+            full_link_name = link.lower()
+            matched_class = None
+
+            # i.e. coffee_machine --> coffeemachine
+            compact_name = full_link_name.replace("_", "")
+            compact_name = compact_name.replace("coffe", "coffee")
+            
+            # Checks for priority_classes
+            # because of naming such as: drawer_oven_board0
+            # order is specific, handle before drawer!!
+            priority_classes = ["handle", "knob", "door", "drawer", "room", "cabinet"]
+        
+            for prio_cls in priority_classes:
+                if prio_cls in full_link_name:
+                    matched_class = prio_cls
+                    break
+                    
+            
+            # Splits the link and goes through cuts from right to left 
+            if not matched_class:
+                clean_link = link.split(":")[0] if ":" in link else link
+                for token in remove_suffix:
+                    if clean_link.endswith(token):
+                        clean_link = clean_link.replace(token, "")
+
+                words = clean_link.split('_')
+
+                for cut in reversed(words):
+                    # if e.g. cabinet10
+                    cut_clean = ''.join([i for i in cut if not i.isdigit()])
+
+                    # if e.g. link name = windows but class window
+                    singular_word = self.to_singular(cut_clean)
+                    
+                    if singular_word in lower_class_names:
+                       matched_class = singular_word 
+                       break
+                        
+                    elif singular_word == "washer":
+                        matched_class = "dishwasher"
+                        break
+                        
+                    elif singular_word in ["island", "counter"]:
+                        matched_class = "table"
+                        break
+
+                    elif compact_name in lower_class_names:
+                        matched_class = compact_name 
+                        break
+                    
+            if matched_class:
+                link_to_class_matching.append({
+                    "link": link,
+                    "class": matched_class
+                })
+                
+        unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
+        #print(f"FAILED TO MATCH: {unmatched_links[:10]}")
         return link_to_class_matching if link_to_class_matching else None
 
 ########################################################################################################

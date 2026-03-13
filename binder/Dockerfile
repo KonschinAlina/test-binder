@@ -150,6 +150,7 @@ RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designato
 
 RUN git clone https://github.com/ToyotaResearchInstitute/hsr_meshes.git
 RUN git clone https://github.com/code-iai/iai_maps.git
+RUN git clone https://github.com/ease-crc/soma.git
 
 
 WORKDIR $OVERLAY_WS

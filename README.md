@@ -2,7 +2,7 @@
 
 [![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/binder-template.git/main)
 
-I used this template repo for running robotics research Jupyter Notebooks on Binderhub.
+This template repo was used for running robotics research Jupyter Notebooks on Binderhub.
 
 Tutorials can be found here: https://vib.ai.uni-bremen.de/page/softwaretools/cloud-based-robotics-platform#zero-to-binder
 
@@ -19,7 +19,7 @@ Tutorials can be found here: https://vib.ai.uni-bremen.de/page/softwaretools/clo
 - Build and run docker image:
 
   ```bash
-  export GID=$(id -g) && \
+  export DOCKER_UID=$(id -u) && export DOCKER_GID=$(id -g) &&\
   docker compose -f ./binder/docker-compose.yml up --build
   ```
 
