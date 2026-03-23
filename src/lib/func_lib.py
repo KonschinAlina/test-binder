@@ -189,11 +189,12 @@ class FuncLib:
             
             # Checks if the joint class exists in the ontology 
             if joint_class_name.lower() not in lower_class_names:
-                print(f"Joint class {joint_class_name.lower()} does not exist!")
+                print(f"l.192: Joint class {joint_class_name} does not exist!")
                 continue
    
             with new_onto:
                 # Check for existing subclass of Joint
+                print("HIER")
                 if new_onto[joint_class_name] is None:
                     joint_class = types.new_class(joint_class_name, (Joint,))
                 else:
@@ -269,107 +270,100 @@ class FuncLib:
 
         # Retrieves the matching of links to classes(from SOMA-HOME)
         matching = self.link_class_matching_SOMA()
+        print(matching)
 
         if matching is None:
             return f"No matchings found, parsing stopped!"
         else:
             
-            # Loads the ontology ontology for class extraction (=SOMA-HOME)
-            #onto = get_ontology("/home/jovyan/work/prolog/BA-class_extraction.owl").load()
-
-            file_path = '/opt/ros/overlay_ws/src/soma/owl/SOMA-HOME.owl'
-            lower_class_names = []
+            # # Loads the ontology for class extraction (=SOMA-HOME)
+            # file_path = '/opt/ros/overlay_ws/src/soma/owl/SOMA-HOME.owl'
+            # lower_class_names = []
             
-            if os.path.exists(file_path):
-                try:
-                    with open(file_path, 'r') as f:
-                        content = f.read()
+            # if os.path.exists(file_path):
+            #     try:
+            #         with open(file_path, 'r') as f:
+            #             content = f.read()
                         
-                    # Checks for a specific pattern 
-                    pattern = r'Declaration\(Class\((?:SOMA:|[<][^>]+[#/])([^)>]+)[)]\)'
-                    extracted_classes = re.findall(pattern, content)
+            #         # Checks for a specific pattern 
+            #         pattern = r'Declaration\(Class\((?:SOMA:|[<][^>]+[#/])([^)>]+)[)]\)'
+            #         extracted_classes = re.findall(pattern, content)
                     
-                    # Retrieves all classes from the ontology written in lower case
-                    lower_class_names = [c.lower() for c in extracted_classes]
-                    #print(lower_class_names)
+            #         # Retrieves all classes from the ontology written in lower case
+            #         lower_class_names = [c.lower() for c in extracted_classes]
+            #         #print(f"lower_class_names: {lower_class_names}")
                     
-                except Exception as e:
-                    print(f"Error reading file: {e}")
-                    return None
-            else:
-                print("File not found!!")
-                return None
+            #     except Exception as e:
+            #         print(f"Error reading file: {e}")
+            #         return None
+            # else:
+            #     print("File not found!!")
+            #     return None
             
             # Creates a new empty ontology
-            new_onto = get_ontology("http://test.org/BA-class_extraction1.owl")
-            
-                      
-            #lower_class_names = {claass.name.lower(): claass for claass in onto.classes()}
-            
-            # Retrieves already existing individuals from the ontology
+            new_onto = get_ontology("http://test.org/BA-class_extraction-SOMA.owl")
+
+            # Defines the Joint and Link class 
+            with new_onto:
+                if new_onto["Joint"] is None:
+                    class Joint(Thing): pass
+                else:
+                    Joint = new_onto["Joint"]
+                    
+                if new_onto["Link"] is None:
+                    class Link(Thing): pass
+                else:
+                    Link = new_onto["Link"]
+
+            # initialization of the individual list
             indivs = []
-            #indivs = [indivs.name for indivs in onto.individuals()]
          
             # Retrieves the link_name and the class_name from the matching
             for item in matching:
                 link_name = item["link"]
                 class_name = item["class"]
                 
-                # Adds individuals into the new ontology if corresponding class exists
-                #claass = onto[class_name.capitalize()]
+                # Get the class name for the individual
                 class_obj_name = class_name.capitalize()
                 #print(f"class_obj_name: {class_obj_name}")
 
                 if class_obj_name is None:
                     continue
 
-                # Create new classes, if they do not already exist
+                # Creates new classes, if they do not already exist
                 with new_onto:
+                    
                     if new_onto[class_obj_name] is None:
                         class_obj = types.new_class(class_obj_name, (Thing,))
                     else:
                         class_obj = new_onto[class_obj_name]
 
-                # Ceates new individuals, if they do not already exist
+                # Creates new individuals, if they do not already exist
                 if link_name in indivs:
                      print(f"already existing link name:{link_name}")
+                    
                 else:
+                    # Adds link as individual into the new ontology
+                    # assign class to link individual and add Link class to individual
                     with new_onto:
                         link_indiv = class_obj(link_name)
+                        link_indiv.is_a.append(new_onto.Link)
                         indivs.append(link_name)
                 
-                # Checks for individuals with name: link_name already exist
-                # if they already exist, ignore
-                #if link_name in indivs:
-                #    print(f"already existing link name:{link_name}")
-                #    ind = onto[link_name]
-                #    print(f"{link_name} already existing as {ind}")
-            
-                #else:
-                    # Adds link as individual into the  new ontology
-                #    with new_onto: 
-                #        link_indiv = claass(link_name)
-                        #print(f"l.654: link_indiv: {link_indiv}")
-            
       
 ###############
 ### JOINTS ###
         # Defines the Joint class and object properties
         with new_onto:
-            if new_onto["Joint"] is None:
-                class Joint(Thing): pass
-            else:
-                Joint = new_onto["Joint"]
-
             if new_onto["hasParentLink"] is None:
                 class hasParentLink(ObjectProperty):
                     domain = [Joint]
-                    range  = [Thing]
+                    range  = [Link]
             
             if new_onto["hasChildLink"] is None:
                 class hasChildLink(ObjectProperty):
                     domain = [Joint]
-                    range  = [Thing]
+                    range  = [Link]
 
             if new_onto["hasPart"] is None:
                 class hasPart(ObjectProperty, TransitiveProperty): pass
@@ -391,17 +385,17 @@ class FuncLib:
             # Forms the name of the joint class i.e "Prismatic_Joint"
             joint_class_name = f"{joint_type.capitalize()}_Joint"
             
-            # Checks if the joint class exists in the ontology 
-            #if joint_class_name.lower() not in lower_class_names:
-            #    print(f"Joint class {joint_class_name.lower()} does not exist!")
-            #    continue
 
-            
+            # # Checks if the joint class exists in the ontology 
+            # if joint_class_name.lower() not in lower_class_names:
+            #     print(f"No Joint class '{joint_class_name}'. Creating class!")
+                    
             with new_onto:
                 # Creates an individual for the joint if one does not already exist
                 if new_onto[joint_name] is None:
                     # Sets "Joint" class as parent
                     joint_class = types.new_class(joint_class_name, (Joint,))
+                    #print(joint_class)
                     joint_indiv = joint_class(joint_name)
                     
                 else:
@@ -436,7 +430,7 @@ class FuncLib:
                         print(f"child_link: {child_link}")
 
         # Saves the new ontology 
-        new_onto.save(file="/home/jovyan/work/prolog/BA-class_extraction1.owl", format="rdfxml")
+        new_onto.save(file="/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl", format="rdfxml")
     
         return f"Parsed URDF file successfully!"
 
@@ -762,9 +756,10 @@ class FuncLib:
                 joint_type = joint.type.lower()
                 break
 
+            
         
         if joint_type is None:
-            rospy.logwarn(f"No joint found where joint.child is {child_link}")
+            rospy.logwarn(f"No joint found with child link: {child_link}")
             return
 
         point_list = []
@@ -962,8 +957,21 @@ class FuncLib:
                     handle_offset = handle_joint.origin.xyz
                     
             else:
+                # if drawer has no handle, add half the depth of drawer to origin
+                # and add hlaf the height of the drawer 
                 print(f"No handle link name found!")
-                return
+                print(f"Calculating new starting point of trajectoy!")
+                drawer_depth, drawer_height = self.get_dimensions_of_drawer_from_mesh(joint.child, urdf)
+                #print(f"drawer_depth:{drawer_depth}")
+                #print(f"drawer_height:{drawer_height}")
+                
+                if drawer_depth and drawer_height:
+                    handle_offset = [ax * (drawer_depth/2) for ax in joint.axis]
+                    handle_offset[2] += (drawer_height)
+                    print(f"handle_offset: {handle_offset}")
+                else:
+                    handle_offset = [0,0,0]
+                
                 
             # Retrieves the joint limit and axis
             limit = getattr(joint, "limit", None)
@@ -1037,7 +1045,7 @@ class FuncLib:
         
         # Deletes markers
         ma._stop_publishing(marker_array)
-        
+        print(f"point_list:{point_list}")
         return f"Published trajectory for {child_link} for {duration} seconds."
 
 #######################################################################################
@@ -1047,7 +1055,8 @@ class FuncLib:
 #
 # Input: the list of individual names
 # Output: the visualisation of the trajectories and a notice
-
+#
+#
     def trajectory_list(self, indiv_names):
 
         # Creates a list if the input is not a list
@@ -1142,7 +1151,7 @@ class FuncLib:
 
             # i.e. coffee_machine --> coffeemachine
             compact_name = full_link_name.replace("_", "")
-            compact_name = compact_name.replace("coffe", "coffee")
+            #compact_name = compact_name.replace("coffe", "coffee")
             
             # Checks for priority_classes
             # because of naming such as: drawer_oven_board0
@@ -1195,6 +1204,7 @@ class FuncLib:
                 
         unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
         #print(f"FAILED TO MATCH: {unmatched_links[:10]}")
+        #print(link_to_class_matching)
         return link_to_class_matching if link_to_class_matching else None
 ##########################################################################################################
 ## Link to Class matching 
@@ -1311,7 +1321,8 @@ class FuncLib:
                 })
                 
         unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
-        #print(f"FAILED TO MATCH: {unmatched_links[:10]}")
+        print(f"FAILED TO MATCH: {unmatched_links[:10]}")
+        #print(link_to_class_matching)
         return link_to_class_matching if link_to_class_matching else None
 
 ########################################################################################################
@@ -1365,11 +1376,12 @@ class FuncLib:
 ########################################################################################################
 ## Retrieve the radius from the door width of an object
 #
-# This is a helper function that calculates teh radius by using a doors width.
+# This is a helper function that calculates the radius by using a doors width.
 #
 # Input: the name of the link
 # Output: the calculated radius
 # 
+#
     def get_door_width_from_mesh(self, link_name, urdf):
         
         # Searches for the link in the URDF file 
@@ -1394,6 +1406,44 @@ class FuncLib:
         except Exception as e:
             print(f"Mesh not found: {e}")
             return None
+
+########################################################################################################
+## Retrieves the depth of a drawer without handles but with prismatic joints
+#
+# This is a helper function that retrieves the depth of a drawer to calculate the starting pose for the trajectory of #    the opening movement of a drawer without handles and prismatic joints. 
+#
+# Input: the name of the link
+# Output: the depth of the drawer from the mesh
+#
+#
+    def get_dimensions_of_drawer_from_mesh(self, link_name, urdf):
+
+        # Searches for the link in the URDF file 
+        link = next((l for l in urdf.links if l.name == link_name), None)
+        
+        if not link or not link.visual:
+            return None
+    
+        # Retrieves the mesh path
+        full_mesh_path = link.visual.geometry.filename
+
+        mesh_path = full_mesh_path.replace("package://", "/opt/ros/overlay_ws/src/iai_maps/")
+
+        try:
+            # Using trimesh to retrieve the depth of the drawer
+            mesh = trimesh.load(mesh_path)
+            dims = sorted(mesh.extents)
+            # assuming the largest value is the depth 
+            drawer_depth = dims[2]
+            # assuming the smallest value is the height
+            drawer_height = dims[0]
+            
+            return drawer_depth, drawer_height
+            
+        except Exception as e:
+            print(f"Mesh not found: {e}")
+            return None
+        
 
 ########################################################################################################
 ## Singular
@@ -1509,6 +1559,7 @@ class FuncLib:
 # Input: the name of an individual
 # Output: information about doors and handles for opening a furniture item
 #
+#
     def opening_information(self, indiv_name):
 
         # Retrieves the URDF file 
@@ -1554,27 +1605,4 @@ class FuncLib:
         
             return [doors, handle_link_names]
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

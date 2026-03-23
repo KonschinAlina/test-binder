@@ -47,15 +47,17 @@ def start_UI(t, janus):
         print(f"No semantic map loaded!")
         return
 
-    onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction1.owl').load()
- 
+    #onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction1.owl').load()
+    onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+
     # --- 1. Setup and Container ---
     output_info = widgets.Output()
     dynamic_area = widgets.VBox()
     
     # Retrieves the link to class matching
-    matchings = t.link_class_matching()
-
+    #matchings = t.link_class_matching()
+    matchings = t.link_class_matching_SOMA()
+    
     if matchings is None:
         print("No link-class matchings found!")
     else:
@@ -94,7 +96,8 @@ def start_UI(t, janus):
                 with output_info:
                     clear_output()
                     print(f"Highlighting: {indiv_name}")
-                    janus.query_once("highlight_object(T, Obj, Highlight)", {'T': t, 'Obj': indiv_name})
+                    res = janus.query_once("highlight_object(T, Obj, Highlight)", {'T': t, 'Obj': indiv_name})
+                    print(res)
             btn.on_click(on_click)
             
             # Checks, if recursive search is needed for parts
@@ -159,7 +162,8 @@ def start_UI(t, janus):
                 def on_all_click(b):
                     with output_info:
                         clear_output()
-                        janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class.lower()})
+                        res = janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class.lower()})
+                        print(res)
                 all_btn.on_click(on_all_click)
 
                 # Creates an accordion for all button and parts
@@ -217,7 +221,7 @@ def start_UI(t, janus):
                         print(f"current_child_name: {current_child_name}")
                     else:
                         print(f"joint: {joint.name} has no child link!")
-                        print(f"Using joint name as fallback.")
+                        #continue
                         current_child_name = joint
                       
                     btn = widgets.Button(description=f"{joint.name}", layout=widgets.Layout(width='auto'))
@@ -225,7 +229,8 @@ def start_UI(t, janus):
                     def on_joint_click(b, link=current_child_name):
                         with output_info:
                             clear_output()
-                            janus.query_once("trajectory(T, Childlink, Trajectory)", {'T': t, 'Childlink': link.name}) 
+                            res = janus.query_once("trajectory(T, Childlink, Trajectory)", {'T': t, 'Childlink': link.name}) 
+                            print(res)
                     
                     btn.on_click(on_joint_click)
                     buttons.append(btn)

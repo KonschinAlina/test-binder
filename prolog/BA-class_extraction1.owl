@@ -566,10 +566,10 @@
 
 <owl:NamedIndividual rdf:about="#countertop">
   <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Countertop"/>
-  <hasPart rdf:resource="#coffe_machine"/>
+  <hasPart rdf:resource="#coffee_machine"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#coffe_machine">
+<owl:NamedIndividual rdf:about="#coffee_machine">
   <rdf:type rdf:resource="http://www.semanticweb.org/alina6/ontologies/2025/9/BA_ontology#Coffeemachine"/>
 </owl:NamedIndividual>
 
@@ -1229,10 +1229,10 @@
   <hasChildLink rdf:resource="#countertop"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#coffe_machine_joint">
+<owl:NamedIndividual rdf:about="#coffee_machine_joint">
   <rdf:type rdf:resource="#Fixed_Joint"/>
   <hasParentLink rdf:resource="#countertop"/>
-  <hasChildLink rdf:resource="#coffe_machine"/>
+  <hasChildLink rdf:resource="#coffee_machine"/>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="#island_waterfall_left_joint">

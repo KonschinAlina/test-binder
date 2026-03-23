@@ -46,7 +46,7 @@ class VizMarkerArrayPublisher:
 
         # Checks for visual tags of a link
         if not target_link_obj or not target_link_obj.visual:
-            rospy.logwarn(f"No visual link found for {obj_name}.")
+            rospy.logwarn(f"No visual link found for {obj_name}. Cannot highlight without visual link.")
             return marker_array
 
         # Retrieves the visual link(s)
