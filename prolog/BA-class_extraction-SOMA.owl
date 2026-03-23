@@ -1,0 +1,1347 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://test.org/BA-class_extraction-SOMA.owl"
+         xmlns="http://test.org/BA-class_extraction-SOMA.owl#">
+
+<owl:Ontology rdf:about="http://test.org/BA-class_extraction-SOMA.owl"/>
+
+<owl:ObjectProperty rdf:about="#hasParentLink">
+  <rdfs:domain rdf:resource="#Joint"/>
+  <rdfs:range rdf:resource="#Link"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasChildLink">
+  <rdfs:domain rdf:resource="#Joint"/>
+  <rdfs:range rdf:resource="#Link"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPart">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <owl:inverseOf rdf:resource="#isPartOf"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isPartOf">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <owl:inverseOf rdf:resource="#hasPart"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Joint">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Link">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Wall">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Wardrobe">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Door">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Handle">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Armchair">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Sofa">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Table">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Drawer">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Kitchen">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Cabinet">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Oven">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Countertop">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Cooktop">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Hotplate">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Sink">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Tap">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Fixed_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Revolute_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Prismatic_Joint">
+  <rdfs:subClassOf rdf:resource="#Joint"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#walls">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wall"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall1">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wall"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall2">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wall"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall3">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wall"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall4">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wall"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Wardrobe"/>
+  <hasPart rdf:resource="#wardrobe_door_left"/>
+  <hasPart rdf:resource="#wardrobe_door_right"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#wardrobe_door_left_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#wardrobe_door_right_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#armchair">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Armchair"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sofa">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Sofa"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Table"/>
+  <hasPart rdf:resource="#coffee_table_drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table_drawer">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#bedside_table">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_root">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Kitchen"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet1_door_top_left"/>
+  <hasPart rdf:resource="#oven"/>
+  <hasPart rdf:resource="#cabinet1_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet1_drawer_bottom"/>
+  <hasPart rdf:resource="#cabinet1_coloksu_level4"/>
+  <hasPart rdf:resource="#cabinet1_coloksu_level5"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_door_top_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab1_top_door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_top_door">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Oven"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab1_drawer_mid"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_mid">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab1_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level4">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level5">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet2_door_out_fancy"/>
+  <hasPart rdf:resource="#cabinet2_drawer_small"/>
+  <hasPart rdf:resource="#cabinet2_drawer_big"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_out_fancy">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet2_door_left"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab2_door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab2_door">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_small">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_big">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet3_door_top_out_fancy"/>
+  <hasPart rdf:resource="#cabinet3_door_bottom_out_fancy"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_out_fancy">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet3_door_top_left"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab3_door_top"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_out_fancy">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet3_door_bottom_left"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab3_door_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet4_door_top"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet4_door_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab4_door_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab4_door_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet5_drawer_top"/>
+  <hasPart rdf:resource="#cabinet5_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet5_drawer_bottom"/>
+  <hasPart rdf:resource="#countertop"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab5_t"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_t">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab5_m"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_m">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab5_b"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_b">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet6_drawer_top"/>
+  <hasPart rdf:resource="#cabinet6_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet6_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab6_t"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_t">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab6_m"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_m">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab6_b"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_b">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet12_door_top_out_fancy"/>
+  <hasPart rdf:resource="#cabinet12_door_bottom_out_fancy"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_out_fancy">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet12_door_top_left"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_out_fancy">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#cabinet12_door_bottom_left"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet7_door_bottom_left"/>
+  <hasPart rdf:resource="#dishwasher_drawer_middle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7_door_bottom_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Door"/>
+  <hasPart rdf:resource="#handle_cab7"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#dishwasher_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab7_middle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet8_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet8_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab8"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab8">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet9_drawer_top"/>
+  <hasPart rdf:resource="#cabinet9_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet9_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab9_t"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_t">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab9_m"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_m">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab9_b"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_b">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet10_drawer_top"/>
+  <hasPart rdf:resource="#cabinet10_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet10_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab10_t"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_t">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab10_m"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_m">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab10_b"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_b">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cabinet"/>
+  <hasPart rdf:resource="#cabinet11_drawer_top"/>
+  <hasPart rdf:resource="#cabinet11_drawer_middle"/>
+  <hasPart rdf:resource="#cabinet11_drawer_bottom"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_top">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab11_t"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_t">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_middle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab11_m"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_m">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_bottom">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Drawer"/>
+  <hasPart rdf:resource="#handle_cab11_b"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_b">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_countertop">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Countertop"/>
+  <hasPart rdf:resource="#cooktop"/>
+  <hasPart rdf:resource="#sink"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cooktop">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Cooktop"/>
+  <hasPart rdf:resource="#hotplate1"/>
+  <hasPart rdf:resource="#hotplate2"/>
+  <hasPart rdf:resource="#hotplate3"/>
+  <hasPart rdf:resource="#hotplate4"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate1">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Hotplate"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate2">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Hotplate"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate3">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Hotplate"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate4">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Hotplate"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Sink"/>
+  <hasPart rdf:resource="#tap_body"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_body">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Tap"/>
+  <hasPart rdf:resource="#tap_handle_open"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle_open">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+  <hasPart rdf:resource="#tap_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#countertop">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Countertop"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_right">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_back">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#furnitures_base">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#walls_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#windows_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall1_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall2_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall3_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wall_coloksu_wall4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left_joint">
+  <hasParentLink rdf:resource="#wardrobe"/>
+  <hasChildLink rdf:resource="#wardrobe_door_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_left_handle_joint">
+  <hasParentLink rdf:resource="#wardrobe_door_left"/>
+  <hasChildLink rdf:resource="#wardrobe_door_left_handle"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right_joint">
+  <hasParentLink rdf:resource="#wardrobe"/>
+  <hasChildLink rdf:resource="#wardrobe_door_right"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#wardrobe_door_right_handle_joint">
+  <hasParentLink rdf:resource="#wardrobe_door_right"/>
+  <hasChildLink rdf:resource="#wardrobe_door_right_handle"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#armchair_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sofa_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_table_drawer_joint">
+  <hasParentLink rdf:resource="#coffee_table"/>
+  <hasChildLink rdf:resource="#coffee_table_drawer"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#bedside_table_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#kitchen_base">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#frame_a_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#frame_b_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_door_top_left_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#cabinet1_door_top_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_top_door_joint">
+  <hasParentLink rdf:resource="#cabinet1_door_top_left"/>
+  <hasChildLink rdf:resource="#handle_cab1_top_door"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#oven_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#oven"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#cabinet1_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_mid_joint">
+  <hasParentLink rdf:resource="#cabinet1_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab1_drawer_mid"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#cabinet1_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab1_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet1_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab1_drawer_bottom"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level4_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#cabinet1_coloksu_level4"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level5_joint">
+  <hasParentLink rdf:resource="#cabinet1"/>
+  <hasChildLink rdf:resource="#cabinet1_coloksu_level5"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_out_joint">
+  <hasParentLink rdf:resource="#cabinet2"/>
+  <hasChildLink rdf:resource="#cabinet2_door_out_fancy"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_door_left_joint">
+  <hasParentLink rdf:resource="#cabinet2_door_out_fancy"/>
+  <hasChildLink rdf:resource="#cabinet2_door_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab2_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet2_door_left"/>
+  <hasChildLink rdf:resource="#handle_cab2_door"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_small_joint">
+  <hasParentLink rdf:resource="#cabinet2"/>
+  <hasChildLink rdf:resource="#cabinet2_drawer_small"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet2_drawer_big_joint">
+  <hasParentLink rdf:resource="#cabinet2"/>
+  <hasChildLink rdf:resource="#cabinet2_drawer_big"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_out_joint">
+  <hasParentLink rdf:resource="#cabinet3"/>
+  <hasChildLink rdf:resource="#cabinet3_door_top_out_fancy"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_top_left_joint">
+  <hasParentLink rdf:resource="#cabinet3_door_top_out_fancy"/>
+  <hasChildLink rdf:resource="#cabinet3_door_top_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_top_joint">
+  <hasParentLink rdf:resource="#cabinet3_door_top_left"/>
+  <hasChildLink rdf:resource="#handle_cab3_door_top"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_out_joint">
+  <hasParentLink rdf:resource="#cabinet3"/>
+  <hasChildLink rdf:resource="#cabinet3_door_bottom_out_fancy"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_left_joint">
+  <hasParentLink rdf:resource="#cabinet3_door_bottom_out_fancy"/>
+  <hasChildLink rdf:resource="#cabinet3_door_bottom_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab3_door_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet3_door_bottom_left"/>
+  <hasChildLink rdf:resource="#handle_cab3_door_bottom"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_top_top_joint">
+  <hasParentLink rdf:resource="#cabinet4"/>
+  <hasChildLink rdf:resource="#cabinet4_door_top"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet4_door_bottom_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet4_door_top"/>
+  <hasChildLink rdf:resource="#cabinet4_door_bottom"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab4_door_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet4_door_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab4_door_bottom"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_top_joint">
+  <hasParentLink rdf:resource="#cabinet5"/>
+  <hasChildLink rdf:resource="#cabinet5_drawer_top"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_top_joint">
+  <hasParentLink rdf:resource="#cabinet5_drawer_top"/>
+  <hasChildLink rdf:resource="#handle_cab5_t"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet5"/>
+  <hasChildLink rdf:resource="#cabinet5_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_mid_joint">
+  <hasParentLink rdf:resource="#cabinet5_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab5_m"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet5_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet5"/>
+  <hasChildLink rdf:resource="#cabinet5_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab5_bott_joint">
+  <hasParentLink rdf:resource="#cabinet5_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab5_b"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_top_joint">
+  <hasParentLink rdf:resource="#cabinet6"/>
+  <hasChildLink rdf:resource="#cabinet6_drawer_top"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_top_joint">
+  <hasParentLink rdf:resource="#cabinet6_drawer_top"/>
+  <hasChildLink rdf:resource="#handle_cab6_t"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet6"/>
+  <hasChildLink rdf:resource="#cabinet6_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_mid_joint">
+  <hasParentLink rdf:resource="#cabinet6_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab6_m"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet6_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet6"/>
+  <hasChildLink rdf:resource="#cabinet6_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab6_bott_joint">
+  <hasParentLink rdf:resource="#cabinet6_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab6_b"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_out_joint">
+  <hasParentLink rdf:resource="#cabinet12"/>
+  <hasChildLink rdf:resource="#cabinet12_door_top_out_fancy"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_top_left_joint">
+  <hasParentLink rdf:resource="#cabinet12_door_top_out_fancy"/>
+  <hasChildLink rdf:resource="#cabinet12_door_top_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_out_joint">
+  <hasParentLink rdf:resource="#cabinet12"/>
+  <hasChildLink rdf:resource="#cabinet12_door_bottom_out_fancy"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_left_joint">
+  <hasParentLink rdf:resource="#cabinet12_door_bottom_out_fancy"/>
+  <hasChildLink rdf:resource="#cabinet12_door_bottom_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet7_door_bottom_left_joint">
+  <hasParentLink rdf:resource="#cabinet7"/>
+  <hasChildLink rdf:resource="#cabinet7_door_bottom_left"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7_top_joint">
+  <hasParentLink rdf:resource="#cabinet7_door_bottom_left"/>
+  <hasChildLink rdf:resource="#handle_cab7"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#dishwasher_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet7"/>
+  <hasChildLink rdf:resource="#dishwasher_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab7_drawer_middle_joint">
+  <hasParentLink rdf:resource="#dishwasher_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab7_middle"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet8"/>
+  <hasChildLink rdf:resource="#cabinet8_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet8_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet8"/>
+  <hasChildLink rdf:resource="#cabinet8_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab8_top_joint">
+  <hasParentLink rdf:resource="#cabinet8_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab8"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_top_joint">
+  <hasParentLink rdf:resource="#cabinet9"/>
+  <hasChildLink rdf:resource="#cabinet9_drawer_top"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_top_joint">
+  <hasParentLink rdf:resource="#cabinet9_drawer_top"/>
+  <hasChildLink rdf:resource="#handle_cab9_t"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet9"/>
+  <hasChildLink rdf:resource="#cabinet9_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_mid_joint">
+  <hasParentLink rdf:resource="#cabinet9_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab9_m"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet9_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet9"/>
+  <hasChildLink rdf:resource="#cabinet9_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab9_bott_joint">
+  <hasParentLink rdf:resource="#cabinet9_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab9_b"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_top_joint">
+  <hasParentLink rdf:resource="#cabinet10"/>
+  <hasChildLink rdf:resource="#cabinet10_drawer_top"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_top_joint">
+  <hasParentLink rdf:resource="#cabinet10_drawer_top"/>
+  <hasChildLink rdf:resource="#handle_cab10_t"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet10"/>
+  <hasChildLink rdf:resource="#cabinet10_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_mid_joint">
+  <hasParentLink rdf:resource="#cabinet10_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab10_m"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet10_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet10"/>
+  <hasChildLink rdf:resource="#cabinet10_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab10_bott_joint">
+  <hasParentLink rdf:resource="#cabinet10_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab10_b"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_top_joint">
+  <hasParentLink rdf:resource="#cabinet11"/>
+  <hasChildLink rdf:resource="#cabinet11_drawer_top"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_top_joint">
+  <hasParentLink rdf:resource="#cabinet11_drawer_top"/>
+  <hasChildLink rdf:resource="#handle_cab11_t"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_middle_joint">
+  <hasParentLink rdf:resource="#cabinet11"/>
+  <hasChildLink rdf:resource="#cabinet11_drawer_middle"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_mid_joint">
+  <hasParentLink rdf:resource="#cabinet11_drawer_middle"/>
+  <hasChildLink rdf:resource="#handle_cab11_m"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cabinet11_drawer_bottom_joint">
+  <hasParentLink rdf:resource="#cabinet11"/>
+  <hasChildLink rdf:resource="#cabinet11_drawer_bottom"/>
+  <rdf:type rdf:resource="#Prismatic_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#handle_cab11_bott_joint">
+  <hasParentLink rdf:resource="#cabinet11_drawer_bottom"/>
+  <hasChildLink rdf:resource="#handle_cab11_b"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_countertop_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#cooktop_joint">
+  <hasParentLink rdf:resource="#island_countertop"/>
+  <hasChildLink rdf:resource="#cooktop"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate1_joint">
+  <hasParentLink rdf:resource="#cooktop"/>
+  <hasChildLink rdf:resource="#hotplate1"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate2_joint">
+  <hasParentLink rdf:resource="#cooktop"/>
+  <hasChildLink rdf:resource="#hotplate2"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate3_joint">
+  <hasParentLink rdf:resource="#cooktop"/>
+  <hasChildLink rdf:resource="#hotplate3"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hotplate4_joint">
+  <hasParentLink rdf:resource="#cooktop"/>
+  <hasChildLink rdf:resource="#hotplate4"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sink_joint">
+  <hasParentLink rdf:resource="#island_countertop"/>
+  <hasChildLink rdf:resource="#sink"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_joint">
+  <hasParentLink rdf:resource="#sink"/>
+  <hasChildLink rdf:resource="#tap_body"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle_open_joint">
+  <hasParentLink rdf:resource="#tap_body"/>
+  <hasChildLink rdf:resource="#tap_handle_open"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tap_handle_hot_cold_joint">
+  <hasParentLink rdf:resource="#tap_handle_open"/>
+  <hasChildLink rdf:resource="#tap_handle"/>
+  <rdf:type rdf:resource="#Revolute_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#socket_a_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#socket_b_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#countertop_joint">
+  <hasParentLink rdf:resource="#cabinet5"/>
+  <hasChildLink rdf:resource="#countertop"/>
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coffee_machine_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_left_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_waterfall_right_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#island_back_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_left_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_right_top_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#side_a_right_bott_joint">
+  <rdf:type rdf:resource="#Fixed_Joint"/>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
