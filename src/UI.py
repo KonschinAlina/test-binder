@@ -64,10 +64,15 @@ def start_UI(t, janus):
         data = []
         # Saves the matching as list
         for item in matchings:
-            data.append({"link": item["link"], "class": item["class"].capitalize()})
+            data.append({"link": item["link"], "class": item["class"]})
     
         # Retrieves all occuring classes in the URDF file, no duplicates using set 
-        available_classes = sorted(list(set(entry["class"] for entry in data)))
+        class_dict = {
+            entry["class"].split('#')[-1]: entry["class"] for entry in data}
+        
+        available_classes = sorted(class_dict.items())
+        #print(f"available_classes: {available_classes}")
+        #available_classes = sorted(list(set(entry["class"] for entry in data)))
         
         # Widget functions for hierarchie (hasPart)
         def part_widget(indiv_name, recursive=False, is_kinematic=False):
@@ -103,7 +108,7 @@ def start_UI(t, janus):
             # Checks, if recursive search is needed for parts
             if recursive:
                 if parts:
-                    child_widgets = [part_widget(p, recursive=True) for p in parts]
+                    child_widgets = [part_widget(p, recursive=True, is_kinematic=is_kinematic) for p in parts]
                 else:
                     child_widgets = [widgets.HTML(f"<i style='color:gray; padding-left:20px;'>No further parts for {indiv_name}</i>")]
                 
@@ -126,10 +131,10 @@ def start_UI(t, janus):
             tree_box = widgets.VBox()
         
             def on_root_change(change):
-                selected_class = change['new']
+                selected_class_iri = change['new']
                 
                 # Retrieves all individuals of the selected class
-                indivs = [d["link"] for d in data if d["class"] == selected_class]
+                indivs = [d["link"] for d in data if d["class"] == selected_class_iri]
                 
                 # Builds an accordions for the individuals using part_widget
                 tree_box.children = [part_widget(ind, recursive=True, is_kinematic=True) for ind in indivs]
@@ -152,18 +157,21 @@ def start_UI(t, janus):
             dropdown = widgets.Dropdown(options=available_classes, description='Class:')
 
             def on_class_change(change):
-                selected_class = change['new']
+                selected_class_iri = change['new']
+                #print(f"selected_class_iri:{selected_class_iri}")
+                short_name = selected_class_iri.split('#')[-1].lower()
+                #print(f"short_name:{short_name}")
                 # Retrieves all individuals of the selected class
-                indivs = [d["link"] for d in data if d["class"] == selected_class]
+                indivs = [d["link"] for d in data if d["class"] == selected_class_iri]
                 
                 # Creates an 'All' button which calls highlight_object_list
-                all_btn = widgets.Button(description=f"All {selected_class}s", button_style='success')
+                all_btn = widgets.Button(description=f"All {short_name}s", button_style='success')
                 
                 def on_all_click(b):
                     with output_info:
                         clear_output()
-                        res = janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class.lower()})
-                        print(res)
+                        res = janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class_iri})
+                        #print(res)
                 all_btn.on_click(on_all_click)
 
                 # Creates an accordion for all button and parts
@@ -180,12 +188,13 @@ def start_UI(t, janus):
  
             # Retrieves all joint types and their names from the ontology
             # no class duplicates using set
-            joint_class = onto.Joint
+            namespace_joint = onto.get_namespace("http://www.ease-crc.org/ont/SOMA.owl#")
+            joint_class = namespace_joint.Joint
             joint_subclasses = list(set(joint_class.subclasses()))
             subclasses_names = [j.name for j in joint_subclasses]
 
             # Retrieve the fixed joint class
-            fixed_joint_class = onto.Fixed_Joint
+            fixed_joint_class = namespace_joint.FixedJoint
 
             # Retrieves all joint individuals and their names
             all_joint_indivs = joint_class.instances()
@@ -200,7 +209,7 @@ def start_UI(t, janus):
         
             def on_type_change(change):
                 selected_type = change['new']
-                target_type = onto[selected_type]
+                target_type = namespace_joint[selected_type]
 
                 # Checks if the target type can be determined (exists in ontology)
                 if target_type is None:
