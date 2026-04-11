@@ -101,7 +101,7 @@ class FuncLib:
 
         # Retrieves the matching of links to classes(from SOMA-HOME)
         matching = self.link_class_matching()
-
+        print(matching)
 
         if matching is None:
             return f"No matchings found, parsing stopped!"
@@ -255,7 +255,7 @@ class FuncLib:
 
         # Retrieves the matching of links to classes(from SOMA-HOME)
         matching = self.link_class_matching_SOMA()
-
+        print(matching)
         if matching is None:
             return f"No matchings found, parsing stopped!"
         else:
@@ -323,24 +323,53 @@ class FuncLib:
       
 ###############
 ### JOINTS ###
+        # Defines the namespaces for the object properties
+        namespace_soma = new_onto.get_namespace("http://www.ease-crc.org/ont/SOMA.owl#")
+        namespace_dul = new_onto.get_namespace("http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#")
+        
         # Defines the object properties
         with new_onto:
-            if new_onto["hasParentLink"] is None:
-                class hasParentLink(ObjectProperty):
-                    domain = [Joint]
-                    range  = [Link]
+            with namespace_dul:
+                if namespace_dul.hasPart is None:
+                    class hasPart(ObjectProperty,TransitiveProperty): pass
+                else:
+                    hasPart = namespace_dul.hasPart
+
+                if namespace_dul.isPartOf is None:
+                    class isPartOf(ObjectProperty,TransitiveProperty): pass
+                else:
+                    isPartOf = namespace_dul.isPartOf
+
+                # Defines this property as inverse property
+                hasPart.inverse_property = isPartOf
+
+            with namespace_soma:
+                if namespace_soma.hasParentLink is None:
+                    class hasParentLink(ObjectProperty): pass
+                else:
+                    hasParentLink = namespace_soma.hasParentLink
+
+                if namespace_soma.hasChildLink is None:
+                    class hasChildLink(ObjectProperty): pass
+                else: 
+                    hasChildLink = namespace_soma.hasChildLink
             
-            if new_onto["hasChildLink"] is None:
-                class hasChildLink(ObjectProperty):
-                    domain = [Joint]
-                    range  = [Link]
+            # if new_onto["hasParentLink"] is None:
+            #     class hasParentLink(ObjectProperty):
+            #         domain = [Joint]
+            #         range  = [Link]
+            
+            # if new_onto["hasChildLink"] is None:
+            #     class hasChildLink(ObjectProperty):
+            #         domain = [Joint]
+            #         range  = [Link]
 
-            if new_onto["hasPart"] is None:
-                class hasPart(ObjectProperty, TransitiveProperty): pass
+            # if new_onto["hasPart"] is None:
+            #     class hasPart(ObjectProperty, TransitiveProperty): pass
 
-            if new_onto["isPartOf"] is None:
-                class isPartOf(ObjectProperty, TransitiveProperty):
-                    inverse_property = new_onto["hasPart"]
+            # if new_onto["isPartOf"] is None:
+            #     class isPartOf(ObjectProperty, TransitiveProperty):
+            #         inverse_property = new_onto["hasPart"]
                     
     
         # Retrieves all joints and information about them from the urdf
@@ -384,8 +413,8 @@ class FuncLib:
                 if parent_link in check_links and child_link in check_links:
                 
                     if parent_indiv and child_indiv:
-                        new_onto.hasParentLink[joint_indiv] = [parent_indiv]
-                        new_onto.hasChildLink[joint_indiv] = [child_indiv]
+                        joint_indiv.hasParentLink = [parent_indiv]
+                        joint_indiv.hasChildLink = [child_indiv]
 
                         if hasattr(parent_indiv, "hasPart"):
                             if child_indiv not in parent_indiv.hasPart:
@@ -507,7 +536,7 @@ class FuncLib:
         
         # Retrieves the link to individual matching
         matching = self.link_indiv_matching()
-        print(matching)
+        #print(matching)
         
         # Loads the ontology for class extraction
         onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
