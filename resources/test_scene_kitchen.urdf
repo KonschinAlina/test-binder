@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<robot name="bedroom_test">
+  <link name="apartment_root"/>
+
+  <joint name="furnitures_base" type="fixed">
+    <origin xyz="0 0 0"/>
+    <parent link="apartment_root"/>
+    <child link="furnitures_root"/>
+  </joint>
+
+  <link name="furnitures_root"/>
+
+  <joint name="wardrobe_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.5 0.5 0.0"/>
+    <parent link="furnitures_root"/>
+    <child link="wardrobe_unit"/>
+  </joint>
+  <link name="wardrobe_unit">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 1.0"/>
+      <geometry><box size="1.0 0.6 2.0"/></geometry>
+    </collision>
+  </link>
+</robot>

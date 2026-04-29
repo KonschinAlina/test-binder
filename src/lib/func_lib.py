@@ -345,12 +345,16 @@ class FuncLib:
 
             with namespace_soma:
                 if namespace_soma.hasParentLink is None:
-                    class hasParentLink(ObjectProperty): pass
+                    class hasParentLink(ObjectProperty):
+                        domain = [Joint]
+                        range  = [Link]
                 else:
                     hasParentLink = namespace_soma.hasParentLink
 
                 if namespace_soma.hasChildLink is None:
-                    class hasChildLink(ObjectProperty): pass
+                    class hasChildLink(ObjectProperty):
+                        domain = [Joint]
+                        range  = [Link]
                 else: 
                     hasChildLink = namespace_soma.hasChildLink
             
@@ -1279,7 +1283,8 @@ class FuncLib:
         synonyms = {
             "handle": "designedhandle",
             "cabinet": "kitchencabinet",
-            "knob": "designedhandle"
+            "knob": "designedhandle",
+            "chair": "designedchair"
         }
         
         for link in urdf_links:
@@ -1305,13 +1310,13 @@ class FuncLib:
                 for token in remove_suffix:
                     if clean_link.endswith(token):
                         clean_link = clean_link.replace(token, "")
-
+        
                 words = clean_link.split('_')
+                #print(words)
 
                 for cut in reversed(words):
                     # if e.g. cabinet10
                     cut_clean = ''.join([i for i in cut if not i.isdigit()])
-
                     if cut in ['left', 'right', 'root', 'side', 'a', 'b']:
                         continue
                          
@@ -1321,6 +1326,9 @@ class FuncLib:
                     if singular_word in lower_class_names:
                         matched_class = singular_word
                         break
+
+                    elif singular_word in synonyms:
+                        matched_class = synonyms[singular_word]
                         
                     elif singular_word == "washer":
                         matched_class = "dishwasher"
@@ -1329,14 +1337,15 @@ class FuncLib:
                     elif singular_word in ["island", "counter"]:
                         matched_class = "table"
                         break
-
+                        
                     elif compact_name in lower_class_names:
                         matched_class = compact_name
                         break
-
+           
             matched_iri = None
             # Changes the class name to the assigned key e.g. handle to designedhandle
             if matched_class:
+                print(matched_class)
                 matched_class = synonyms.get(matched_class, matched_class)
                 
             if matched_class in class_iri_mapping:

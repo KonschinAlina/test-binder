@@ -1,0 +1,755 @@
+<?xml version="1.0" ?>
+<!-- Test scene: Office room -->
+<!-- Uses real meshes from iai_apartment + primitive-only (mesh-less) objects -->
+<!-- Purpose: Testing URDF parser and link-name-to-class matching -->
+<robot name="office">
+
+  <link name="apartment_root">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </link>
+
+  <joint name="office_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="apartment_root"/>
+    <child link="office_furniture_root"/>
+  </joint>
+  <link name="office_furniture_root"/>
+
+  <!-- ============================================================ -->
+  <!-- WALLS (mesh from iai_apartment)                              -->
+  <!-- ============================================================ -->
+  <joint name="walls_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.2"/>
+    <parent link="office_furniture_root"/>
+    <child link="walls"/>
+  </joint>
+  <link name="walls">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/walls.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- WARDROBE / coat rack area (reusing wardrobe mesh)            -->
+  <!-- ============================================================ -->
+  <joint name="wardrobe_joint" type="fixed">
+    <origin rpy="0 0 1.5708" xyz="3.5 0.3 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="wardrobe"/>
+  </joint>
+  <link name="wardrobe">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.975"/>
+      <geometry>
+        <box size="0.487 1.0 1.95"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wardrobe_door_left_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.3246 0.5 0.0"/>
+    <parent link="wardrobe"/>
+    <child link="wardrobe_door_left"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="1.5708" velocity="1.5708"/>
+  </joint>
+  <link name="wardrobe_door_left">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_left.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.006435 -0.2485 0.975"/>
+      <geometry>
+        <box size="0.012967 0.495438 1.64844"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wardrobe_door_left_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.032089 -0.460513 0.973703"/>
+    <parent link="wardrobe_door_left"/>
+    <child link="wardrobe_door_left_handle"/>
+  </joint>
+  <link name="wardrobe_door_left_handle">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_handle.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="wardrobe_door_right_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.3246 -0.5 0.0"/>
+    <parent link="wardrobe"/>
+    <child link="wardrobe_door_right"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0.0" upper="1.5708" velocity="1.5708"/>
+  </joint>
+  <link name="wardrobe_door_right">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_right.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.006435 0.2485 0.975"/>
+      <geometry>
+        <box size="0.012967 0.495438 1.64844"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wardrobe_door_right_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.032089 0.460513 0.973703"/>
+    <parent link="wardrobe_door_right"/>
+    <child link="wardrobe_door_right_handle"/>
+  </joint>
+  <link name="wardrobe_door_right_handle">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_handle.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- DESK (mesh-less, primitives only)                            -->
+  <!-- ============================================================ -->
+  <joint name="desk_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.0 2.5 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="desk"/>
+  </joint>
+  <link name="desk">
+    <visual>
+      <!-- Tabletop -->
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.74"/>
+      <geometry>
+        <box size="1.4 0.7 0.03"/>
+      </geometry>
+      <material name="wood_brown">
+        <color rgba="0.55 0.35 0.15 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.74"/>
+      <geometry>
+        <box size="1.4 0.7 0.03"/>
+      </geometry>
+    </collision>
+    <!-- Front-left leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.65 -0.31 0.37"/>
+      <geometry>
+        <box size="0.05 0.05 0.74"/>
+      </geometry>
+    </collision>
+    <!-- Front-right leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.65 -0.31 0.37"/>
+      <geometry>
+        <box size="0.05 0.05 0.74"/>
+      </geometry>
+    </collision>
+    <!-- Back-left leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.65 0.31 0.37"/>
+      <geometry>
+        <box size="0.05 0.05 0.74"/>
+      </geometry>
+    </collision>
+    <!-- Back-right leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.65 0.31 0.37"/>
+      <geometry>
+        <box size="0.05 0.05 0.74"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Desk drawer (prismatic, mesh-less) -->
+  <joint name="desk_drawer_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.4 -0.35 0.62"/>
+    <parent link="desk"/>
+    <child link="desk_drawer"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="500.0" lower="0.0" upper="0.4" velocity="0.5"/>
+  </joint>
+  <link name="desk_drawer">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 -0.2 0.0"/>
+      <geometry>
+        <box size="0.38 0.4 0.1"/>
+      </geometry>
+      <material name="wood_brown"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.2 0.0"/>
+      <geometry>
+        <box size="0.38 0.4 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Desk drawer handle (mesh-less) -->
+  <joint name="desk_drawer_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.41 0.0"/>
+    <parent link="desk_drawer"/>
+    <child link="desk_drawer_handle"/>
+  </joint>
+  <link name="desk_drawer_handle">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.008"/>
+      </geometry>
+      <material name="metal_silver">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.008"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- OFFICE CHAIR (mesh-less)                                     -->
+  <!-- ============================================================ -->
+  <joint name="office_chair_joint" type="fixed">
+    <origin rpy="0 0 3.14" xyz="1.0 1.4 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="office_chair"/>
+  </joint>
+  <link name="office_chair">
+    <!-- Seat -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.48"/>
+      <geometry>
+        <box size="0.50 0.50 0.05"/>
+      </geometry>
+      <material name="chair_black">
+        <color rgba="0.1 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.48"/>
+      <geometry>
+        <box size="0.50 0.50 0.05"/>
+      </geometry>
+    </collision>
+    <!-- Backrest -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.24 0.74"/>
+      <geometry>
+        <box size="0.48 0.05 0.55"/>
+      </geometry>
+    </collision>
+    <!-- Central column -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.24"/>
+      <geometry>
+        <cylinder length="0.48" radius="0.04"/>
+      </geometry>
+    </collision>
+    <!-- Wheel base (5-star) approximated as cylinder -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.06"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.28"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- BOOKSHELF (mesh-less, multiple shelves)                      -->
+  <!-- ============================================================ -->
+  <joint name="bookshelf_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="2.8 3.8 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="bookshelf"/>
+  </joint>
+  <link name="bookshelf">
+    <!-- Back panel -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.14 1.0"/>
+      <geometry>
+        <box size="1.0 0.02 2.0"/>
+      </geometry>
+      <material name="wood_brown"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.14 1.0"/>
+      <geometry>
+        <box size="1.0 0.02 2.0"/>
+      </geometry>
+    </collision>
+    <!-- Left side panel -->
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.5 0.0 1.0"/>
+      <geometry>
+        <box size="0.02 0.3 2.0"/>
+      </geometry>
+    </collision>
+    <!-- Right side panel -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.5 0.0 1.0"/>
+      <geometry>
+        <box size="0.02 0.3 2.0"/>
+      </geometry>
+    </collision>
+    <!-- Shelf level 1 -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.35"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+    <!-- Shelf level 2 -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.75"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+    <!-- Shelf level 3 -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.15"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+    <!-- Shelf level 4 -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.55"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+    <!-- Top panel -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.99"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+    <!-- Bottom panel -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.01"/>
+      <geometry>
+        <box size="1.0 0.3 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- MONITOR (mesh-less)                                          -->
+  <!-- ============================================================ -->
+  <joint name="monitor_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.25 0.77"/>
+    <parent link="desk"/>
+    <child link="monitor"/>
+  </joint>
+  <link name="monitor">
+    <!-- Screen panel -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.22"/>
+      <geometry>
+        <box size="0.62 0.04 0.37"/>
+      </geometry>
+      <material name="monitor_dark">
+        <color rgba="0.05 0.05 0.05 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.22"/>
+      <geometry>
+        <box size="0.62 0.04 0.37"/>
+      </geometry>
+    </collision>
+    <!-- Stand neck -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.02 0.1"/>
+      <geometry>
+        <box size="0.05 0.08 0.2"/>
+      </geometry>
+    </collision>
+    <!-- Stand base -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.07 0.02"/>
+      <geometry>
+        <box size="0.28 0.2 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- WHITEBOARD (mesh-less, revolute stand)                       -->
+  <!-- ============================================================ -->
+  <joint name="whiteboard_joint" type="fixed">
+    <origin rpy="0 0 1.5708" xyz="0.05 2.0 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="whiteboard_frame"/>
+  </joint>
+  <link name="whiteboard_frame">
+    <!-- Frame border top -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.5"/>
+      <geometry>
+        <box size="1.5 0.05 0.06"/>
+      </geometry>
+      <material name="frame_grey">
+        <color rgba="0.4 0.4 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.5"/>
+      <geometry>
+        <box size="1.5 0.05 0.06"/>
+      </geometry>
+    </collision>
+    <!-- White surface -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.0"/>
+      <geometry>
+        <box size="1.5 0.02 1.0"/>
+      </geometry>
+    </collision>
+    <!-- Left leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.6 0.0 0.5"/>
+      <geometry>
+        <box size="0.04 0.04 1.0"/>
+      </geometry>
+    </collision>
+    <!-- Right leg -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.6 0.0 0.5"/>
+      <geometry>
+        <box size="0.04 0.04 1.0"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- PRINTER (mesh-less)                                          -->
+  <!-- ============================================================ -->
+  <joint name="printer_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.55 0.1 0.77"/>
+    <parent link="desk"/>
+    <child link="printer"/>
+  </joint>
+  <link name="printer">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.1"/>
+      <geometry>
+        <box size="0.4 0.45 0.2"/>
+      </geometry>
+      <material name="printer_white">
+        <color rgba="0.9 0.9 0.9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.1"/>
+      <geometry>
+        <box size="0.4 0.45 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Printer paper tray (prismatic, mesh-less) -->
+  <joint name="printer_paper_tray_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 -0.225 0.05"/>
+    <parent link="printer"/>
+    <child link="printer_paper_tray"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="200.0" lower="0.0" upper="0.25" velocity="0.3"/>
+  </joint>
+  <link name="printer_paper_tray">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 -0.1 0.0"/>
+      <geometry>
+        <box size="0.35 0.2 0.03"/>
+      </geometry>
+      <material name="printer_white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.1 0.0"/>
+      <geometry>
+        <box size="0.35 0.2 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- FILING CABINET (mesh-less, 3 drawers)                        -->
+  <!-- ============================================================ -->
+  <joint name="filing_cabinet_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="2.5 1.0 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="filing_cabinet"/>
+  </joint>
+  <link name="filing_cabinet">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.33"/>
+      <geometry>
+        <box size="0.46 0.6 0.66"/>
+      </geometry>
+      <material name="cabinet_grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.33"/>
+      <geometry>
+        <box size="0.46 0.6 0.66"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_top_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 -0.3 0.57"/>
+    <parent link="filing_cabinet"/>
+    <child link="filing_cabinet_drawer_top"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="500.0" lower="0.0" upper="0.5" velocity="0.4"/>
+  </joint>
+  <link name="filing_cabinet_drawer_top">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.19"/>
+      </geometry>
+      <material name="cabinet_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.19"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_top_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.51 0.0"/>
+    <parent link="filing_cabinet_drawer_top"/>
+    <child link="filing_cabinet_drawer_top_handle"/>
+  </joint>
+  <link name="filing_cabinet_drawer_top_handle">
+    <visual>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+      <material name="metal_silver"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_middle_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 -0.3 0.33"/>
+    <parent link="filing_cabinet"/>
+    <child link="filing_cabinet_drawer_middle"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="500.0" lower="0.0" upper="0.5" velocity="0.4"/>
+  </joint>
+  <link name="filing_cabinet_drawer_middle">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.19"/>
+      </geometry>
+      <material name="cabinet_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.19"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_middle_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.51 0.0"/>
+    <parent link="filing_cabinet_drawer_middle"/>
+    <child link="filing_cabinet_drawer_middle_handle"/>
+  </joint>
+  <link name="filing_cabinet_drawer_middle_handle">
+    <visual>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+      <material name="metal_silver"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_bottom_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 -0.3 0.09"/>
+    <parent link="filing_cabinet"/>
+    <child link="filing_cabinet_drawer_bottom"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="500.0" lower="0.0" upper="0.5" velocity="0.4"/>
+  </joint>
+  <link name="filing_cabinet_drawer_bottom">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.18"/>
+      </geometry>
+      <material name="cabinet_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 -0.25 0.0"/>
+      <geometry>
+        <box size="0.44 0.5 0.18"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="filing_cabinet_drawer_bottom_handle_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.51 0.0"/>
+    <parent link="filing_cabinet_drawer_bottom"/>
+    <child link="filing_cabinet_drawer_bottom_handle"/>
+  </joint>
+  <link name="filing_cabinet_drawer_bottom_handle">
+    <visual>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+      <material name="metal_silver"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.12" radius="0.007"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- ARMCHAIR (real mesh from iai_apartment)                      -->
+  <!-- ============================================================ -->
+  <joint name="armchair_joint" type="fixed">
+    <origin rpy="0 0 -1.5708" xyz="1.5 3.5 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="armchair"/>
+  </joint>
+  <link name="armchair">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/armchair.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/collision/armchair.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- COFFEE TABLE (real mesh)                                     -->
+  <!-- ============================================================ -->
+  <joint name="coffee_table_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.5 2.8 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="coffee_table"/>
+  </joint>
+  <link name="coffee_table">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/coffee_table.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.02977"/>
+      <geometry>
+        <box size="0.58 1.08 0.05954"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- TRASH CAN (mesh-less, cylinder)                              -->
+  <!-- ============================================================ -->
+  <joint name="trash_can_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.8 1.2 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="trash_can"/>
+  </joint>
+  <link name="trash_can">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.2"/>
+      <geometry>
+        <cylinder length="0.4" radius="0.15"/>
+      </geometry>
+      <material name="trash_dark">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.2"/>
+      <geometry>
+        <cylinder length="0.4" radius="0.15"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- FLOOR LAMP (mesh-less, tall)                                 -->
+  <!-- ============================================================ -->
+  <joint name="floor_lamp_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="3.0 0.5 0.0"/>
+    <parent link="office_furniture_root"/>
+    <child link="floor_lamp"/>
+  </joint>
+  <link name="floor_lamp">
+    <!-- Base -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.18"/>
+      </geometry>
+      <material name="lamp_metal">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.18"/>
+      </geometry>
+    </collision>
+    <!-- Pole -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.85"/>
+      <geometry>
+        <cylinder length="1.7" radius="0.02"/>
+      </geometry>
+    </collision>
+    <!-- Shade -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 1.72"/>
+      <geometry>
+        <cylinder length="0.25" radius="0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+</robot>

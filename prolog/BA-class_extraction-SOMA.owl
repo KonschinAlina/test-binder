@@ -20,9 +20,15 @@
   <owl:inverseOf rdf:resource="http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasPart"/>
 </owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="http://www.ease-crc.org/ont/SOMA.owl#hasParentLink"/>
+<owl:ObjectProperty rdf:about="http://www.ease-crc.org/ont/SOMA.owl#hasParentLink">
+  <rdfs:domain rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
+  <rdfs:range rdf:resource="#Link"/>
+</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="http://www.ease-crc.org/ont/SOMA.owl#hasChildLink"/>
+<owl:ObjectProperty rdf:about="http://www.ease-crc.org/ont/SOMA.owl#hasChildLink">
+  <rdfs:domain rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
+  <rdfs:range rdf:resource="#Link"/>
+</owl:ObjectProperty>
 
 <owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Joint">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
@@ -32,27 +38,15 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Wall">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Wardrobe">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Door">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Armchair">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Room">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
 <owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Sofa">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Armchair">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
@@ -64,35 +58,27 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Kitchen">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Door">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Oven">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Wardrobe">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Countertop">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#DesignedChair">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Cooktop">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Pot">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Hotplate">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Sink">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-</owl:Class>
-
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Tap">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#Floor">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
@@ -100,37 +86,88 @@
   <rdfs:subClassOf rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
 </owl:Class>
 
-<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint">
-  <rdfs:subClassOf rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
-</owl:Class>
-
 <owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint">
   <rdfs:subClassOf rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
 </owl:Class>
 
-<owl:NamedIndividual rdf:about="#walls">
+<owl:Class rdf:about="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint">
+  <rdfs:subClassOf rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Joint"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#living_room_furniture_root">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Wall"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Room"/>
+  <DUL.:hasPart rdf:resource="#sofa"/>
+  <DUL.:hasPart rdf:resource="#armchair"/>
+  <DUL.:hasPart rdf:resource="#coffee_table"/>
+  <DUL.:hasPart rdf:resource="#end_table"/>
+  <DUL.:hasPart rdf:resource="#wardrobe"/>
+  <DUL.:hasPart rdf:resource="#dining_table"/>
+  <DUL.:hasPart rdf:resource="#dining_chair_1"/>
+  <DUL.:hasPart rdf:resource="#dining_chair_2"/>
+  <DUL.:hasPart rdf:resource="#dining_chair_3"/>
+  <DUL.:hasPart rdf:resource="#dining_chair_4"/>
+  <DUL.:hasPart rdf:resource="#plant_pot"/>
+  <DUL.:hasPart rdf:resource="#floor_lamp"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall1">
+<owl:NamedIndividual rdf:about="#sofa">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Wall"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Sofa"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall2">
+<owl:NamedIndividual rdf:about="#armchair">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Wall"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Armchair"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall3">
+<owl:NamedIndividual rdf:about="#coffee_table">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Wall"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
+  <DUL.:hasPart rdf:resource="#coffee_table_drawer"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall4">
+<owl:NamedIndividual rdf:about="#coffee_table_drawer">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Wall"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#end_table">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_left">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
+  <DUL.:hasPart rdf:resource="#tv_stand_door_left_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_left_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_right">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
+  <DUL.:hasPart rdf:resource="#tv_stand_door_right_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_right_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_center_drawer">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
+  <DUL.:hasPart rdf:resource="#tv_stand_center_drawer_handle"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_center_drawer_handle">
+  <rdf:type rdf:resource="#Link"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="#wardrobe">
@@ -162,590 +199,116 @@
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#armchair">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Armchair"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#sofa">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Sofa"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#coffee_table">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
-  <DUL.:hasPart rdf:resource="#coffee_table_drawer"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#coffee_table_drawer">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#bedside_table">
+<owl:NamedIndividual rdf:about="#dining_table">
   <rdf:type rdf:resource="#Link"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#kitchen_root">
+<owl:NamedIndividual rdf:about="#dining_chair_1">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Kitchen"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedChair"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cabinet1">
+<owl:NamedIndividual rdf:about="#dining_chair_2">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet1_door_top_left"/>
-  <DUL.:hasPart rdf:resource="#oven"/>
-  <DUL.:hasPart rdf:resource="#cabinet1_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet1_drawer_bottom"/>
-  <DUL.:hasPart rdf:resource="#cabinet1_coloksu_level4"/>
-  <DUL.:hasPart rdf:resource="#cabinet1_coloksu_level5"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedChair"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cabinet1_door_top_left">
+<owl:NamedIndividual rdf:about="#dining_chair_3">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab1_top_door"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedChair"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#handle_cab1_top_door">
+<owl:NamedIndividual rdf:about="#dining_chair_4">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedChair"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#oven">
+<owl:NamedIndividual rdf:about="#plant_pot">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Oven"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Pot"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cabinet1_drawer_middle">
+<owl:NamedIndividual rdf:about="#floor_lamp">
   <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab1_drawer_mid"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Floor"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#handle_cab1_drawer_mid">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab1_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab1_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level4">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level5">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet2_door_out_fancy"/>
-  <DUL.:hasPart rdf:resource="#cabinet2_drawer_small"/>
-  <DUL.:hasPart rdf:resource="#cabinet2_drawer_big"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_door_out_fancy">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet2_door_left"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_door_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab2_door"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab2_door">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_drawer_small">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_drawer_big">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet3_door_top_out_fancy"/>
-  <DUL.:hasPart rdf:resource="#cabinet3_door_bottom_out_fancy"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_top_out_fancy">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet3_door_top_left"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_top_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab3_door_top"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab3_door_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_out_fancy">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet3_door_bottom_left"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab3_door_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab3_door_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet4_door_top"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4_door_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet4_door_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4_door_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab4_door_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab4_door_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet5_drawer_top"/>
-  <DUL.:hasPart rdf:resource="#cabinet5_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet5_drawer_bottom"/>
-  <DUL.:hasPart rdf:resource="#countertop"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab5_t"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_t">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab5_m"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_m">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab5_b"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_b">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet6_drawer_top"/>
-  <DUL.:hasPart rdf:resource="#cabinet6_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet6_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab6_t"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_t">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab6_m"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_m">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab6_b"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_b">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet12_door_top_out_fancy"/>
-  <DUL.:hasPart rdf:resource="#cabinet12_door_bottom_out_fancy"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_top_out_fancy">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet12_door_top_left"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_top_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_out_fancy">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#cabinet12_door_bottom_left"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet7">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet7_door_bottom_left"/>
-  <DUL.:hasPart rdf:resource="#dishwasher_drawer_middle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet7_door_bottom_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Door"/>
-  <DUL.:hasPart rdf:resource="#handle_cab7"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab7">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#dishwasher_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab7_middle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab7_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet8_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet8_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab8"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab8">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet9_drawer_top"/>
-  <DUL.:hasPart rdf:resource="#cabinet9_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet9_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab9_t"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_t">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab9_m"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_m">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab9_b"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_b">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet10_drawer_top"/>
-  <DUL.:hasPart rdf:resource="#cabinet10_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet10_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab10_t"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_t">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab10_m"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_m">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab10_b"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_b">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#KitchenCabinet"/>
-  <DUL.:hasPart rdf:resource="#cabinet11_drawer_top"/>
-  <DUL.:hasPart rdf:resource="#cabinet11_drawer_middle"/>
-  <DUL.:hasPart rdf:resource="#cabinet11_drawer_bottom"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_top">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab11_t"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_t">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_middle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab11_m"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_m">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_bottom">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Drawer"/>
-  <DUL.:hasPart rdf:resource="#handle_cab11_b"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_b">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_countertop">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Countertop"/>
-  <DUL.:hasPart rdf:resource="#cooktop"/>
-  <DUL.:hasPart rdf:resource="#sink"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cooktop">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Cooktop"/>
-  <DUL.:hasPart rdf:resource="#hotplate1"/>
-  <DUL.:hasPart rdf:resource="#hotplate2"/>
-  <DUL.:hasPart rdf:resource="#hotplate3"/>
-  <DUL.:hasPart rdf:resource="#hotplate4"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate1">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Hotplate"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate2">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Hotplate"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate3">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Hotplate"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate4">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Hotplate"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#sink">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Sink"/>
-  <DUL.:hasPart rdf:resource="#tap_body"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_body">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Tap"/>
-  <DUL.:hasPart rdf:resource="#tap_handle_open"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_handle_open">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-  <DUL.:hasPart rdf:resource="#tap_handle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_handle">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#DesignedHandle"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#countertop">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Countertop"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_waterfall_left">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_waterfall_right">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_back">
-  <rdf:type rdf:resource="#Link"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#Table"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#furnitures_base">
+<owl:NamedIndividual rdf:about="#living_room_base_joint">
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#walls_joint">
+<owl:NamedIndividual rdf:about="#sofa_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#sofa"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#windows_joint">
+<owl:NamedIndividual rdf:about="#armchair_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#armchair"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall1_joint">
+<owl:NamedIndividual rdf:about="#coffee_table_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#coffee_table"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall2_joint">
+<owl:NamedIndividual rdf:about="#coffee_table_drawer_joint">
+  <SOMA:hasParentLink rdf:resource="#coffee_table"/>
+  <SOMA:hasChildLink rdf:resource="#coffee_table_drawer"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#end_table_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#end_table"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall3_joint">
+<owl:NamedIndividual rdf:about="#tv_stand_joint">
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#wall_coloksu_wall4_joint">
+<owl:NamedIndividual rdf:about="#tv_stand_door_left_joint">
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_left_handle_joint">
+  <SOMA:hasParentLink rdf:resource="#tv_stand_door_left"/>
+  <SOMA:hasChildLink rdf:resource="#tv_stand_door_left_handle"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_right_joint">
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_door_right_handle_joint">
+  <SOMA:hasParentLink rdf:resource="#tv_stand_door_right"/>
+  <SOMA:hasChildLink rdf:resource="#tv_stand_door_right_handle"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_center_drawer_joint">
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tv_stand_center_drawer_handle_joint">
+  <SOMA:hasParentLink rdf:resource="#tv_stand_center_drawer"/>
+  <SOMA:hasChildLink rdf:resource="#tv_stand_center_drawer_handle"/>
+  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#television_joint">
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="#wardrobe_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#wardrobe"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
@@ -773,569 +336,49 @@
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#armchair_joint">
+<owl:NamedIndividual rdf:about="#dining_table_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#dining_table"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#sofa_joint">
+<owl:NamedIndividual rdf:about="#dining_chair_1_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#dining_chair_1"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#coffee_table_joint">
+<owl:NamedIndividual rdf:about="#dining_chair_2_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#dining_chair_2"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#coffee_table_drawer_joint">
-  <SOMA:hasParentLink rdf:resource="#coffee_table"/>
-  <SOMA:hasChildLink rdf:resource="#coffee_table_drawer"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#bedside_table_joint">
+<owl:NamedIndividual rdf:about="#dining_chair_3_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#dining_chair_3"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#kitchen_base">
+<owl:NamedIndividual rdf:about="#dining_chair_4_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#dining_chair_4"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#frame_a_joint">
+<owl:NamedIndividual rdf:about="#plant_pot_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#plant_pot"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#frame_b_joint">
+<owl:NamedIndividual rdf:about="#floor_lamp_joint">
+  <SOMA:hasParentLink rdf:resource="#living_room_furniture_root"/>
+  <SOMA:hasChildLink rdf:resource="#floor_lamp"/>
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#cabinet1_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_door_top_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet1_door_top_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab1_top_door_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1_door_top_left"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab1_top_door"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#oven_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#oven"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet1_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab1_drawer_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab1_drawer_mid"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet1_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab1_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab1_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level4_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet1_coloksu_level4"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet1_coloksu_level5_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet1"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet1_coloksu_level5"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_door_out_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet2"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet2_door_out_fancy"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_door_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet2_door_out_fancy"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet2_door_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab2_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet2_door_left"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab2_door"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_drawer_small_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet2"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet2_drawer_small"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet2_drawer_big_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet2"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet2_drawer_big"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_top_out_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet3_door_top_out_fancy"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_top_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3_door_top_out_fancy"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet3_door_top_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab3_door_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3_door_top_left"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab3_door_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_out_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet3_door_bottom_out_fancy"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet3_door_bottom_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3_door_bottom_out_fancy"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet3_door_bottom_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab3_door_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet3_door_bottom_left"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab3_door_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4_door_top_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet4"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet4_door_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet4_door_bottom_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet4_door_top"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet4_door_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab4_door_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet4_door_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab4_door_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet5_drawer_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5_drawer_top"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab5_t"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet5_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab5_m"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet5_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet5_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab5_bott_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab5_b"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet6_drawer_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6_drawer_top"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab6_t"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet6_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab6_m"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet6_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet6_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab6_bott_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet6_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab6_b"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_top_out_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet12"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet12_door_top_out_fancy"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_top_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet12_door_top_out_fancy"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet12_door_top_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_out_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet12"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet12_door_bottom_out_fancy"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet12_door_bottom_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet12_door_bottom_out_fancy"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet12_door_bottom_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet7_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet7_door_bottom_left_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet7"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet7_door_bottom_left"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab7_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet7_door_bottom_left"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab7"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#dishwasher_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet7"/>
-  <SOMA:hasChildLink rdf:resource="#dishwasher_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab7_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#dishwasher_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab7_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet8"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet8_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet8_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet8"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet8_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab8_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet8_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab8"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet9_drawer_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9_drawer_top"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab9_t"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet9_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab9_m"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet9_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet9_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab9_bott_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet9_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab9_b"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet10_drawer_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10_drawer_top"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab10_t"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet10_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab10_m"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet10_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet10_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab10_bott_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet10_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab10_b"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet11_drawer_top"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_top_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11_drawer_top"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab11_t"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_middle_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet11_drawer_middle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_mid_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11_drawer_middle"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab11_m"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cabinet11_drawer_bottom_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11"/>
-  <SOMA:hasChildLink rdf:resource="#cabinet11_drawer_bottom"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#PrismaticJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#handle_cab11_bott_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet11_drawer_bottom"/>
-  <SOMA:hasChildLink rdf:resource="#handle_cab11_b"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_countertop_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#cooktop_joint">
-  <SOMA:hasParentLink rdf:resource="#island_countertop"/>
-  <SOMA:hasChildLink rdf:resource="#cooktop"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate1_joint">
-  <SOMA:hasParentLink rdf:resource="#cooktop"/>
-  <SOMA:hasChildLink rdf:resource="#hotplate1"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate2_joint">
-  <SOMA:hasParentLink rdf:resource="#cooktop"/>
-  <SOMA:hasChildLink rdf:resource="#hotplate2"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate3_joint">
-  <SOMA:hasParentLink rdf:resource="#cooktop"/>
-  <SOMA:hasChildLink rdf:resource="#hotplate3"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#hotplate4_joint">
-  <SOMA:hasParentLink rdf:resource="#cooktop"/>
-  <SOMA:hasChildLink rdf:resource="#hotplate4"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#sink_joint">
-  <SOMA:hasParentLink rdf:resource="#island_countertop"/>
-  <SOMA:hasChildLink rdf:resource="#sink"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_joint">
-  <SOMA:hasParentLink rdf:resource="#sink"/>
-  <SOMA:hasChildLink rdf:resource="#tap_body"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_handle_open_joint">
-  <SOMA:hasParentLink rdf:resource="#tap_body"/>
-  <SOMA:hasChildLink rdf:resource="#tap_handle_open"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#tap_handle_hot_cold_joint">
-  <SOMA:hasParentLink rdf:resource="#tap_handle_open"/>
-  <SOMA:hasChildLink rdf:resource="#tap_handle"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#RevoluteJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#socket_a_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#socket_b_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#countertop_joint">
-  <SOMA:hasParentLink rdf:resource="#cabinet5"/>
-  <SOMA:hasChildLink rdf:resource="#countertop"/>
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#coffee_machine_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_waterfall_left_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_waterfall_right_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#island_back_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#side_a_left_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#side_a_right_top_joint">
-  <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#side_a_right_bott_joint">
+<owl:NamedIndividual rdf:about="#rug_joint">
   <rdf:type rdf:resource="http://www.ease-crc.org/ont/SOMA.owl#FixedJoint"/>
 </owl:NamedIndividual>
 
