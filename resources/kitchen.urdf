@@ -1,0 +1,670 @@
+<?xml version="1.0" ?>
+<!-- Test scene: Kitchen (Küche) -->
+<!-- Reuses real iai_apartment cabinet/sink/tap/cooktop meshes in a different layout -->
+<!-- Deliberately uses atypical link names to stress-test semantic class matching:   -->
+<!--   e.g. "cooking_surface" -> DishwasherArea?, "water_dispenser" -> Faucet?       -->
+<!--   "prep_counter" -> Countertop, "cold_storage" -> Refrigerator                  -->
+<robot name="kitchen">
+
+  <link name="apartment_root"/>
+
+  <joint name="kitchen_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="apartment_root"/>
+    <child link="kitchen_furniture_root"/>
+  </joint>
+  <link name="kitchen_furniture_root"/>
+
+  <!-- ============================================================ -->
+  <!-- WALLS (real mesh)                                            -->
+  <!-- ============================================================ -->
+  <joint name="walls_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="walls"/>
+  </joint>
+  <link name="walls">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/walls.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- UPPER WALL CABINET (real mesh, atypical name)                -->
+  <!-- Link name: "overhead_storage" → should match: Cabinet        -->
+  <!-- ============================================================ -->
+  <joint name="overhead_storage_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.3 0.3 1.4"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="overhead_storage"/>
+  </joint>
+  <link name="overhead_storage">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cabinet01/IAICabinet1W60.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cabinet01/IAICabinet1W60.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="overhead_storage_door_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.3 -0.28 -0.4"/>
+    <parent link="overhead_storage"/>
+    <child link="overhead_storage_door"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="500.0" lower="0.0" upper="1.5708" velocity="1.5708"/>
+  </joint>
+  <link name="overhead_storage_door">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cabinet01/IAIDoorW60H80.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cabinet01/IAIDoorW60H80.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="overhead_storage_door_knob_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.03 0.0"/>
+    <parent link="overhead_storage_door"/>
+    <child link="overhead_storage_door_knob"/>
+  </joint>
+  <link name="overhead_storage_door_knob">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/handles/handle_horizontal.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/handles/handle_horizontal.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- COOKING SURFACE (real cooktop mesh, atypical name)           -->
+  <!-- Link name: "cooking_surface" → should match: Stove/CookTop   -->
+  <!-- ============================================================ -->
+  <joint name="cooking_surface_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.2 0.4 0.86"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="cooking_surface"/>
+  </joint>
+  <link name="cooking_surface">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cooktop/IAIKitchenCookTop.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/cooktop/IAIKitchenCookTop.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Individual burner zones (mesh-less, atypical names) -->
+  <!-- "burner_front_left" → HotPlate / Burner -->
+  <joint name="burner_front_left_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.14 -0.12 0.01"/>
+    <parent link="cooking_surface"/>
+    <child link="burner_front_left"/>
+  </joint>
+  <link name="burner_front_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.01" radius="0.09"/></geometry>
+      <material name="burner_dark"><color rgba="0.15 0.15 0.15 1"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.01" radius="0.09"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="burner_front_right_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.14 -0.12 0.01"/>
+    <parent link="cooking_surface"/>
+    <child link="burner_front_right"/>
+  </joint>
+  <link name="burner_front_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.01" radius="0.09"/></geometry>
+      <material name="burner_dark"/>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.01" radius="0.09"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="burner_rear_left_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.14 0.12 0.01"/>
+    <parent link="cooking_surface"/>
+    <child link="burner_rear_left"/>
+  </joint>
+  <link name="burner_rear_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.01" radius="0.075"/></geometry>
+      <material name="burner_dark"/>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.01" radius="0.075"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="burner_rear_right_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.14 0.12 0.01"/>
+    <parent link="cooking_surface"/>
+    <child link="burner_rear_right"/>
+  </joint>
+  <link name="burner_rear_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.01" radius="0.075"/></geometry>
+      <material name="burner_dark"/>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.01" radius="0.075"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- WATER DISPENSER / SINK AREA (real mesh, atypical name)       -->
+  <!-- Link name: "water_basin" → should match: Sink                -->
+  <!-- ============================================================ -->
+  <joint name="water_basin_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="2.1 0.35 0.86"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="water_basin"/>
+  </joint>
+  <link name="water_basin">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/sink/IAIKitchenSink.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/sink/IAIKitchenSink.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Tap body: "water_spout" → Faucet/Tap -->
+  <joint name="water_spout_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 0.05 0.12"/>
+    <parent link="water_basin"/>
+    <child link="water_spout"/>
+  </joint>
+  <link name="water_spout">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/tap/IAIKitchenWaterTapBody.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/tap/IAIKitchenWaterTapBody.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- "flow_lever" → TapHandle / WaterValve -->
+  <joint name="flow_lever_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.18"/>
+    <parent link="water_spout"/>
+    <child link="flow_lever"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="20.0" lower="-1.5708" upper="0.0" velocity="1.0"/>
+  </joint>
+  <link name="flow_lever">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/tap/IAIKitchenWaterTapHandle.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/tap/IAIKitchenWaterTapHandle.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- PREP COUNTER (real countertop mesh, atypical name)           -->
+  <!-- "prep_counter" → Countertop / WorkSurface                    -->
+  <!-- ============================================================ -->
+  <joint name="prep_counter_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.3 0.3 0.86"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="prep_counter"/>
+  </joint>
+  <link name="prep_counter">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/countertop/IAIKitchenPartW102H60.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/countertop/IAIKitchenPartW102H60.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- COLD STORAGE UNIT (mesh-less, atypical name)                 -->
+  <!-- "cold_storage" → Refrigerator / Fridge                       -->
+  <!-- ============================================================ -->
+  <joint name="cold_storage_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="3.2 0.4 0.0"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="cold_storage"/>
+  </joint>
+  <link name="cold_storage">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.9"/>
+      <geometry><box size="0.65 0.68 1.8"/></geometry>
+      <material name="fridge_white"><color rgba="0.94 0.94 0.94 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.9"/>
+      <geometry><box size="0.65 0.68 1.8"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Upper door (freezer): "cold_storage_top_door" → FreezerDoor -->
+  <joint name="cold_storage_top_door_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.325 -0.34 1.5"/>
+    <parent link="cold_storage"/>
+    <child link="cold_storage_top_door"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="500.0" lower="0.0" upper="1.5708" velocity="1.0"/>
+  </joint>
+  <link name="cold_storage_top_door">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.325 0.01 0.3"/>
+      <geometry><box size="0.64 0.02 0.6"/></geometry>
+      <material name="fridge_white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.325 0.01 0.3"/>
+      <geometry><box size="0.64 0.02 0.6"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="cold_storage_top_door_grip_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.6 0.025 0.3"/>
+    <parent link="cold_storage_top_door"/>
+    <child link="cold_storage_top_door_grip"/>
+  </joint>
+  <link name="cold_storage_top_door_grip">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.35" radius="0.015"/></geometry>
+      <material name="chrome_handle"><color rgba="0.7 0.7 0.7 1"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.35" radius="0.015"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Lower door (fridge): "cold_storage_main_door" → RefrigeratorDoor -->
+  <joint name="cold_storage_main_door_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.325 -0.34 0.6"/>
+    <parent link="cold_storage"/>
+    <child link="cold_storage_main_door"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="500.0" lower="0.0" upper="1.5708" velocity="1.0"/>
+  </joint>
+  <link name="cold_storage_main_door">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.325 0.01 0.0"/>
+      <geometry><box size="0.64 0.02 1.2"/></geometry>
+      <material name="fridge_white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.325 0.01 0.0"/>
+      <geometry><box size="0.64 0.02 1.2"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="cold_storage_main_door_grip_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.6 0.025 0.0"/>
+    <parent link="cold_storage_main_door"/>
+    <child link="cold_storage_main_door_grip"/>
+  </joint>
+  <link name="cold_storage_main_door_grip">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.55" radius="0.015"/></geometry>
+      <material name="chrome_handle"/>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.55" radius="0.015"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Fridge shelf (prismatic): "cold_storage_shelf_1" → Shelf -->
+  <joint name="cold_storage_shelf_1_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.9"/>
+    <parent link="cold_storage"/>
+    <child link="cold_storage_shelf_1"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="50.0" lower="0.0" upper="0.5" velocity="0.3"/>
+  </joint>
+  <link name="cold_storage_shelf_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.25 0"/>
+      <geometry><box size="0.58 0.5 0.02"/></geometry>
+      <material name="glass_shelf"><color rgba="0.7 0.85 0.9 0.6"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.25 0"/>
+      <geometry><box size="0.58 0.5 0.02"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- BAKING APPLIANCE (mesh-less, atypical name)                  -->
+  <!-- "heat_box" → Oven                                            -->
+  <!-- ============================================================ -->
+  <joint name="heat_box_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.2 0.4 0.3"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="heat_box"/>
+  </joint>
+  <link name="heat_box">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+      <geometry><box size="0.59 0.55 0.6"/></geometry>
+      <material name="oven_dark"><color rgba="0.2 0.2 0.2 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+      <geometry><box size="0.59 0.55 0.6"/></geometry>
+    </collision>
+  </link>
+
+  <!-- "heat_box_access_panel" → OvenDoor -->
+  <joint name="heat_box_access_panel_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.295 -0.275 0.06"/>
+    <parent link="heat_box"/>
+    <child link="heat_box_access_panel"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="200.0" lower="0.0" upper="1.5708" velocity="1.0"/>
+  </joint>
+  <link name="heat_box_access_panel">
+    <visual>
+      <origin rpy="0 0 0" xyz="0.295 0.01 0.25"/>
+      <geometry><box size="0.58 0.02 0.5"/></geometry>
+      <material name="oven_dark"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.295 0.01 0.25"/>
+      <geometry><box size="0.58 0.02 0.5"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="heat_box_door_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.295 0.04 0.44"/>
+    <parent link="heat_box_access_panel"/>
+    <child link="heat_box_door_pull"/>
+  </joint>
+  <link name="heat_box_door_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.44" radius="0.012"/></geometry>
+      <material name="chrome_handle"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.44" radius="0.012"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Control knobs on oven: "heat_regulator_1" → OvenKnob / TemperatureControl -->
+  <joint name="heat_regulator_1_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.18 -0.28 0.52"/>
+    <parent link="heat_box"/>
+    <child link="heat_regulator_1"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="5.0" lower="-3.14" upper="3.14" velocity="2.0"/>
+  </joint>
+  <link name="heat_regulator_1">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.03" radius="0.025"/></geometry>
+      <material name="oven_dark"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.03" radius="0.025"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="heat_regulator_2_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0.0 -0.28 0.52"/>
+    <parent link="heat_box"/>
+    <child link="heat_regulator_2"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="5.0" lower="-3.14" upper="3.14" velocity="2.0"/>
+  </joint>
+  <link name="heat_regulator_2">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.03" radius="0.025"/></geometry>
+      <material name="oven_dark"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.03" radius="0.025"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- ISLAND WORK SURFACE (real mesh, atypical name)               -->
+  <!-- "central_prep_island" → KitchenIsland / Countertop           -->
+  <!-- ============================================================ -->
+  <joint name="central_prep_island_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.5 1.8 0.0"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="central_prep_island"/>
+  </joint>
+  <link name="central_prep_island">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/island/IAIKitchenIslandAreaTop.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/island/IAIKitchenIslandAreaTop.obj"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Under-island storage: "island_storage_left" / "island_storage_right" → Drawer / Cabinet -->
+  <joint name="island_storage_left_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="-0.3 -0.45 0.72"/>
+    <parent link="central_prep_island"/>
+    <child link="island_storage_left"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="300.0" lower="0.0" upper="0.45" velocity="0.5"/>
+  </joint>
+  <link name="island_storage_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.22 0"/>
+      <geometry><box size="0.38 0.45 0.22"/></geometry>
+      <material name="island_wood"><color rgba="0.45 0.3 0.15 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.22 0"/>
+      <geometry><box size="0.38 0.45 0.22"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="island_storage_left_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.46 0.0"/>
+    <parent link="island_storage_left"/>
+    <child link="island_storage_left_pull"/>
+  </joint>
+  <link name="island_storage_left_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.22" radius="0.009"/></geometry>
+      <material name="chrome_handle"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.22" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="island_storage_right_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.3 -0.45 0.72"/>
+    <parent link="central_prep_island"/>
+    <child link="island_storage_right"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="300.0" lower="0.0" upper="0.45" velocity="0.5"/>
+  </joint>
+  <link name="island_storage_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.22 0"/>
+      <geometry><box size="0.38 0.45 0.22"/></geometry>
+      <material name="island_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.22 0"/>
+      <geometry><box size="0.38 0.45 0.22"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="island_storage_right_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0 -0.46 0.0"/>
+    <parent link="island_storage_right"/>
+    <child link="island_storage_right_pull"/>
+  </joint>
+  <link name="island_storage_right_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.22" radius="0.009"/></geometry>
+      <material name="chrome_handle"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.22" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- BEVERAGE MAKER (mesh-less)                                   -->
+  <!-- "espresso_unit" → CoffeeMachine / BeverageMaker             -->
+  <!-- ============================================================ -->
+  <joint name="espresso_unit_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="2.7 0.25 0.9"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="espresso_unit"/>
+  </joint>
+  <link name="espresso_unit">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.18"/>
+      <geometry><box size="0.28 0.35 0.36"/></geometry>
+      <material name="machine_black"><color rgba="0.1 0.1 0.1 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.18"/>
+      <geometry><box size="0.28 0.35 0.36"/></geometry>
+    </collision>
+  </link>
+
+  <!-- "brew_lever" → BrewHandle / Portafilter -->
+  <joint name="brew_lever_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0.0 -0.18 0.1"/>
+    <parent link="espresso_unit"/>
+    <child link="brew_lever"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="10.0" lower="-0.5236" upper="0.5236" velocity="1.0"/>
+  </joint>
+  <link name="brew_lever">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.06 0"/>
+      <geometry><cylinder length="0.12" radius="0.01"/></geometry>
+      <material name="chrome_handle"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.06 0"/>
+      <geometry><cylinder length="0.12" radius="0.01"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- REFUSE CONTAINER (mesh-less)                                 -->
+  <!-- "refuse_bin" → TrashCan / WasteContainer                     -->
+  <!-- ============================================================ -->
+  <joint name="refuse_bin_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="2.9 1.5 0.0"/>
+    <parent link="kitchen_furniture_root"/>
+    <child link="refuse_bin"/>
+  </joint>
+  <link name="refuse_bin">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+      <geometry><cylinder length="0.5" radius="0.19"/></geometry>
+      <material name="bin_grey"><color rgba="0.45 0.45 0.45 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.25"/>
+      <geometry><cylinder length="0.5" radius="0.19"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="refuse_bin_lid_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 -0.1 0.51"/>
+    <parent link="refuse_bin"/>
+    <child link="refuse_bin_lid"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="5.0" lower="0.0" upper="2.618" velocity="2.0"/>
+  </joint>
+  <link name="refuse_bin_lid">
+    <visual>
+      <geometry><cylinder length="0.03" radius="0.19"/></geometry>
+      <material name="bin_grey"/>
+    </visual>
+    <collision>
+      <geometry><cylinder length="0.03" radius="0.19"/></geometry>
+    </collision>
+  </link>
+
+  <!-- foot pedal: "refuse_bin_foot_pedal" → FootPedal / Lever -->
+  <joint name="refuse_bin_foot_pedal_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 -0.19 0.06"/>
+    <parent link="refuse_bin"/>
+    <child link="refuse_bin_foot_pedal"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="10.0" lower="-0.3927" upper="0.0" velocity="1.0"/>
+  </joint>
+  <link name="refuse_bin_foot_pedal">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.06 0"/>
+      <geometry><box size="0.1 0.12 0.015"/></geometry>
+      <material name="bin_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.06 0"/>
+      <geometry><box size="0.1 0.12 0.015"/></geometry>
+    </collision>
+  </link>
+
+</robot>

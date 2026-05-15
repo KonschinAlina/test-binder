@@ -1,0 +1,614 @@
+<?xml version="1.0" ?>
+<!-- Test scene: Bedroom (Schlafzimmer) -->
+<!-- Mix: real iai_apartment meshes (wardrobe, bedside_table) + mesh-less primitives -->
+<!-- Deliberately atypical link names for semantic class matching tests:             -->
+<!--   "resting_surface" → Bed, "slumber_platform" → Bed/Mattress,                 -->
+<!--   "garment_storage" → Wardrobe, "reading_luminaire" → Lamp                    -->
+<robot name="bedroom">
+
+  <link name="apartment_root"/>
+
+  <joint name="bedroom_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="apartment_root"/>
+    <child link="bedroom_furniture_root"/>
+  </joint>
+  <link name="bedroom_furniture_root"/>
+
+  <!-- ============================================================ -->
+  <!-- BED FRAME (mesh-less, atypical name)                         -->
+  <!-- "resting_surface" → Bed                                      -->
+  <!-- ============================================================ -->
+  <joint name="resting_surface_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="1.1 1.5 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="resting_surface"/>
+  </joint>
+  <link name="resting_surface">
+    <!-- Frame base -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.15"/>
+      <geometry><box size="1.6 2.05 0.3"/></geometry>
+      <material name="bed_frame_wood"><color rgba="0.45 0.28 0.12 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.15"/>
+      <geometry><box size="1.6 2.05 0.3"/></geometry>
+    </collision>
+    <!-- Headboard -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.95 0.7"/>
+      <geometry><box size="1.6 0.08 1.0"/></geometry>
+    </collision>
+    <!-- Footboard -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.95 0.45"/>
+      <geometry><box size="1.6 0.06 0.55"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Mattress: "slumber_platform" → Mattress -->
+  <joint name="slumber_platform_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.32"/>
+    <parent link="resting_surface"/>
+    <child link="slumber_platform"/>
+  </joint>
+  <link name="slumber_platform">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <geometry><box size="1.55 1.95 0.2"/></geometry>
+      <material name="mattress_white"><color rgba="0.96 0.96 0.96 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <geometry><box size="1.55 1.95 0.2"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Pillow 1: "head_cushion_left" → Pillow -->
+  <joint name="head_cushion_left_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.38 -0.72 0.25"/>
+    <parent link="slumber_platform"/>
+    <child link="head_cushion_left"/>
+  </joint>
+  <link name="head_cushion_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
+      <geometry><box size="0.65 0.45 0.14"/></geometry>
+      <material name="pillow_white"><color rgba="1 1 1 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
+      <geometry><box size="0.65 0.45 0.14"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Pillow 2: "head_cushion_right" → Pillow -->
+  <joint name="head_cushion_right_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.38 -0.72 0.25"/>
+    <parent link="slumber_platform"/>
+    <child link="head_cushion_right"/>
+  </joint>
+  <link name="head_cushion_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
+      <geometry><box size="0.65 0.45 0.14"/></geometry>
+      <material name="pillow_white"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.07"/>
+      <geometry><box size="0.65 0.45 0.14"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- BEDSIDE TABLE LEFT (real mesh, but renamed)                  -->
+  <!-- "night_cabinet_left" → BedsideTable / NightStand            -->
+  <!-- ============================================================ -->
+  <joint name="night_cabinet_left_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-1.08 0.55 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="night_cabinet_left"/>
+  </joint>
+  <link name="night_cabinet_left">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/bedside_table.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.230"/>
+      <geometry><box size="0.312 0.312 0.460"/></geometry>
+    </collision>
+  </link>
+
+  <!-- "night_cabinet_left_compartment" → Drawer -->
+  <joint name="night_cabinet_left_compartment_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 -0.156 0.28"/>
+    <parent link="night_cabinet_left"/>
+    <child link="night_cabinet_left_compartment"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="200.0" lower="0.0" upper="0.26" velocity="0.5"/>
+  </joint>
+  <link name="night_cabinet_left_compartment">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.13 0"/>
+      <geometry><box size="0.27 0.26 0.1"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.13 0"/>
+      <geometry><box size="0.27 0.26 0.1"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="night_cabinet_left_compartment_knob_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.265 0"/>
+    <parent link="night_cabinet_left_compartment"/>
+    <child link="night_cabinet_left_compartment_knob"/>
+  </joint>
+  <link name="night_cabinet_left_compartment_knob">
+    <visual>
+      <geometry><sphere radius="0.015"/></geometry>
+      <material name="knob_brass"><color rgba="0.72 0.58 0.22 1"/></material>
+    </visual>
+    <collision>
+      <geometry><sphere radius="0.015"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- BEDSIDE TABLE RIGHT (real mesh, renamed)                     -->
+  <!-- "night_cabinet_right" → BedsideTable / NightStand           -->
+  <!-- ============================================================ -->
+  <joint name="night_cabinet_right_joint" type="fixed">
+    <origin rpy="0 0 3.14" xyz="1.08 0.55 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="night_cabinet_right"/>
+  </joint>
+  <link name="night_cabinet_right">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/bedside_table.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.230"/>
+      <geometry><box size="0.312 0.312 0.460"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="night_cabinet_right_compartment_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.0 0.156 0.28"/>
+    <parent link="night_cabinet_right"/>
+    <child link="night_cabinet_right_compartment"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="200.0" lower="0.0" upper="0.26" velocity="0.5"/>
+  </joint>
+  <link name="night_cabinet_right_compartment">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0.13 0"/>
+      <geometry><box size="0.27 0.26 0.1"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.13 0"/>
+      <geometry><box size="0.27 0.26 0.1"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="night_cabinet_right_compartment_knob_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.265 0"/>
+    <parent link="night_cabinet_right_compartment"/>
+    <child link="night_cabinet_right_compartment_knob"/>
+  </joint>
+  <link name="night_cabinet_right_compartment_knob">
+    <visual>
+      <geometry><sphere radius="0.015"/></geometry>
+      <material name="knob_brass"/>
+    </visual>
+    <collision>
+      <geometry><sphere radius="0.015"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- TABLE LAMPS (mesh-less, atypical names)                      -->
+  <!-- "reading_luminaire_left/right" → Lamp / TableLamp            -->
+  <!-- ============================================================ -->
+  <joint name="reading_luminaire_left_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.48"/>
+    <parent link="night_cabinet_left"/>
+    <child link="reading_luminaire_left"/>
+  </joint>
+  <link name="reading_luminaire_left">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <geometry><cylinder length="0.04" radius="0.1"/></geometry>
+      <material name="lamp_base_ceramic"><color rgba="0.9 0.85 0.75 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <geometry><cylinder length="0.04" radius="0.1"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <geometry><cylinder length="0.4" radius="0.02"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.5"/>
+      <geometry><cylinder length="0.25" radius="0.14"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="reading_luminaire_right_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.48"/>
+    <parent link="night_cabinet_right"/>
+    <child link="reading_luminaire_right"/>
+  </joint>
+  <link name="reading_luminaire_right">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <geometry><cylinder length="0.04" radius="0.1"/></geometry>
+      <material name="lamp_base_ceramic"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <geometry><cylinder length="0.04" radius="0.1"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <geometry><cylinder length="0.4" radius="0.02"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.5"/>
+      <geometry><cylinder length="0.25" radius="0.14"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- WARDROBE (real mesh, renamed)                                -->
+  <!-- "garment_storage" → Wardrobe / Closet                        -->
+  <!-- ============================================================ -->
+  <joint name="garment_storage_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="3.2 0.5 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="garment_storage"/>
+  </joint>
+  <link name="garment_storage">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.08 0 0.975"/>
+      <geometry><box size="0.487 1.0 1.95"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="garment_storage_panel_left_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.3246 0.5 0.0"/>
+    <parent link="garment_storage"/>
+    <child link="garment_storage_panel_left"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="1.5708" velocity="1.5708"/>
+  </joint>
+  <link name="garment_storage_panel_left">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_left.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.006 -0.248 0.975"/>
+      <geometry><box size="0.013 0.495 1.648"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="garment_storage_panel_left_grip_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.032 -0.46 0.974"/>
+    <parent link="garment_storage_panel_left"/>
+    <child link="garment_storage_panel_left_grip"/>
+  </joint>
+  <link name="garment_storage_panel_left_grip">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_handle.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="garment_storage_panel_right_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.3246 -0.5 0.0"/>
+    <parent link="garment_storage"/>
+    <child link="garment_storage_panel_right"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0.0" upper="1.5708" velocity="1.5708"/>
+  </joint>
+  <link name="garment_storage_panel_right">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_right.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.006 0.248 0.975"/>
+      <geometry><box size="0.013 0.495 1.648"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="garment_storage_panel_right_grip_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.032 0.46 0.974"/>
+    <parent link="garment_storage_panel_right"/>
+    <child link="garment_storage_panel_right_grip"/>
+  </joint>
+  <link name="garment_storage_panel_right_grip">
+    <visual>
+      <geometry>
+        <mesh filename="package://iai_apartment/meshes/visual/wardrobe_door_handle.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- DRESSING TABLE (mesh-less, atypical name)                    -->
+  <!-- "vanity_station" → DressingTable / Vanity                    -->
+  <!-- ============================================================ -->
+  <joint name="vanity_station_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="3.2 2.3 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="vanity_station"/>
+  </joint>
+  <link name="vanity_station">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.39"/>
+      <geometry><box size="1.0 0.45 0.78"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.39"/>
+      <geometry><box size="1.0 0.45 0.78"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Mirror above vanity: "reflection_panel" → Mirror -->
+  <joint name="reflection_panel_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.215 1.2"/>
+    <parent link="vanity_station"/>
+    <child link="reflection_panel"/>
+  </joint>
+  <link name="reflection_panel">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.35"/>
+      <geometry><box size="0.85 0.02 0.7"/></geometry>
+      <material name="mirror_surface"><color rgba="0.82 0.9 0.92 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.35"/>
+      <geometry><box size="0.85 0.02 0.7"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Vanity drawer: "vanity_station_compartment" → Drawer -->
+  <joint name="vanity_station_compartment_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 -0.225 0.65"/>
+    <parent link="vanity_station"/>
+    <child link="vanity_station_compartment"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="100.0" lower="0.0" upper="0.38" velocity="0.4"/>
+  </joint>
+  <link name="vanity_station_compartment">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.19 0"/>
+      <geometry><box size="0.88 0.38 0.1"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.19 0"/>
+      <geometry><box size="0.88 0.38 0.1"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="vanity_compartment_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.39 0"/>
+    <parent link="vanity_station_compartment"/>
+    <child link="vanity_compartment_pull"/>
+  </joint>
+  <link name="vanity_compartment_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+      <material name="knob_brass"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Vanity stool: "vanity_seat" → Stool / Chair -->
+  <joint name="vanity_seat_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="3.2 3.1 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="vanity_seat"/>
+  </joint>
+  <link name="vanity_seat">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry><cylinder length="0.06" radius="0.22"/></geometry>
+      <material name="stool_fabric"><color rgba="0.7 0.6 0.8 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+      <geometry><cylinder length="0.06" radius="0.22"/></geometry>
+    </collision>
+    <!-- 4 legs -->
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.16 -0.16 0.22"/>
+      <geometry><cylinder length="0.44" radius="0.015"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.16 -0.16 0.22"/>
+      <geometry><cylinder length="0.44" radius="0.015"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.16 0.16 0.22"/>
+      <geometry><cylinder length="0.44" radius="0.015"/></geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.16 0.16 0.22"/>
+      <geometry><cylinder length="0.44" radius="0.015"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- WINDOW BLIND (mesh-less, prismatic roll)                     -->
+  <!-- "light_barrier" → WindowBlind / RollerShade                  -->
+  <!-- ============================================================ -->
+  <joint name="light_barrier_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0.05 0.04 2.3"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="light_barrier"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="20.0" lower="0.0" upper="1.8" velocity="0.3"/>
+  </joint>
+  <link name="light_barrier">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.9"/>
+      <geometry><box size="1.1 0.005 1.8"/></geometry>
+      <material name="blind_beige"><color rgba="0.88 0.84 0.72 1"/></material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.9"/>
+      <geometry><box size="1.1 0.005 1.8"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ============================================================ -->
+  <!-- CHEST OF DRAWERS (mesh-less, atypical name)                  -->
+  <!-- "apparel_chest" → ChestOfDrawers / Dresser                   -->
+  <!-- ============================================================ -->
+  <joint name="apparel_chest_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.55 0.35 0.0"/>
+    <parent link="bedroom_furniture_root"/>
+    <child link="apparel_chest"/>
+  </joint>
+  <link name="apparel_chest">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <geometry><box size="1.0 0.5 1.2"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <geometry><box size="1.0 0.5 1.2"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="apparel_chest_drawer_top_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 -0.25 1.04"/>
+    <parent link="apparel_chest"/>
+    <child link="apparel_chest_drawer_top"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="300.0" lower="0.0" upper="0.43" velocity="0.4"/>
+  </joint>
+  <link name="apparel_chest_drawer_top">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+    </collision>
+  </link>
+  <joint name="apparel_chest_drawer_top_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.435 0"/>
+    <parent link="apparel_chest_drawer_top"/>
+    <child link="apparel_chest_drawer_top_pull"/>
+  </joint>
+  <link name="apparel_chest_drawer_top_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+      <material name="knob_brass"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="apparel_chest_drawer_mid_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 -0.25 0.72"/>
+    <parent link="apparel_chest"/>
+    <child link="apparel_chest_drawer_mid"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="300.0" lower="0.0" upper="0.43" velocity="0.4"/>
+  </joint>
+  <link name="apparel_chest_drawer_mid">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+    </collision>
+  </link>
+  <joint name="apparel_chest_drawer_mid_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.435 0"/>
+    <parent link="apparel_chest_drawer_mid"/>
+    <child link="apparel_chest_drawer_mid_pull"/>
+  </joint>
+  <link name="apparel_chest_drawer_mid_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+      <material name="knob_brass"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="apparel_chest_drawer_bot_joint" type="prismatic">
+    <origin rpy="0 0 0" xyz="0 -0.25 0.4"/>
+    <parent link="apparel_chest"/>
+    <child link="apparel_chest_drawer_bot"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="300.0" lower="0.0" upper="0.43" velocity="0.4"/>
+  </joint>
+  <link name="apparel_chest_drawer_bot">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+      <material name="bed_frame_wood"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 -0.21 0"/>
+      <geometry><box size="0.94 0.43 0.22"/></geometry>
+    </collision>
+  </link>
+  <joint name="apparel_chest_drawer_bot_pull_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.435 0"/>
+    <parent link="apparel_chest_drawer_bot"/>
+    <child link="apparel_chest_drawer_bot_pull"/>
+  </joint>
+  <link name="apparel_chest_drawer_bot_pull">
+    <visual>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+      <material name="knob_brass"/>
+    </visual>
+    <collision>
+      <origin rpy="1.5708 0 0" xyz="0 0 0"/>
+      <geometry><cylinder length="0.3" radius="0.009"/></geometry>
+    </collision>
+  </link>
+
+</robot>

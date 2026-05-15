@@ -22,6 +22,19 @@ services:
     volumes:
       - ../:/home/jovyan/work:rw
       - ../workspace:/workspace:rw
+    
+   
+  # ollama-service
+  #ollama-service:
+  #  image: ollama/ollama:latest
+  #  container_name: ollama_container
+  #  ports:
+  #  - "11434:11434"
+  #  volumes:
+  #  - ./ollama_data:/root/.ollama
+
+          
+    
  
     
     

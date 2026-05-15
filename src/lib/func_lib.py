@@ -11,16 +11,21 @@ import os
 import tf
 import sys
 import yaml
+import json
 import math
 import types
 import rospy
+import rdflib
 import rosnode
 import trimesh
 import logging
+import requests
 import warnings
 import tempfile
 import subprocess
-import rdflib
+from google import genai
+from google.genai import types as g_types
+#import google.generativeai as genai
 from subprocess import DEVNULL
 from std_msgs.msg import ColorRGBA
 from geometry_msgs.msg import Point
@@ -77,6 +82,8 @@ class FuncLib:
 
         time.sleep(5)
         rospy.loginfo(f"Setup complete.")
+
+
 
 ########################################################################################################
 ## URDF Parser
@@ -255,7 +262,7 @@ class FuncLib:
 
         # Retrieves the matching of links to classes(from SOMA-HOME)
         matching = self.link_class_matching_SOMA()
-        print(matching)
+        #print(matching)
         if matching is None:
             return f"No matchings found, parsing stopped!"
         else:
@@ -277,6 +284,12 @@ class FuncLib:
                 else:
                     Link = new_onto["Link"]
 
+            # Defines root class as URDF has tree structure
+            with new_onto:
+                if new_onto["Root"] is None:
+                        class Root(Thing): pass
+            
+
             # Initialization of the individual list
             indivs = []
          
@@ -285,6 +298,10 @@ class FuncLib:
                 link_name = item["link"]
                 class_iri = item["class"]
 
+                if "Root" in class_iri:
+                    with new_onto:
+                        root_indiv = Root(link_name)
+                        root_indiv.is_a.append(new_onto.Link)
                 if class_iri is None:
                     continue
 
@@ -1241,7 +1258,6 @@ class FuncLib:
                     prefixes[pre] = url
                     
                 # Searches for specific pattern that retrieves the IRIs from the ontology
-                #pattern = r'Declaration\(Class\((?:SOMA:|[<][^>]+[#/])([^)>]+)[)]\)'
                 pattern = r'Declaration\(Class\((SOMA:[^)]+|[<][^>]+[>])\)\)'
                 full_iris = re.findall(pattern, content)
 
@@ -1268,13 +1284,20 @@ class FuncLib:
 
                 # A list containing the class name keys from the dictonary
                 lower_class_names = list(class_iri_mapping.keys())
-              
+                
+                # Add root class to mapping
+                if "root" not in lower_class_names:
+                    lower_class_names.append("root")
+                    class_iri_mapping["root"] = "http://test.org/BA-class_extraction-SOMA.owl#Root"
+
+                #print(lower_class_names)
             except Exception as e:
                 print(f"Error reading file: {e}")
                 return None
         else:
             print("File not found!!")
             return None
+            
 
         # Looks through all classes and matches the links to a class
         # Removes suffixes = clean_links
@@ -1297,7 +1320,7 @@ class FuncLib:
             # Checks for priority_classes
             #   because of naming such as: drawer_oven_board0
             #   the order is specific, handle before drawer!!
-            priority_classes = ["handle", "knob", "door", "drawer", "room", "cabinet"]
+            priority_classes = ["root", "handle", "knob", "door", "drawer", "room", "cabinet"]
         
             for prio_cls in priority_classes:
                 if prio_cls in full_link_name:
@@ -1317,7 +1340,7 @@ class FuncLib:
                 for cut in reversed(words):
                     # if e.g. cabinet10
                     cut_clean = ''.join([i for i in cut if not i.isdigit()])
-                    if cut in ['left', 'right', 'root', 'side', 'a', 'b']:
+                    if cut in ['left', 'right', 'side', 'a', 'b']:
                         continue
                          
                     # if e.g. link name = windows but class window
@@ -1345,7 +1368,7 @@ class FuncLib:
             matched_iri = None
             # Changes the class name to the assigned key e.g. handle to designedhandle
             if matched_class:
-                print(matched_class)
+                #print(matched_class)
                 matched_class = synonyms.get(matched_class, matched_class)
                 
             if matched_class in class_iri_mapping:
@@ -1354,10 +1377,87 @@ class FuncLib:
                     "link": link,
                     "class": matched_iri
                 })
-                
+        print(link_to_class_matching)
         unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
-        print(f"FAILED TO MATCH: {unmatched_links[:10]}")
+        print(f"FAILED TO MATCH with SOMA: {unmatched_links}")
+
+        soma_classes = ['tv_table']
+        print(f"Matching using LLM...")
+        final_results = {}
+        for link in unmatched_links:
+            print(f"Matching link: {link}")
+            res = self.llm_matching(link, lower_class_names)
+            print(res)
+            if res:
+                final_results.update(res)
+
+        
+        for link, matched_class in final_results.items():
+            matched_class_lower = matched_class.lower()
+
+            if matched_class_lower in class_iri_mapping:
+                matched_iri = class_iri_mapping[matched_class_lower]
+    
+                link_to_class_matching.append({
+                    "link": link,
+                    "class": matched_iri
+                })
+                print(f"{link} -> {matched_class}")
+            else:
+                print(f"{matched_class} not found in the SOMA Ontology!")
+    
+        #print(link_to_class_matching)
         return link_to_class_matching if link_to_class_matching else None
+
+########################################################################################################
+
+    def llm_matching(self, unmatched_links, soma_classes):
+        if not unmatched_links:
+            return {}
+
+        
+        
+        #url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={api_key}"        
+        #url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+        #response = requests.get(url)
+        #print(response.json())
+
+        client = genai.Client(api_key='AIzaSyBrLoulfw5wGztp1F4OqE93SyOUzOemhoE')
+
+    
+        prompt = f"""
+        Match the URDF links to the most semanticaly similar SOMA class.
+        URDF links: {unmatched_links}
+        SOMA classes: {soma_classes}
+        Output: Valid JSON only {{"link": "Class"}}
+        """
+        
+        
+        start_time = time.time()
+        print(f"  [LLM] Starte Inferenz für: {unmatched_links}...")
+
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash-lite",
+                contents=prompt,
+                )
+    
+            raw_text = response.text
+            
+            clean_json = raw_text.strip()
+            if clean_json.startswith('```'):
+                clean_json = clean_json.split("```json")[-1].split('```')[0].strip()
+
+            matching_result = json.loads(clean_json)
+            #print(matching_result)
+            
+            duration = time.time() - start_time
+            print(f"  [LLM] Antwort erhalten in {duration:.2f}s")
+            return matching_result
+ 
+        except Exception as e:
+                print(f"Gemini Matching error: {e}")
+                return {}
 
 ########################################################################################################
 ##  Calculate the radius with help of a handle
@@ -1370,6 +1470,7 @@ class FuncLib:
 # Output: the calculated radius
 #
 #
+    
     def get_radius_from_handle(self, indiv_name, urdf):
         
         handle_link_name = None
@@ -1425,24 +1526,37 @@ class FuncLib:
         
         if not link or not link.visual:
             return None
-    
-        # Retrieves the mesh path
-        full_mesh_path = link.visual.geometry.filename
 
-        mesh_path = full_mesh_path.replace("package://", "/opt/ros/overlay_ws/src/iai_maps/")
-    
-        try:
-            # Using trimesh to retrieve the width of the door
-            mesh = trimesh.load(mesh_path)
-            dims = sorted(mesh.extents)
-            door_width = dims[1]
-            
-            return door_width
-            
-        except Exception as e:
-            print(f"Mesh not found: {e}")
-            return None
+        geo = link.visual.geometry
 
+        # geometry = mesh
+        if hasattr(geo, 'filename') and geo.filename:
+            # Retrieves the mesh path
+            full_mesh_path = geo.filename
+    
+            mesh_path = full_mesh_path.replace("package://", "/opt/ros/overlay_ws/src/iai_maps/")
+        
+            try:
+                # Using trimesh to retrieve the width of the door
+                mesh = trimesh.load(mesh_path)
+                dims = sorted(mesh.extents)
+                door_width = dims[1]
+                return door_width
+                
+            except Exception as e:
+                print(f"Mesh not found: {e}")
+                return None
+                
+        # geometry = box 
+        elif hasattr(geo, 'size'):
+            dims = sorted(geo.size)
+            return dims[1]
+
+        # geometry = cylinder
+        elif hasattr(geo, 'radius'):
+            return geo.radius * 2
+
+        return None
 ########################################################################################################
 ## Retrieves the depth of a drawer without handles but with prismatic joints
 #
@@ -1502,7 +1616,7 @@ class FuncLib:
             return word[:-1]
         return word
 
-
+###################################################################################
 ###################################################################################
 ## Open Door
 #

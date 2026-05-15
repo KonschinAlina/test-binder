@@ -115,6 +115,7 @@ RUN apt-get update && apt-get install -y ros-noetic-urdfdom-py
 
 RUN pip3 install --no-cache-dir pytess
 
+RUN pip3 install --no-cache-dir google-genai
 
 # KnowRob dependencies
 RUN apt install -y swi-prolog libspdlog-dev \
