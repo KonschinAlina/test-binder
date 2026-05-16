@@ -1387,7 +1387,7 @@ class FuncLib:
         for link in unmatched_links:
             print(f"Matching link: {link}")
             res = self.llm_matching(link, lower_class_names)
-            print(res)
+            #print(res)
             if res:
                 final_results.update(res)
 
@@ -1422,7 +1422,7 @@ class FuncLib:
         #response = requests.get(url)
         #print(response.json())
 
-        client = genai.Client(api_key='AIzaSyBrLoulfw5wGztp1F4OqE93SyOUzOemhoE')
+        client = genai.Client(api_key='')
 
     
         prompt = f"""
