@@ -1,6 +1,6 @@
 FROM intel4coro/base-notebook:20.04-noetic-vnc
 ARG OVERLAY_WS=/opt/ros/overlay_ws
-ARG HOME=/root
+ARG HOME=/home/jovyan
 
 USER root 
 # This steps seem to be necessary for now, TODO: check if this is still needed
@@ -28,9 +28,9 @@ RUN apt-get install -y \
 
 USER ${NB_USER} 
 
-RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
+#RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
 RUN pip3 install rosdep
-RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
+RUN sudo rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
 
 RUN mkdir -p $OVERLAY_WS/src
@@ -104,23 +104,23 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-navigation
 
 # install janus
-RUN apt-get update & apt-get install -y libpython3-dev
+RUN sudo apt-get update & sudo apt-get install -y libpython3-dev
 RUN pip3 install janus-swi
 
-RUN apt-get update && apt-get install -y ros-noetic-map-server && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y python3-pyqt5
-RUN apt-get update && apt-get install -y ros-noetic-urdfdom-py 
+RUN sudo apt-get update && apt-get install -y ros-noetic-map-server && sudo rm -rf /var/lib/apt/lists/*
+RUN sudo apt-get update && apt-get install -y python3-pyqt5
+RUN sudo apt-get update && apt-get install -y ros-noetic-urdfdom-py 
 
 RUN pip3 install --no-cache-dir pytess
 RUN pip3 install --no-cache-dir google-genai
 
 # KnowRob dependencies
-RUN apt install -y swi-prolog libspdlog-dev \
-    libboost-python-dev libboost-serialization-dev libboost-program-options-dev \
-    libraptor2-dev librdf0-dev libgtest-dev \
-    libfmt-dev libeigen3-dev libmongoc-dev \
-    doxygen graphviz
-RUN apt install -y ros-noetic-tf2-geometry-msgs
+#RUN apt install -y swi-prolog libspdlog-dev \
+    #libboost-python-dev libboost-serialization-dev libboost-program-options-dev \
+    #libraptor2-dev librdf0-dev libgtest-dev \
+    #libfmt-dev libeigen3-dev libmongoc-dev \
+    #doxygen graphviz
+#RUN apt install -y ros-noetic-tf2-geometry-msgs
 
 # Install SOMA DFL reasoner library
 WORKDIR $HOME
@@ -134,7 +134,7 @@ RUN pip install -e .
 
 RUN /opt/conda/bin/conda install -y setuptools=65.5.0
 
-# Build workspace with knowrob
+# Build workspace
 WORKDIR $OVERLAY_WS/src
 ARG CACHEBUST=1 
 #RUN git clone https://github.com/knowrob/knowrob.git
@@ -160,6 +160,7 @@ WORKDIR $OVERLAY_WS/src
 ADD --chown=${NB_USER}:users . $OVERLAY_WS/src/project
 WORKDIR $OVERLAY_WS
 RUN . /opt/ros/noetic/setup.sh && catkin build
+
 RUN echo "source $OVERLAY_WS/devel/setup.bash" >> ~/.bashrc
 #COPY run_knowrob.sh /run_knowrob.sh
 
