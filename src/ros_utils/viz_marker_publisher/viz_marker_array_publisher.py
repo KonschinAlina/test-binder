@@ -4,15 +4,20 @@
 import tf
 import time
 import rospy
-import numpy as np 
 import threading      
+import numpy as np 
+import tf.transformations as tft
 from std_msgs.msg import ColorRGBA
 import urdf_parser_py.urdf as parser
 from geometry_msgs.msg import Vector3, Pose
 from tf.transformations import quaternion_from_euler
 from visualization_msgs.msg import Marker, MarkerArray
 from urdf_parser_py.urdf import URDF, Box, Cylinder, Sphere, Mesh
-import tf.transformations as tft
+
+# ANSI color codes
+GREEN = '\033[92m'
+RED = '\033[91m'
+RESET = '\033[0m'
 
 
 # This class publishes an Array of visualization marker which represent objects.
@@ -46,7 +51,7 @@ class VizMarkerArrayPublisher:
 
         # Checks for visual tags of a link
         if not target_link_obj or not target_link_obj.visual:
-            rospy.logwarn(f"No visual link found for {obj_name}. Cannot highlight without visual link.")
+            rospy.loginfo(RED + f"No visual link found for '{obj_name}'. Cannot highlight without visual link." + RESET)
             return marker_array
 
         # Retrieves the visual link(s)
