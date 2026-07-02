@@ -10,8 +10,8 @@ echo "Starting roscore..."
 roscore &
 sleep 5
 
-echo "Jupyter version:"
-jupyter --version
+#echo "Jupyter version:"
+#jupyter --version
 
 #roslaunch --wait knowrob_ros knowrob.launch &
 #sleep 5
