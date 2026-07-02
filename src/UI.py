@@ -6,20 +6,10 @@ import math
 import sys
 import rospy
 
-from knowrob_ros.knowrob_ros_lib import (
-    KnowRobRosLib,
-    TripleQueryBuilder,
-    graph_answer_to_dict,
-    graph_answers_to_list,
-    get_default_modalframe,
-)
-from knowrob_ros.msg import (
-    AskAllResult,
-    AskIncrementalResult,
-    AskIncrementalNextSolutionResult,
-    AskOneResult,
-    TellResult,
-)
+# ANSI color codes
+GREEN = '\033[92m'
+RED = '\033[91m'
+RESET = '\033[0m'
 
 from owlready2 import *
 
@@ -44,10 +34,9 @@ def start_UI(t, janus):
 
     # Checks whether the map is loaded
     if not t.param_server_running():
-        print(f"No semantic map loaded!")
+        rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
         return
 
-    #onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction1.owl').load()
     onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
 
     # --- 1. Setup and Container ---
@@ -56,16 +45,36 @@ def start_UI(t, janus):
     
     # Retrieves the link to class matching
     #matchings = t.link_class_matching()
-    matchings = t.link_class_matching_SOMA()
+    #matchings = t.link_class_matching_SOMA()
     
-    if matchings is None:
-        print("No link-class matchings found!")
-    else:
-        data = []
+    #if matchings is None:
+    #    print("No link-class matchings found!")
+    #else:
+    data = []
         # Saves the matching as list
-        for item in matchings:
-            data.append({"link": item["link"], "class": item["class"]})
-    
+        #for item in matchings:
+        #   data.append({"link": item["link"], "class": item["class"]})
+    try:
+        link_class = onto.search_one(iri="*Link")
+        #print(link_class)
+        if link_class:
+            for link_inst in link_class.instances():
+                classes = [c for c in link_inst.is_a if hasattr(c, "iri") and c.name != "Link"]
+                
+                if classes:
+                    target_class = classes[0]
+                    data.append({
+                        "link": link_inst.name,
+                        "class" : target_class.iri
+                    })
+    except Exception as e:
+        print(f"Error 1 {e}")
+        
+    if not data:
+        print(f"Error 2")
+        return
+        
+    else:
         # Retrieves all occuring classes in the URDF file, no duplicates using set 
         class_dict = {
             entry["class"].split('#')[-1]: entry["class"] for entry in data}
@@ -100,9 +109,11 @@ def start_UI(t, janus):
             def on_click(b):
                 with output_info:
                     clear_output()
-                    print(f"Highlighting: {indiv_name}")
+                    print(GREEN + f"Highlighting:" + RESET + f"'{indiv_name}'")
                     res = janus.query_once("highlight_object(T, Obj, Highlight)", {'T': t, 'Obj': indiv_name})
-                    print(res)
+                    if res and res.get('Highlight') != None:
+                        print(res)
+                        
             btn.on_click(on_click)
             
             # Checks, if recursive search is needed for parts
@@ -171,7 +182,11 @@ def start_UI(t, janus):
                     with output_info:
                         clear_output()
                         res = janus.query_once("highlight_object_list(T, Class, Highlight)", {'T': t, 'Class': selected_class_iri})
-                        #print(res)
+                        if res and res.get('Highlight') != None:
+                            print(res)
+                        else:
+                            rospy.loginfo(RED + f"Individuals have no visual links" + RESET)
+                            
                 all_btn.on_click(on_all_click)
 
                 # Creates an accordion for all button and parts
@@ -214,7 +229,7 @@ def start_UI(t, janus):
                 # Checks if the target type can be determined (exists in ontology)
                 if target_type is None:
                     with output_info:
-                        print(f"selected_type: {selected_type} not found")
+                        rospy.loginfo(RED + f"selected_type: {selected_type} not found" + RESET)
                     return
                 
                 # Retrieves all joints of a certain type
