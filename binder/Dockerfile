@@ -141,13 +141,13 @@ RUN /opt/conda/bin/conda install -y setuptools=65.5.0
 WORKDIR $OVERLAY_WS/src
 ARG CACHEBUST=1 
 #RUN git clone https://github.com/knowrob/knowrob.git
-RUN git clone https://github.com/KonschinAlina/knowrob.git
-RUN git clone https://github.com/knowrob/knowrob_ros.git
+#RUN git clone https://github.com/KonschinAlina/knowrob.git
+#RUN git clone https://github.com/knowrob/knowrob_ros.git
 RUN git clone https://github.com/SUTURO/hsr_description.git
 RUN git clone https://github.com/hsr-project/hsrb_rosnav.git
 RUN git clone https://github.com/code-iai/iai_common_msgs.git
 RUN git clone --branch robocup https://github.com/KonschinAlina/suturo_resources.git
-RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designator_parsing
+#RUN git clone https://github.com/knowrob/knowrob_designator.git -b add_designator_parsing
 
 RUN git clone https://github.com/ToyotaResearchInstitute/hsr_meshes.git
 RUN git clone https://github.com/code-iai/iai_maps.git
