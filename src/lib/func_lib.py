@@ -24,13 +24,18 @@ import warnings
 import tempfile
 import subprocess
 from google import genai
-from google.genai import types as g_types
-#import google.generativeai as genai
 from subprocess import DEVNULL
 from std_msgs.msg import ColorRGBA
 from geometry_msgs.msg import Point
-from urdf_parser_py.urdf import URDF
+from google.genai import types as g_types
 from visualization_msgs.msg import MarkerArray, Marker
+from urdf_parser_py.urdf import URDF, Box, Cylinder, Sphere, Mesh
+
+# ANSI color codes
+GREEN = '\033[92m'
+RED = '\033[91m'
+RESET = '\033[0m'
+
 sys.path.append("/home/jovyan/work/src/")
 import ros_utils.viz_marker_publisher.viz_marker_array_publisher as MA
 
@@ -68,7 +73,7 @@ class FuncLib:
 
         # Checks whether urdf_path is valid input 
         if not os.path.exists(urdf_path):
-            rospy.logwarn(f"Could not find: {urdf_path}")
+            rospy.loginfo(RED + f"Could not find: {urdf_path}" + RESET)
             return
 
         # Launches the bringup.launch file 
@@ -81,7 +86,7 @@ class FuncLib:
         ], stdout=DEVNULL, stderr=DEVNULL)     
 
         time.sleep(5)
-        rospy.loginfo(f"Setup complete.")
+        rospy.loginfo(GREEN + f"Setup complete." + RESET)
 
 
 
@@ -252,11 +257,11 @@ class FuncLib:
         
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
         
         # Retrieves the urdf from param server
-        rospy.loginfo(f"Read URDF from ROS param server '{param_name}' ....")
+        rospy.loginfo(GREEN + f"Reading URDF file from ROS param server '{param_name}' ...." + RESET)
         urdf_string = rospy.get_param(param_name)
         urdf = URDF.from_xml_string(urdf_string)
 
@@ -327,7 +332,7 @@ class FuncLib:
                         
                 # Creates new individuals, if they do not already exist
                 if link_name in indivs:
-                     print(f"already existing link name:{link_name}")
+                     rospy.loginfo(RED + f"Already existing link name: '{link_name}'!"+ RESET)
                     
                 else:
                     # Adds link as individual into the new ontology
@@ -373,25 +378,7 @@ class FuncLib:
                         domain = [Joint]
                         range  = [Link]
                 else: 
-                    hasChildLink = namespace_soma.hasChildLink
-            
-            # if new_onto["hasParentLink"] is None:
-            #     class hasParentLink(ObjectProperty):
-            #         domain = [Joint]
-            #         range  = [Link]
-            
-            # if new_onto["hasChildLink"] is None:
-            #     class hasChildLink(ObjectProperty):
-            #         domain = [Joint]
-            #         range  = [Link]
-
-            # if new_onto["hasPart"] is None:
-            #     class hasPart(ObjectProperty, TransitiveProperty): pass
-
-            # if new_onto["isPartOf"] is None:
-            #     class isPartOf(ObjectProperty, TransitiveProperty):
-            #         inverse_property = new_onto["hasPart"]
-                    
+                    hasChildLink = namespace_soma.hasChildLink    
     
         # Retrieves all joints and information about them from the urdf
         for joint in urdf.joints:
@@ -442,17 +429,17 @@ class FuncLib:
                                 parent_indiv.hasPart.append(child_indiv)
                                
                         else:
-                            print(f"No new hasPart relations added into ontology!")
+                            rospy.loginfo(GREEN + f"No new hasPart relations added into ontology!" + RESET)
                         
                     else: 
-                        print(f"No parent_indiv or no child_indiv!")
+                        rospy.loginfo(RED + f"No parent individual or no child individual!" + RESET)
                         print(f"parent_link:{parent_link}")
                         print(f"child_link: {child_link}")
 
         # Saves the new ontology 
-        new_onto.save(file="/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl", format="rdfxml")
+        new_onto.save(file="/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl", format="rdfxml")
     
-        return f"Parsed URDF file successfully!"
+        return rospy.loginfo(GREEN + f"Parsed URDF file successfully!" + RESET)
 
 ########################################################################################################
 ## POSE
@@ -467,7 +454,7 @@ class FuncLib:
         
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
         else: 
             # Retrieves the pose of the object
@@ -492,7 +479,7 @@ class FuncLib:
         
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
     
         # Retrieves the link to individual matching
@@ -506,7 +493,7 @@ class FuncLib:
                 target_link_obj = indiv_data["urdf_obj"]
             
         else:
-            rospy.logwarn(f"Could not find a link for individual '{indiv_name}'")
+            rospy.loginfo(RED + f"No link found for individual: '{indiv_name}'!" + RESET)
             return
         
        
@@ -515,28 +502,39 @@ class FuncLib:
         target_link_pose = self.object_pose(target_frame, ref_frame)
         
         if target_link_pose is None:
-            print(f"Could not get pose in '{ref_frame}' frame of target_link: '{target_link}'!")
+            rospy.loginfo(RED + f"No pose in '{ref_frame}' frame of target_link: '{target_link}'!" + RESET)
             return
 
         trans = target_link_pose[1]
         rot = target_link_pose[2]
+
+        marker_array = ma.create_marker_array(indiv_name, target_link_obj, trans, rot)
+
+        if marker_array and marker_array.markers:
+            # Publishes markers (with flashing effect)
+            flash_interval = 0.5
+            for _ in range(3):
+                for m in marker_array.markers:
+                    m.action = Marker.ADD
+            
+                ma.pub.publish(marker_array) 
+                rospy.sleep(flash_interval)
+             
+                ma._stop_publishing(marker_array)
+                rospy.sleep(flash_interval)
+             
+             for m in marker_array.markers:
+                    m.action = Marker.ADD
     
-        # Publishes markers (with flashing effect)
-        flash_interval = 0.5
-        for _ in range(2):
-            # create marker
-            markers = ma._publish(indiv_name, target_link_obj, trans, rot) 
-            rospy.sleep(flash_interval)
-            ma._stop_publishing(markers)
-            rospy.sleep(flash_interval)
-    
-        # Highlights the individuals for 4 seconds
-        markers = ma._publish(indiv_name, target_link_obj, trans,rot)
-        duration = 4.0
-        rospy.sleep(duration)
-        ma._stop_publishing(markers)
+             # Highlights the individuals for 4 seconds
+             ma.pub.publish(marker_array)
+             duration = 7.0
+             rospy.sleep(duration)
+             ma._stop_publishing(markers)
         
-        return f"Successfully highlighted {indiv_name} using link: '{target_link}'."
+             return f"Successfully highlighted {indiv_name} using link: '{target_link}'."
+        else:
+             return None
         
 
 ########################################################################################################
@@ -552,7 +550,7 @@ class FuncLib:
 
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
         
         # Retrieves the link to individual matching
@@ -560,7 +558,7 @@ class FuncLib:
         #print(matching)
         
         # Loads the ontology for class extraction
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
 
         # Retrieves all classes with the given IRI
         results = onto.search(iri=f"*{selected_class}*")
@@ -580,7 +578,7 @@ class FuncLib:
         # For each individual: 
         for indiv_name in indivs_names:
             if indiv_name not in matching:
-                rospy.logwarn(f"Could not find a link for individual '{indiv_name}' in matching")
+                rospy.loginfo(RED + f"No link found for individual: '{indiv_name}' in matching!" + RESET)
                 continue
 
             # Retrieves the link name and URDF object associated to the individual
@@ -596,7 +594,7 @@ class FuncLib:
             target_link_pose = self.object_pose(target_frame, ref_frame)
 
             if target_link_pose is None:
-                print(f"Could not get pose of target_link: '{target_link}'!")
+                rospy.loginfo(RED + f"No pose of target_link: '{target_link}'!" + RESET)
                 return
             
             trans = target_link_pose[1]
@@ -618,7 +616,7 @@ class FuncLib:
             all_markers.markers.extend(markers.markers)
 
         if not all_markers.markers:
-            return "No object list found for highlighting!"
+            return None
             
         # Highlights the objects (effect: flashing)
         flash_interval = 0.5
@@ -626,6 +624,7 @@ class FuncLib:
             # Creates markers 
             for m in all_markers.markers:
                m.action = Marker.ADD
+             
             ma.pub.publish(all_markers)
             rospy.sleep(flash_interval)
         
@@ -660,7 +659,7 @@ class FuncLib:
 
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
 
         if not isinstance(indivs_names, list):
@@ -679,7 +678,7 @@ class FuncLib:
         # For each individual: 
         for indiv_name in indivs_names:
             if indiv_name not in matching:
-                rospy.logwarn(f"Could not find a link for individual '{indiv_name}' in matching")
+                rospy.loginfo(RED + f"No link found for individual: '{indiv_name}' in matching!" + RESET)
                 continue
 
             # Retrieves the link name and URDF object associated to the individual
@@ -695,7 +694,7 @@ class FuncLib:
             target_link_pose = self.object_pose(target_frame, ref_frame)
 
             if target_link_pose is None:
-                print(f"Could not get pose of target_link: '{target_link}'!")
+                rospy.loginfo(RED + f"No pose of target_link: '{target_link}'!" + RESET)
                 return
             
             trans = target_link_pose[1]
@@ -757,7 +756,7 @@ class FuncLib:
         
         # Checks whether map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
 
         # Retrieves the URDF file from the param server
@@ -765,7 +764,7 @@ class FuncLib:
         urdf = URDF.from_xml_string(urdf_string)
 
         # Loads the ontology
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
         
         # Retrieves all joints from the URDF file where child_link is the child link of the joint
         joint_type = None
@@ -778,7 +777,7 @@ class FuncLib:
                 break
 
         if joint_type is None:
-            rospy.logwarn(f"No joint found with child link: {child_link}")
+            rospy.loginfo(RED + f" No child link found for joint: '{joint.name}'!" + RESET)
             return
 
         point_list = []
@@ -786,7 +785,7 @@ class FuncLib:
         # Creates a trajectory based on the joint type
 ########### FIXED ### 
         if joint_type == "fixed":
-            rospy.logwarn(f"No trajectory for fixed joints!")
+            rospy.loginfo(RED + f"No trajectory for fixed joints!" + RESET)
             return
             
             
@@ -842,7 +841,7 @@ class FuncLib:
                 handle_joint = next((j for j in urdf.joints if j.child == handle_link_name), None)
                 pass
             else:
-                rospy.logwarn("No handles found for this individual!")
+                rospy.loginfo(RED + "No handles found that belong to this individual!" + RESET)
                
 
             # Handle height used for "else" in prismatic 
@@ -887,7 +886,7 @@ class FuncLib:
                     radius = math.sqrt(h_x_trans**2 + h_y_trans**2)
                     
                 else:
-                    print(f"Using width of door for radius.")
+                    rospy.loginfo(GREEN + f"Using the door width as radius!" + RESET)
                     
                                
             else:
@@ -977,14 +976,14 @@ class FuncLib:
             else:
                 # if drawer has no handle, add half the depth of drawer to origin
                 #   and add half the height of the drawer 
-                print(f"No handle link name found!")
-                print(f"Calculating new starting point of trajectoy!")
-                drawer_depth, drawer_height = self.get_dimensions_of_drawer_from_mesh(joint.child, urdf)
+                rospy.loginfo(RED + f"No handle link name found!" + RESET)
+                rospy.loginfo(GREEN + f"Calculating new starting point of trajectoy!" + RESET)
+                drawer_depth, drawer_height = self.get_dimensions_of_drawer_from_geom(joint.child, urdf)
                 
                 if drawer_depth and drawer_height:
                     handle_offset = [ax * (drawer_depth/2) for ax in joint.axis]
                     handle_offset[2] += (drawer_height)
-                    print(f"handle_offset: {handle_offset}")
+                    #print(f"handle_offset: {handle_offset}")
                 else:
                     handle_offset = [0,0,0]
                 
@@ -1020,7 +1019,7 @@ class FuncLib:
                     point_list.append(p_obj)
 
         if not point_list:
-            print(f"No pointlist!")
+            rospy.loginfo(RED + f"No pointlist could not be calculated!" + RESET)
 
         # Retrieves the frame of the parent 
         tf_prefix = "iai_kitchen"
@@ -1057,7 +1056,7 @@ class FuncLib:
         
         # Deletes markers
         ma._stop_publishing(marker_array)
-        print(f"point_list:{point_list}")
+        rospy.loginfo(GREEN + f"point_list: \n" + RESET + f"{point_list}")
         return f"Published trajectory for {child_link} for {duration} seconds."
 
 #######################################################################################
@@ -1095,7 +1094,7 @@ class FuncLib:
         
         # Checks if the map is loaded
         if not self.param_server_running():
-            rospy.logwarn("No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return {}
             
         # Retrieves the URDF file 
@@ -1135,7 +1134,7 @@ class FuncLib:
         
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
             
         # Retrieves the URDF file from the param server
@@ -1230,7 +1229,7 @@ class FuncLib:
         
         # Checks whether the map is loaded
         if not self.param_server_running():
-            rospy.logwarn(f"No semantic map loaded!")
+            rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
             return
             
         # Retrieves the URDF file from the param server
@@ -1292,10 +1291,10 @@ class FuncLib:
 
                 #print(lower_class_names)
             except Exception as e:
-                print(f"Error reading file: {e}")
+                rospy.logwarn(f"Error reading file: {e}")
                 return None
         else:
-            print("File not found!!")
+            rospy.logwarn(f"File not found!!")
             return None
             
 
@@ -1456,7 +1455,7 @@ class FuncLib:
             return matching_result
  
         except Exception as e:
-                print(f"Gemini Matching error: {e}")
+                rospy.logwarn(f"Gemini Matching error: {e}")
                 return {}
 
 ########################################################################################################
@@ -1544,7 +1543,7 @@ class FuncLib:
                 return door_width
                 
             except Exception as e:
-                print(f"Mesh not found: {e}")
+                rospy.logwarn(f"Mesh not found: {e}")
                 return None
                 
         # geometry = box 
@@ -1566,33 +1565,42 @@ class FuncLib:
 # Output: the depth of the drawer from the mesh
 #
 #
-    def get_dimensions_of_drawer_from_mesh(self, link_name, urdf):
+    def get_dimensions_of_drawer_from_geom(self, link_name, urdf):
 
         # Searches for the link in the URDF file 
         link = next((l for l in urdf.links if l.name == link_name), None)
         
-        if not link or not link.visual:
-            return None
-    
-        # Retrieves the mesh path
-        full_mesh_path = link.visual.geometry.filename
+        if not link or not link.visual or not link.visual.geometry:
+            rospy.logwarn(RED + f"Link '{link_name}' has no visual geometry!" + RESET)
+            return 0.0,0.0
 
-        mesh_path = full_mesh_path.replace("package://", "/opt/ros/overlay_ws/src/iai_maps/")
+        geom = link.visual.geometry
 
-        try:
-            # Using trimesh to retrieve the depth of the drawer
-            mesh = trimesh.load(mesh_path)
-            dims = sorted(mesh.extents)
-            # assuming the largest value is the depth 
-            drawer_depth = dims[2]
-            # assuming the smallest value is the height
-            drawer_height = dims[0]
-            
+        if isinstance(geom, Box):
+            drawer_depth = geom.size[0]
+            drawer_height = geom.size[2]
             return drawer_depth, drawer_height
+
+        elif isinstance(geom, Mesh):
+        # Retrieves the mesh path
+           full_mesh_path = link.visual.geometry.filename
+   
+           mesh_path = full_mesh_path.replace("package://", "/opt/ros/overlay_ws/src/iai_maps/")
+         
+           # Using trimesh to retrieve the depth of the drawer
+           mesh = trimesh.load(mesh_path)
+           dims = sorted(mesh.extents)
+         
+           # assuming the largest value is the depth 
+           drawer_depth = dims[2]
+           # assuming the smallest value is the height
+           drawer_height = dims[0]
+           
+           return drawer_depth, drawer_height
             
-        except Exception as e:
-            print(f"Mesh not found: {e}")
-            return None
+        else:
+            rospy.logwarn(f"Mesh not found: {e}")
+            return 0.0,0.0
         
 
 ########################################################################################################
@@ -1633,17 +1641,17 @@ class FuncLib:
         urdf = URDF.from_xml_string(urdf_string)
         
         # Loads the ontology
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
         
         # Searches for the indiv_obj using indiv_name
         indiv_obj = onto.search_one(iri=f"*{indiv_name}")
 
         if not indiv_obj:
-            rospy.logwarn(f"Cannot find any indivdual named: {indiv_name}")
+            rospy.loginfo(RED + f"No indivdual named: {indiv_name} found!" + RESET)
             return
 
         # Highlights the individual 
-        rospy.loginfo(f"Highlighting the individual: {indiv_name}")
+        rospy.loginfo(GREEN + f"Highlighting the individual:" + RESET + f"{indiv_name}!")
         self.highlight(indiv_name)
 
         # Retrieves all parts of an individual (transitive) 
@@ -1663,13 +1671,12 @@ class FuncLib:
         for part in all_parts_of_indiv_obj:
             if any(cls.name == "DesignedHandle" for cls in part.is_a):
                      handle_link_names.append(part.name)
-                
         
         if handle_link_names:
             for handle_link_name in handle_link_names:
 
                 # Highlights the handle 
-                rospy.loginfo(f"Highlighting the handle: {handle_link_name}")
+                rospy.loginfo(GREEN + f"Highlighting the handle: '{handle_link_name}'!" + RESET)
                 self.highlight(handle_link_name)
 
                 # Builds the handle frame name
@@ -1681,23 +1688,23 @@ class FuncLib:
                 # Retrieves the pose data of the handle
                 if pose_data:
                     frame, trans, rot = pose_data
-                    rospy.loginfo(f"Handle pose in '{frame}': x={trans[0]:.2f}, y={trans[1]:.2f}, z={trans[2]:.2f}")
+                    rospy.loginfo(GREEN + f"Handle pose in '{frame}': x={trans[0]:.2f}, y={trans[1]:.2f}, z={trans[2]:.2f}" + RESET)
                 else:
-                    rospy.logwarn(f"Could not find frame named: {full_handle_frame}")
+                    rospy.loginfo(RED + f"No frame named: '{full_handle_frame}' found!" + RESET)
             
                 # Retrieves the handle_joint that has handle as child link
                 handle_joint = next((j for j in urdf.joints if j.child == handle_link_name), None)
 
                 # If a handle joint exists, it calls trajectory with child link 
                 if handle_joint:
-                    rospy.loginfo(f"Trajectory for: {handle_joint.parent}")
+                    rospy.loginfo(GREEN + f"Trajectory for: {handle_joint.parent}" + RESET)
                     result = self.trajectory(handle_joint.parent)
                     
                 else:
-                    rospy.warn(f"No handle joint found where child link is {handle_link_name}.")
+                    rospy.loginfo(RED + f"No handle joint found where child link is '{handle_link_name}'!" + RESET)
                 
         else:
-            rospy.logwarn(f"No handle_link_name found. Therefore no full_handle_frame.")
+            rospy.loginfo(RED + f"No handle_link_name found. Therefore no full_handle_frame." + RESET)
 
         return f"Finish."
 
@@ -1723,7 +1730,7 @@ class FuncLib:
         # Searches for the indiv_obj using the indiv_name
         indiv_obj = onto.search_one(iri=f"*{indiv_name}")
         if not indiv_obj:
-            rospy.logwarn(f"Cannot find any indivdual named: {indiv_name}")
+            rospy.loginfo(RED + f"No indivdual named:" + RESET + f"'{indiv_name}'!")
             return [], []
 
         # Retrieves all parts of an individual (transitive) 
