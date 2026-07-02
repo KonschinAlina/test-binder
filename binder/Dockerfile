@@ -179,7 +179,7 @@ COPY --chown=${NB_USER}:users binder/jupyter-config.json /opt/conda/share/jupyte
 COPY --chown=${NB_USER}:users binder/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.token=''", "--no-browser", "--ip=0.0.0.0"]
+CMD ["jupyter", "lab", "--allow-root", "--port=8888", "--NotebookApp.token=''", "--no-browser", "--ip=0.0.0.0"]
 
 RUN pip install https://raw.githubusercontent.com/yxzhan/jupyterlab-rviz/master/dist/jupyterlab_rviz-0.3.1.tar.gz
 
