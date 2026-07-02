@@ -76,13 +76,13 @@ RUN apt-get update && apt-get install -y \
     python3-pyqt5 \
     ros-noetic-urdfdom-py
 
-RUN sudo apt-get update && apt-get install -y ros-noetic-map-server && sudo rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ros-noetic-map-server && rm -rf /var/lib/apt/lists/*
 
 #RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
-RUN pip3 install rosdep
-RUN sudo rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
+RUN pip3 install rosdep 
+RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
-RUN mkdir -p $OVERLAY_WS/src
+RUN mkdir -p $OVERLAY_WS/src && chown -R ${NB_USER}:users $OVERLAY_WS
 
 USER ${NB_USER}
 
