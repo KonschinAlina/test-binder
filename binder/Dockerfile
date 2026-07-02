@@ -1,8 +1,8 @@
 FROM intel4coro/base-notebook:20.04-noetic-vnc
 ARG OVERLAY_WS=/opt/ros/overlay_ws
-ARG HOME=/root
+#ARG HOME=/root
 
-USER root 
+USER ${NB_USER} 
 # This steps seem to be necessary for now, TODO: check if this is still needed
 # ─── STEP A: Remove any pre-existing ROS list files ─────────────────────────────────
 RUN rm -f /etc/apt/sources.list.d/*ros*.list
@@ -26,7 +26,7 @@ RUN apt-get install -y \
       python3-catkin-tools && \
       pip3 install --upgrade pip
 
-USER root 
+#USER root 
 
 RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
 RUN pip3 install rosdep
@@ -34,7 +34,7 @@ RUN rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
 
 RUN mkdir -p $OVERLAY_WS/src
-COPY binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
+COPY --chown=${NB_USER}:users binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
 RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
 
 # System dependencies for polytope
@@ -49,13 +49,11 @@ RUN pip install --upgrade pip setuptools wheel \
     && pip install backports.tarfile
 
 RUN pip3 install playsound==1.2.2
-
 RUN pip3 install --no-cache-dir trimesh[all] pycollada
-
 RUN pip3 install --upgrade pip
-WORKDIR $OVERLAY_WS/src/pycram
 
-COPY binder/requirements.txt /tmp/requirements.txt
+WORKDIR $OVERLAY_WS/src/pycram
+COPY --chown=${NB_USER}:users binder/requirements.txt /tmp/requirements.txt
 
 RUN sed -i '/playsound/d' /tmp/requirements.txt && \
     pip3 install -r /tmp/requirements.txt
@@ -114,7 +112,6 @@ RUN apt-get update && apt-get install -y python3-pyqt5
 RUN apt-get update && apt-get install -y ros-noetic-urdfdom-py 
 
 RUN pip3 install --no-cache-dir pytess
-
 RUN pip3 install --no-cache-dir google-genai
 
 # KnowRob dependencies
@@ -160,18 +157,18 @@ RUN . /opt/ros/noetic/setup.sh && /usr/bin/catkin build
 
 # Build workspace with knowrob_designator
 WORKDIR $OVERLAY_WS/src
-ADD . $OVERLAY_WS/src/project
+ADD --chown=${NB_USER}:users . $OVERLAY_WS/src/project
 WORKDIR $OVERLAY_WS
 RUN . /opt/ros/noetic/setup.sh && catkin build
 RUN echo "source $OVERLAY_WS/devel/setup.bash" >> ~/.bashrc
-COPY run_knowrob.sh /run_knowrob.sh
+#COPY run_knowrob.sh /run_knowrob.sh
 
 ENV QT_X11_NO_MITSHM=1
 ENV DISPLAY=:1
 
 # Jupyter Config
-COPY binder/jupyter-config.json /opt/conda/share/jupyter/lab/settings/overrides.json
-COPY binder/entrypoint.sh /entrypoint.sh
+COPY --chown=${NB_USER}:users binder/jupyter-config.json /opt/conda/share/jupyter/lab/settings/overrides.json
+COPY --chown=${NB_USER}:users binder/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["jupyter", "lab", "--allow-root", "--NotebookApp.token=''", "--no-browser", "--ip=0.0.0.0"]
