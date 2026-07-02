@@ -1,8 +1,8 @@
 FROM intel4coro/base-notebook:20.04-noetic-vnc
 ARG OVERLAY_WS=/opt/ros/overlay_ws
-#ARG HOME=/root
+ARG HOME=/root
 
-USER ${NB_USER} 
+USER root 
 # This steps seem to be necessary for now, TODO: check if this is still needed
 # ─── STEP A: Remove any pre-existing ROS list files ─────────────────────────────────
 RUN rm -f /etc/apt/sources.list.d/*ros*.list
@@ -26,7 +26,7 @@ RUN apt-get install -y \
       python3-catkin-tools && \
       pip3 install --upgrade pip
 
-#USER root 
+USER ${NB_USER} 
 
 RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
 RUN pip3 install rosdep
