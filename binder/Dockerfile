@@ -24,16 +24,15 @@ RUN apt-get install -y \
       git \
       default-jre \
       python3-catkin-tools && \
-      pip3 install --upgrade pip
-
-USER ${NB_USER} 
+      pip3 install --upgrade pip 
 
 #RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
 RUN pip3 install rosdep
 RUN sudo rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
 
-
 RUN mkdir -p $OVERLAY_WS/src
+USER ${NB_USER}
+
 COPY --chown=${NB_USER}:users binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
 RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
 
