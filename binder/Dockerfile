@@ -26,40 +26,12 @@ RUN apt-get install -y \
       python3-catkin-tools && \
       pip3 install --upgrade pip 
 
-#RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
-RUN pip3 install rosdep
-RUN sudo rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
-
-RUN mkdir -p $OVERLAY_WS/src
-USER ${NB_USER}
-
-COPY --chown=${NB_USER}:users binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
-RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
-
 # System dependencies for polytope
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3-dev \
-    libgmp-dev
-
-# Build-Tools for Python
-RUN pip install --upgrade pip setuptools wheel \
-    && pip uninstall -y backports \
-    && pip install backports.tarfile
-
-RUN pip3 install playsound==1.2.2
-RUN pip3 install --no-cache-dir trimesh[all] pycollada
-RUN pip3 install --upgrade pip
-
-WORKDIR $OVERLAY_WS/src/pycram
-COPY --chown=${NB_USER}:users binder/requirements.txt /tmp/requirements.txt
-
-RUN sed -i '/playsound/d' /tmp/requirements.txt && \
-    pip3 install -r /tmp/requirements.txt
-EXPOSE 11311
-
-ENV SWI_HOME_DIR=/usr/lib/swi-prolog
-ENV LD_LIBRARY_PATH=/usr/lib/swi-prolog/lib/x86_64-linux:$LD_LIBRARY_PATH
+    libgmp-dev \
+    libpython3-dev
 
 RUN apt-get update && apt-get install -y \
     software-properties-common && \
@@ -100,15 +72,51 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-urdf \
     ros-noetic-amcl \
     ros-noetic-move-base \
-    ros-noetic-navigation
-
-# install janus
-RUN sudo apt-get update & sudo apt-get install -y libpython3-dev
-RUN pip3 install janus-swi
+    ros-noetic-navigation \
+    python3-pyqt5 \
+    ros-noetic-urdfdom-py
 
 RUN sudo apt-get update && apt-get install -y ros-noetic-map-server && sudo rm -rf /var/lib/apt/lists/*
-RUN sudo apt-get update && apt-get install -y python3-pyqt5
-RUN sudo apt-get update && apt-get install -y ros-noetic-urdfdom-py 
+
+#RUN apt-get update && apt-get install python3-pip python3-vcstool git default-jre python3-catkin-tools -y && pip3 install pip --upgrade
+RUN pip3 install rosdep
+RUN sudo rm -rf /etc/ros/rosdep/sources.list.d/* && rosdep init
+
+RUN mkdir -p $OVERLAY_WS/src
+
+USER ${NB_USER}
+
+COPY --chown=${NB_USER}:users binder/pycram-http.rosinstall /tmp/pycram-http.rosinstall
+RUN rosdep update && rosdep install --from-paths $OVERLAY_WS/src --ignore-src -r -y
+
+    
+# Build-Tools for Python
+RUN pip install --upgrade pip setuptools wheel \
+    && pip uninstall -y backports \
+    && pip install backports.tarfile
+
+RUN pip3 install playsound==1.2.2
+RUN pip3 install --no-cache-dir trimesh[all] pycollada
+RUN pip3 install --upgrade pip
+
+WORKDIR $OVERLAY_WS/src/pycram
+COPY --chown=${NB_USER}:users binder/requirements.txt /tmp/requirements.txt
+
+RUN sed -i '/playsound/d' /tmp/requirements.txt && \
+    pip3 install -r /tmp/requirements.txt
+EXPOSE 11311
+
+ENV SWI_HOME_DIR=/usr/lib/swi-prolog
+ENV LD_LIBRARY_PATH=/usr/lib/swi-prolog/lib/x86_64-linux:$LD_LIBRARY_PATH
+
+
+# install janus
+#RUN sudo apt-get update & sudo apt-get install -y libpython3-dev
+RUN pip3 install janus-swi
+
+#RUN sudo apt-get update && apt-get install -y ros-noetic-map-server && sudo rm -rf /var/lib/apt/lists/*
+#RUN sudo apt-get update && apt-get install -y python3-pyqt5
+#RUN sudo apt-get update && apt-get install -y ros-noetic-urdfdom-py 
 
 RUN pip3 install --no-cache-dir pytess
 RUN pip3 install --no-cache-dir google-genai
