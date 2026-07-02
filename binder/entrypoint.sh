@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 echo "Starting entrypoint..."
 
@@ -24,10 +24,4 @@ echo "Starting Jupyter..."
 #jupyter lab workspaces import ${HOME}/work/binder/BA_workspace.jupyterlab-workspace
 #echo "Launching Jupyter in $(pwd)..."
 
-exec jupyter lab \
-    --debug \
-    --ip=0.0.0.0 \
-    --no-browser \
-    --ServerApp.token='' \
-    --ServerApp.password=''
-#"$@"
+exec "$@"
