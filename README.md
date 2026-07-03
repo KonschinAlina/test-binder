@@ -1,5 +1,5 @@
 # binder
-[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/KonschinAlina/test-binder.git/main?labpath=https%3A%2F%2Fgithub.com%2FKonschinAlina%2Ftest-binder%2Fblob%2Fmain%2Fbinder%2FBA_workspace.jupyterlab-workspace)
+[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/KonschinAlina/test-binder.git/main?labpath=%2Fsrc%2Fproject%2Fbinder%2FBA_ws.jupyterlab-workspace)
 This binder is used for running robotics research Jupyter Notebooks on Binderhub.
 
 Tutorials can be found here: https://vib.ai.uni-bremen.de/page/softwaretools/cloud-based-robotics-platform#zero-to-binder
