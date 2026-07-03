@@ -17,9 +17,9 @@ from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point
 from std_msgs.msg import Header, ColorRGBA
 
-sys.path.append("/home/jovyan/work/src/lib")
+sys.path.append("/opt/ros/overlay_ws/src/project/src/lib")
 import janus_swi as janus
-janus.consult("/home/jovyan/work/prolog/funcs.pl")
+janus.consult("/opt/ros/overlay_ws/src/project/prolog/funcs.pl")
 
 ###################################################################
 ## Start UI
@@ -37,23 +37,13 @@ def start_UI(t, janus):
         rospy.loginfo(RED + f"No semantic map loaded!" + RESET)
         return
 
-    onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+    onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
 
     # --- 1. Setup and Container ---
     output_info = widgets.Output()
     dynamic_area = widgets.VBox()
     
-    # Retrieves the link to class matching
-    #matchings = t.link_class_matching()
-    #matchings = t.link_class_matching_SOMA()
-    
-    #if matchings is None:
-    #    print("No link-class matchings found!")
-    #else:
     data = []
-        # Saves the matching as list
-        #for item in matchings:
-        #   data.append({"link": item["link"], "class": item["class"]})
     try:
         link_class = onto.search_one(iri="*Link")
         #print(link_class)
@@ -111,6 +101,7 @@ def start_UI(t, janus):
                     clear_output()
                     print(GREEN + f"Highlighting:" + RESET + f"'{indiv_name}'")
                     res = janus.query_once("highlight_object(T, Obj, Highlight)", {'T': t, 'Obj': indiv_name})
+                    
                     if res and res.get('Highlight') != None:
                         print(res)
                         
@@ -170,8 +161,10 @@ def start_UI(t, janus):
             def on_class_change(change):
                 selected_class_iri = change['new']
                 #print(f"selected_class_iri:{selected_class_iri}")
+                
                 short_name = selected_class_iri.split('#')[-1].lower()
                 #print(f"short_name:{short_name}")
+                
                 # Retrieves all individuals of the selected class
                 indivs = [d["link"] for d in data if d["class"] == selected_class_iri]
                 
