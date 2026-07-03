@@ -530,7 +530,7 @@ class FuncLib:
             ma.pub.publish(marker_array)
             duration = 7.0
             rospy.sleep(duration)
-            ma._stop_publishing(markers)
+            ma._stop_publishing(marker_array)
         
             return f"Successfully highlighted {indiv_name} using link: '{target_link}'."
         else:
