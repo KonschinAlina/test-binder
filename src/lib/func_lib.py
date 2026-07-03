@@ -516,25 +516,25 @@ class FuncLib:
             for _ in range(3):
                 for m in marker_array.markers:
                     m.action = Marker.ADD
-            
+                
                 ma.pub.publish(marker_array) 
                 rospy.sleep(flash_interval)
-             
+                
                 ma._stop_publishing(marker_array)
                 rospy.sleep(flash_interval)
-             
-             for m in marker_array.markers:
-                    m.action = Marker.ADD
-    
+                
+            for m in marker_array.markers:
+               m.action = Marker.ADD
+            
              # Highlights the individuals for 4 seconds
-             ma.pub.publish(marker_array)
-             duration = 7.0
-             rospy.sleep(duration)
-             ma._stop_publishing(markers)
+            ma.pub.publish(marker_array)
+            duration = 7.0
+            rospy.sleep(duration)
+            ma._stop_publishing(markers)
         
-             return f"Successfully highlighted {indiv_name} using link: '{target_link}'."
+            return f"Successfully highlighted {indiv_name} using link: '{target_link}'."
         else:
-             return None
+            return None
         
 
 ########################################################################################################
@@ -1380,32 +1380,30 @@ class FuncLib:
         unmatched_links = [l for l in urdf_links if l not in [m["link"] for m in link_to_class_matching]]
         print(f"FAILED TO MATCH with SOMA: {unmatched_links}")
 
-        soma_classes = ['tv_table']
-        print(f"Matching using LLM...")
-        final_results = {}
-        for link in unmatched_links:
-            print(f"Matching link: {link}")
-            res = self.llm_matching(link, lower_class_names)
-            #print(res)
-            if res:
-                final_results.update(res)
+        # print(f"Matching using LLM...")
+        # final_results = {}
+        # for link in unmatched_links:
+        #     print(f"Matching link: {link}")
+        #     res = self.llm_matching(link, lower_class_names)
+        #     #print(res)
+        #     if res:
+        #         final_results.update(res)
 
         
-        for link, matched_class in final_results.items():
-            matched_class_lower = matched_class.lower()
+        # for link, matched_class in final_results.items():
+        #     matched_class_lower = matched_class.lower()
 
-            if matched_class_lower in class_iri_mapping:
-                matched_iri = class_iri_mapping[matched_class_lower]
+        #     if matched_class_lower in class_iri_mapping:
+        #         matched_iri = class_iri_mapping[matched_class_lower]
     
-                link_to_class_matching.append({
-                    "link": link,
-                    "class": matched_iri
-                })
-                print(f"{link} -> {matched_class}")
-            else:
-                print(f"{matched_class} not found in the SOMA Ontology!")
-    
-        #print(link_to_class_matching)
+        #         link_to_class_matching.append({
+        #             "link": link,
+        #             "class": matched_iri
+        #         })
+        #         print(f"{link} -> {matched_class}")
+        #     else:
+        #         print(f"{matched_class} not found in the SOMA Ontology!")
+   
         return link_to_class_matching if link_to_class_matching else None
 
 ########################################################################################################
