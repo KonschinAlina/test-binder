@@ -36,7 +36,7 @@ GREEN = '\033[92m'
 RED = '\033[91m'
 RESET = '\033[0m'
 
-sys.path.append("/home/jovyan/work/src/")
+sys.path.append("/opt/ros/overlay_ws/src/project/src/")
 import ros_utils.viz_marker_publisher.viz_marker_array_publisher as MA
 
 from owlready2 import *
@@ -121,7 +121,7 @@ class FuncLib:
         else:
 
             # Loads the ontology ontology for class extraction (=SOMA-HOME)
-            onto = get_ontology("/home/jovyan/work/prolog/BA-class_extraction.owl").load()
+            onto = get_ontology("/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction.owl").load()
 
             # Creates a new empty ontology
             new_onto = get_ontology("http://test.org/BA-class_extraction1.owl")
@@ -241,7 +241,7 @@ class FuncLib:
                         print(f"child_link: {child_link}")
 
         # Saves the new ontology 
-        new_onto.save(file="/home/jovyan/work/prolog/BA-class_extraction1.owl", format="rdfxml")
+        new_onto.save(file="/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction1.owl", format="rdfxml")
     
         return f"Parsed URDF file successfully!"
 ########################################################################################################
@@ -1102,7 +1102,7 @@ class FuncLib:
         urdf = URDF.from_xml_string(urdf_string)
         
         # Retrieves all individuals from the ontology 
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
         indiv_names = [i.name.lower() for i in onto.individuals()]
     
         matches = {}
@@ -1412,23 +1412,14 @@ class FuncLib:
         if not unmatched_links:
             return {}
 
-        
-        
-        #url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={api_key}"        
-        #url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
-        #response = requests.get(url)
-        #print(response.json())
-
         client = genai.Client(api_key='')
-
-    
+     
         prompt = f"""
         Match the URDF links to the most semanticaly similar SOMA class.
         URDF links: {unmatched_links}
         SOMA classes: {soma_classes}
         Output: Valid JSON only {{"link": "Class"}}
         """
-        
         
         start_time = time.time()
         print(f"  [LLM] Starte Inferenz für: {unmatched_links}...")
@@ -1467,14 +1458,12 @@ class FuncLib:
 # Output: the calculated radius
 #
 #
-    
     def get_radius_from_handle(self, indiv_name, urdf):
         
         handle_link_name = None
         
         # Loads the ontology 
-        #onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction1.owl').load()
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
         
         # Retrieves the individual object
         indiv_obj = onto.search_one(iri=f"*{indiv_name}")
@@ -1723,7 +1712,7 @@ class FuncLib:
         urdf = URDF.from_xml_string(urdf_string)
         
         # Loads the ontology
-        onto = get_ontology('/home/jovyan/work/prolog/BA-class_extraction-SOMA.owl').load()
+        onto = get_ontology('/opt/ros/overlay_ws/src/project/prolog/BA-class_extraction-SOMA.owl').load()
         
         # Searches for the indiv_obj using the indiv_name
         indiv_obj = onto.search_one(iri=f"*{indiv_name}")
