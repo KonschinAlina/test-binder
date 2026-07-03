@@ -1,0 +1,68 @@
+{
+  "data": {
+    "layout-restorer:data": {
+      "main": {
+        "dock": {
+          "type": "tab-area",
+          "currentIndex": 0,
+          "widgets": [
+            "notebook:src/project/binder/try/BA_main_tutorial.ipynb",
+            "editor:src/project/src/lib/func_lib.py"
+          ]
+        },
+        "current": "notebook:src/project/binder/try/BA_main_tutorial.ipynb"
+      },
+      "down": {
+        "size": 0,
+        "widgets": []
+      },
+      "left": {
+        "collapsed": true,
+        "visible": true,
+        "current": "filebrowser",
+        "widgets": [
+          "filebrowser",
+          "running-sessions",
+          "@jupyterlab/toc:plugin",
+          "extensionmanager.main-view"
+        ]
+      },
+      "right": {
+        "collapsed": true,
+        "visible": true,
+        "widgets": [
+          "jp-property-inspector",
+          "debugger-sidebar"
+        ]
+      },
+      "relativeSizes": [
+        0.4024663677130045,
+        0.5975336322869955,
+        0
+      ],
+      "top": {
+        "simpleVisibility": true
+      }
+    },
+    "file-browser-filebrowser:cwd": {
+      "path": "src/project"
+    },
+    "notebook:src/project/binder/try/BA_main_tutorial.ipynb": {
+      "data": {
+        "path": "src/project/binder/try/BA_main_tutorial.ipynb",
+        "factory": "Notebook"
+      }
+    },
+    "editor:src/project/src/lib/func_lib.py": {
+      "data": {
+        "path": "src/project/src/lib/func_lib.py",
+        "factory": "Editor"
+      }
+    }
+  },
+  "metadata": {
+    "id": "BA_ws",
+    "last_modified": "2026-07-03T11:40:00.000000+00:00",
+    "created": "2026-07-02T19:41:20.639183+00:00"
+  }
+}
